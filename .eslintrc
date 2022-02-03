@@ -37,7 +37,7 @@
       "props": false
     }],
     "prettier/prettier": ["warn", { "singleQuote": true }],
-    "no-empty-interface": false
+    "no-empty-interface": "off"
   },
   "ignorePatterns": ["reportWebVitals.ts"]
 }
