@@ -9,7 +9,7 @@ const useFetchWords = (
   options: QueryOptions = {}
 ) => {
   const query = useQuery(
-    QUERY_KEY_WORDS,
+    [QUERY_KEY_WORDS, group, page],
     async () => {
       const queryParams = `?group=${group}&page=${page}`;
       const data = await getAll<TWord[]>(WORDS_URL, queryParams);
