@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { StyledHeader } from './style';
 import { FlexWrapper } from '../../styles/wrapper';
+import { START_GROUP, START_PAGE } from '../../constants';
 
 const Header = () => (
   <StyledHeader>
@@ -11,7 +12,9 @@ const Header = () => (
       <nav>
         <ul>
           <li>
-            <Link to="book">Электронный учебник</Link>
+            <Link to={`book/${START_GROUP}/${START_PAGE}`}>
+              Электронный учебник
+            </Link>
           </li>
           <li>
             <Link to="games">Мини-игры</Link>
