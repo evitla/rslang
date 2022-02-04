@@ -36,7 +36,8 @@
     "no-param-reassign": ["error", {
       "props": false
     }],
-    "prettier/prettier": ["warn", { "singleQuote": true }]
+    "prettier/prettier": ["warn", { "singleQuote": true }],
+    "no-empty-interface": "off"
   },
   "ignorePatterns": ["reportWebVitals.ts"]
 }
