@@ -1,4 +1,5 @@
 import React from 'react';
+import WordCard from '../../components/WordCard';
 import useFetchWords from '../../hooks/useFetchWords';
 
 const Book = () => {
@@ -12,11 +13,17 @@ const Book = () => {
       ) : isError ? (
         <div>Error while fetching</div>
       ) : (
-        <ol>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '32px 48px',
+          }}
+        >
           {words.map((word) => (
-            <li key={word.id}>{word.word}</li>
+            <WordCard key={word.id} word={word} />
           ))}
-        </ol>
+        </div>
       )}
     </>
   );
