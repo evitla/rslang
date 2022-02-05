@@ -14,3 +14,17 @@ export type TWord = {
   textMeaningTranslate: string;
   textExampleTranslate: string;
 };
+
+export type TUser = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type TAuth = {
+  message: string;
+  token: string;
+  refreshToken: string;
+  userId: string;
+  name: string;
+};
