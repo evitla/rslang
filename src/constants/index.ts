@@ -9,3 +9,9 @@ export const START_GROUP = 1;
 export const START_PAGE = 1;
 export const TOTAL_GROUPS = 6;
 export const LOADING_BLOCKS_COUNT = 6;
+
+export const USERS_URL = `${DB_URL}/users`;
+export const SIGNIN_URL = `${DB_URL}/signin`;
+export const NAME_VALIDATION =
+  /^[^(0-9~!@#$%*&()_—+=|:;"'`<>,.?\\/\\\s)]{1,30}$/;
+export const EMAIL_VALIDATION = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
