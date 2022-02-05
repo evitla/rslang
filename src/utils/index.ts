@@ -1,3 +1,5 @@
+import { TAuth, TUser } from '../types';
+
 export const getAll = async <T>(url: string, queryParams = ''): Promise<T> => {
   const response = await fetch(`${url}${queryParams}`);
   const data = await response.json();
@@ -26,6 +28,19 @@ export const create = async <T>(url: string, body: T): Promise<T> => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data;
+};
+
+export const loginUser = async (url: string, user: TUser): Promise<TAuth> => {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
   });
   const data = await response.json();
   return data;
