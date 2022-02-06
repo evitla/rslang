@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { create, loginUser, setLocalStorage } from '../utils';
-import { SIGNIN_URL, USERS_URL } from '../constants';
 import { TUser } from '../types';
+import useLogin from './useLogin';
+import useCreateUser from './useCreateUser';
 
 const useRegistrationForm = (setIsOpen: (isOpen: boolean) => void) => {
   const [isRegistrationForm, setIsRegistrationForm] = useState(true);
-  const [isEmailInDB, setIsEmailInDB] = useState(false);
-  const [doesPasswordMatch, setDoesPasswordMatch] = useState(true);
 
   const handleIsRegistrationForm = () =>
     setIsRegistrationForm(!isRegistrationForm);
@@ -18,31 +16,24 @@ const useRegistrationForm = (setIsOpen: (isOpen: boolean) => void) => {
     handleSubmit,
     formState: { errors },
   } = useForm<TUser>();
+
+  const addUser = useCreateUser();
+  const loginUser = useLogin();
+
   const onSubmit = async (user: TUser) => {
     if (isRegistrationForm) {
-      try {
-        await create<TUser>(USERS_URL, user);
-      } catch (err) {
-        setIsEmailInDB(true);
-        return;
-      }
-    }
-
-    try {
-      const { token } = await loginUser(SIGNIN_URL, user);
-      setLocalStorage('token', token);
-    } catch (err) {
-      setDoesPasswordMatch(false);
-      return;
+      await addUser.mutateAsync(user);
+    } else {
+      await loginUser.mutateAsync(user);
     }
 
     setIsOpen(false);
   };
 
   return {
+    isLoading: addUser.isLoading || loginUser.isLoading,
+    isError: addUser.isError || loginUser.isError,
     isRegistrationForm,
-    isEmailInDB,
-    doesPasswordMatch,
     handleIsRegistrationForm,
     register,
     onSubmit: handleSubmit(onSubmit),
