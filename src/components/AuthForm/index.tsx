@@ -14,9 +14,9 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
   useClickOutside(authRef, setIsOpen);
 
   const {
+    isLoading,
+    isError,
     isRegistrationForm,
-    isEmailInDB,
-    doesPasswordMatch,
     handleIsRegistrationForm,
     register,
     onSubmit,
@@ -95,10 +95,8 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
             </button>
           </div>
         )}
-        {isEmailInDB && (
-          <span>У Вас уже есть аккаунт. Войдите с помощью него</span>
-        )}
-        {!doesPasswordMatch && <span>Введен неправильный пароль</span>}
+        {isLoading && <span>Loading</span>}
+        {isError && <span>Error</span>}
       </StyledForm>
     </ModalWindow>
   );
