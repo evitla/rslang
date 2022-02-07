@@ -11,11 +11,9 @@ const useRegistrationForm = (setIsOpen: (isOpen: boolean) => void) => {
   const handleIsRegistrationForm = () =>
     setIsRegistrationForm(!isRegistrationForm);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TUser>();
+  const form = useForm<TUser>();
+
+  const { handleSubmit } = form;
 
   const addUser = useCreateUser();
   const loginUser = useLogin();
@@ -31,13 +29,12 @@ const useRegistrationForm = (setIsOpen: (isOpen: boolean) => void) => {
   };
 
   return {
-    isLoading: addUser.isLoading || loginUser.isLoading,
-    isError: addUser.isError || loginUser.isError,
     isRegistrationForm,
     handleIsRegistrationForm,
-    register,
     onSubmit: handleSubmit(onSubmit),
-    errors,
+    addUser,
+    loginUser,
+    ...form,
   };
 };
 
