@@ -14,13 +14,13 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
   useClickOutside(authRef, setIsOpen);
 
   const {
-    isLoading,
-    isError,
     isRegistrationForm,
+    addUser,
+    loginUser,
     handleIsRegistrationForm,
     register,
     onSubmit,
-    errors,
+    formState: { errors },
   } = useRegistrationForm(setIsOpen);
 
   return (
@@ -95,8 +95,10 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
             </button>
           </div>
         )}
-        {isLoading && <span>Loading</span>}
-        {isError && <span>Error</span>}
+        {addUser.isLoading && <span>add user Loading</span>}
+        {addUser.isError && <span>add user Error</span>}
+        {loginUser.isLoading && <span>login user Loading</span>}
+        {loginUser.isError && <span>login user Error</span>}
       </StyledForm>
     </ModalWindow>
   );
