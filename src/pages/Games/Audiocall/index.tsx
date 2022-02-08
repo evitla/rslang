@@ -6,15 +6,22 @@ import AudiocallAnswer from '../../../components/AudiocallAnswer';
 import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS } from '../../../constants';
 import { getRandomNumber } from '../../../utils';
-import { fetchQuestion } from './api';
+import { fetchQuestion, Question } from './api';
 
 const TOTAL_QUESTIONS = 10;
 
+type AnswerObj = {
+  question: string;
+  answer: string;
+  correct: boolean;
+  correctAnswer: string;
+};
+
 const Audiocall = () => {
   const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [number, setNumber] = useState(0);
-  const [userAnswers, setUserAnswers] = useState([]);
+  const [userAnswers, setUserAnswers] = useState<AnswerObj[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
   // Test

@@ -7,7 +7,7 @@ export type Question = TWord & {
 };
 
 export const fetchQuestion = async (group: number, page: number) => {
-  const { words, isLoading, isError } = useFetchWords(group, page);
+  const { words, isLoading } = useFetchWords(group, page);
   if (!isLoading) {
     const rightAnswer = { ...words[getRandomNumber(0, 19)], isRight: true };
     const newWords: Question[] = [rightAnswer];
