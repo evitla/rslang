@@ -41,3 +41,6 @@ export const getLocalStorage = <T>(key: string) => {
 };
 
 export const removeLocalStorage = (key: string) => localStorage.removeItem(key);
+export const getRandomNumber = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
