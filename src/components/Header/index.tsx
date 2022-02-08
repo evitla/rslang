@@ -5,8 +5,11 @@ import AuthForm from '../AuthForm';
 import { StyledHeader } from './style';
 import { FlexWrapper } from '../../styles/wrapper';
 import { START_GROUP, START_PAGE } from '../../constants';
+import { useSelector } from 'react-redux';
+import { TStore } from '../../store';
 
 const Header = () => {
+  const { user } = useSelector((state: TStore) => state.userReducer);
   const [isAuthFormOpen, setIsAuthFormOpen] = useState(false);
 
   return (
@@ -23,14 +26,17 @@ const Header = () => {
             <li>
               <Link to="games">Мини-игры</Link>
             </li>
-            <li>
-              <Link to="user">User Icon</Link>
-            </li>
-            <li>
-              <button onClick={() => setIsAuthFormOpen(!isAuthFormOpen)}>
-                Войти
-              </button>
-            </li>
+            {user !== null ? (
+              <li>
+                <Link to="user">User Icon</Link>
+              </li>
+            ) : (
+              <li>
+                <button onClick={() => setIsAuthFormOpen(!isAuthFormOpen)}>
+                  Войти
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       </FlexWrapper>
