@@ -3,23 +3,18 @@ import { GamePreview, GameBg, GamePlay } from './style';
 import useFetchWords from '../../../hooks/useFetchWords';
 import AudiocallButton from '../../../components/AudiocallButton';
 import AudiocallAnswer from '../../../components/AudiocallAnswer';
+import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS } from '../../../constants';
 import { getRandomNumber } from '../../../utils';
 
 const Audiocall = () => {
   const [group, setGroup] = useState(0);
   const [isPlay, setPlay] = useState(false);
-  const startGame = async() => {
+  const startGame = async () => {};
 
-  }
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {};
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
-
-  }
-
-  const nextQuestion = () => {
-    
-  }
+  const nextQuestion = () => {};
   const setGame = (groupID: number) => {
     setGroup(groupID);
     setPlay(true);
@@ -40,6 +35,7 @@ const Audiocall = () => {
           ))}
         </div>
       </GamePreview>
+      <AudiocallQuestion />
       <GameBg isPlay={isPlay}>
         <GamePlay>
           {isLoading ? (
