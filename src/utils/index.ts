@@ -39,3 +39,5 @@ export const getLocalStorage = <T>(key: string) => {
 
   return value !== null ? (JSON.parse(value) as T) : null;
 };
+
+export const removeLocalStorage = (key: string) => localStorage.removeItem(key);
