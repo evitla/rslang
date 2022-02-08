@@ -17,7 +17,6 @@ const useFetchWords = (
     },
     options
   );
-  console.log('querye', query.data);
 
   return {
     ...query,

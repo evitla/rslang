@@ -29,7 +29,7 @@ const Audiocall = () => {
     setPlay(true);
   };
   const { words, isLoading, isError } = useFetchWords(group - 1, 8);
-
+  console.log('words', words);
   return (
     <>
       <GamePreview isPlay={isPlay}>
@@ -44,14 +44,14 @@ const Audiocall = () => {
           ))}
         </div>
       </GamePreview>
-      <AudiocallQuestion
+      {/* <AudiocallQuestion
         questionNum={number + 1}
         totalQuestions={TOTAL_QUESTIONS}
         questionAudio={questions[number].question}
         answers={questions[number].answers}
         userAnswer={userAnswers ? userAnswers[number] : undefined}
         callback={checkAnswer}
-      />
+      /> */}
       <GameBg isPlay={isPlay}>
         <GamePlay>
           {isLoading ? (
