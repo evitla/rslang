@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { TAuth, TUser } from '../types';
+import { TAuth, TUser, TWord } from '../types';
 
 export const getAll = async <T>(url: string, queryParams = ''): Promise<T> => {
   const response = await axios.get(`${url}${queryParams}`);
@@ -44,3 +44,6 @@ export const removeLocalStorage = (key: string) => localStorage.removeItem(key);
 export const getRandomNumber = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
+
+export const shuffleArray = (array: TWord[]) =>
+  [...array].sort(() => Math.random() - 0.5);
