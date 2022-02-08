@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { store } from './store';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -10,11 +12,13 @@ const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

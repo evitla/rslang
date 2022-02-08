@@ -1,11 +1,19 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import WordCard from '../../components/WordCard';
 import LoadingCard from '../../components/WordCard/LoadingCard';
-import { LOADING_BLOCKS_COUNT, TOTAL_GROUPS } from '../../constants';
+import {
+  AUTH_TOTAL_GROUPS,
+  LOADING_BLOCKS_COUNT,
+  TOTAL_GROUPS,
+} from '../../constants';
 import useFetchWords from '../../hooks/useFetchWords';
+import { TStore } from '../../store';
 
 const Book = () => {
+  const { user } = useSelector((state: TStore) => state.userReducer);
+
   const { pageId, groupId } = useParams();
   if (pageId === undefined) throw new Error('Page not found');
   if (groupId === undefined) throw new Error('Group not found');
@@ -33,11 +41,14 @@ const Book = () => {
         // TODO: refactor Group pagination: create component, style
       }
       <div>
-        {Array.from({ length: TOTAL_GROUPS }, (_, i) => (
-          <button key={i} style={{ marginRight: '8px', padding: '4px' }}>
-            <Link to={`/book/${i + 1}/1`}>{i + 1}</Link>
-          </button>
-        ))}
+        {Array.from(
+          { length: user !== null ? AUTH_TOTAL_GROUPS : TOTAL_GROUPS },
+          (_, i) => (
+            <button key={i} style={{ marginRight: '8px', padding: '4px' }}>
+              <Link to={`/book/${i + 1}/1`}>{i + 1}</Link>
+            </button>
+          )
+        )}
       </div>
       {
         // TODO: refactor word cards: style, and maybe create separate component

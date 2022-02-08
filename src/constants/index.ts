@@ -8,6 +8,7 @@ export const FILES_URL =
 export const START_GROUP = 1;
 export const START_PAGE = 1;
 export const TOTAL_GROUPS = 6;
+export const AUTH_TOTAL_GROUPS = TOTAL_GROUPS + 1;
 export const LOADING_BLOCKS_COUNT = 6;
 
 export const USERS_URL = `${DB_URL}/users`;
