@@ -12,6 +12,10 @@ const Audiocall = () => {
   const startGame = async() => {
 
   }
+
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+
+  }
   const setGame = (groupID: number) => {
     setGroup(groupID);
     setPlay(true);
