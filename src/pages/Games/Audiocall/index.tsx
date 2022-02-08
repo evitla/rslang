@@ -7,7 +7,16 @@ import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS } from '../../../constants';
 import { getRandomNumber } from '../../../utils';
 
+const TOTAL_QUESTIONS = 10;
+
 const Audiocall = () => {
+  const [loading, setLoading] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [number, setNumber] = useState(0);
+  const [userAnswers, setUserAnswers] = useState([]);
+  const [score, setScore] = useState(0);
+  const [gameOver, setGameOver] = useState(true);
+  // Test
   const [group, setGroup] = useState(0);
   const [isPlay, setPlay] = useState(false);
   const startGame = async () => {};
@@ -35,7 +44,14 @@ const Audiocall = () => {
           ))}
         </div>
       </GamePreview>
-      <AudiocallQuestion />
+      <AudiocallQuestion
+        questionNum={number + 1}
+        totalQuestions={TOTAL_QUESTIONS}
+        questionAudio={questions[number].question}
+        answers={questions[number].answers}
+        userAnswer={userAnswers ? userAnswers[number] : undefined}
+        callback={checkAnswer}
+      />
       <GameBg isPlay={isPlay}>
         <GamePlay>
           {isLoading ? (

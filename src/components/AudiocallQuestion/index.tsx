@@ -4,7 +4,7 @@ type AudiocallProps = {
   questionAudio: string;
   answers: string[];
   callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  userAnswer: boolean;
+  userAnswer: any;
   questionNum: number;
   totalQuestions: number;
 };
