@@ -21,9 +21,8 @@ const useRegistrationForm = (setIsOpen: (isOpen: boolean) => void) => {
   const onSubmit = async (user: TUser) => {
     if (isRegistrationForm) {
       await addUser.mutateAsync(user);
-    } else {
-      await loginUser.mutateAsync(user);
     }
+    await loginUser.mutateAsync(user);
 
     setIsOpen(false);
   };

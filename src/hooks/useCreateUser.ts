@@ -1,11 +1,13 @@
 import { useMutation } from 'react-query';
-import { SIGNIN_URL, USERS_URL } from '../constants';
+
+import { USERS_URL } from '../constants';
 import { TUser } from '../types';
-import { create, loginUser } from '../utils';
+import { create } from '../utils';
 
 const useCreateUser = () => {
-  const addUser = useMutation((user: TUser) => create(USERS_URL, user), {
-    onSuccess: (user) => loginUser(SIGNIN_URL, user),
+  const addUser = useMutation(async (user: TUser) => {
+    const data = await create(USERS_URL, user);
+    return data;
   });
 
   return addUser;
