@@ -7,7 +7,9 @@ const User = () => {
   return (
     <div>
       <button onClick={handleLogout}>Выйти из аккаунта</button>
-      // TODO: 3 components
+      {
+        // TODO: 3 components
+      }
       <ol>
         <li>Прогресс изучения слов</li>
         <li>Изученные слова</li>
