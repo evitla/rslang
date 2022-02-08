@@ -9,13 +9,15 @@ import { getRandomNumber } from '../../../utils';
 const Audiocall = () => {
   const [group, setGroup] = useState(0);
   const [isPlay, setPlay] = useState(false);
+  const startGame = async() => {
+
+  }
   const setGame = (groupID: number) => {
     setGroup(groupID);
     setPlay(true);
   };
   const { words, isLoading, isError } = useFetchWords(group - 1, 8);
-  console.log('words', words);
-  console.log('group', group);
+
   return (
     <>
       <GamePreview isPlay={isPlay}>
