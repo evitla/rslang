@@ -3,14 +3,16 @@ import { StyledButton } from './style';
 
 const AudiocallButton = ({
   groupNum,
-  setGame,
+  startGame,
 }: {
   groupNum: number;
-  setGame: (groupID: number) => void;
+  startGame: (groupID: number) => void;
 }) => {
   return (
     <>
-      <StyledButton onClick={() => setGame(groupNum)}>{groupNum}</StyledButton>
+      <StyledButton onClick={() => startGame(groupNum)}>
+        {groupNum + 1}
+      </StyledButton>
     </>
   );
 };

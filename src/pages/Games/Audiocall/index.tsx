@@ -7,7 +7,7 @@ import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS } from '../../../constants';
 import { getRandomNumber } from '../../../utils';
 import { fetchQuestion, Question } from './api';
-
+import { TWord } from '../../../types';
 const TOTAL_QUESTIONS = 10;
 
 type AnswerObj = {
@@ -19,24 +19,31 @@ type AnswerObj = {
 
 const Audiocall = () => {
   const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<Question[][]>([]);
   const [number, setNumber] = useState(0);
   const [userAnswers, setUserAnswers] = useState<AnswerObj[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
-  // Test
   const [group, setGroup] = useState(0);
   const [isPlay, setPlay] = useState(false);
-  const startGame = async () => {};
+  const startGame = async (groupID: number) => {
+    setLoading(true);
+    setGameOver(false);
+    setGroup(groupID);
+    setPlay(true);
+    const newQuestions = await fetchQuestion(groupID);
+    setQuestions(newQuestions);
+    setScore(0);
+    setUserAnswers([]);
+    setNumber(0);
+    setLoading(false);
+  };
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {};
 
   const nextQuestion = () => {};
-  const setGame = (groupID: number) => {
-    setGroup(groupID);
-    setPlay(true);
-  };
-  const { words, isLoading, isError } = useFetchWords(group - 1, 8);
+  const { words, isLoading, isError } = useFetchWords(group, 8);
+  console.log('questions', questions);
   return (
     <>
       <GamePreview isPlay={isPlay}>
@@ -47,7 +54,7 @@ const Audiocall = () => {
         </p>
         <div>
           {Array.from({ length: TOTAL_GROUPS }, (_, i) => (
-            <AudiocallButton key={i} groupNum={i + 1} setGame={setGame} />
+            <AudiocallButton key={i} groupNum={i} startGame={startGame} />
           ))}
         </div>
       </GamePreview>
