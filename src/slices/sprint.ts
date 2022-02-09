@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TWord } from '../types';
+import { getRandomIntInclusive } from '../utils';
 
 const initialState: {
   words: TWord[];
@@ -7,12 +8,14 @@ const initialState: {
   page: number;
   score: number;
   rightInRow: number;
+  status: 'prepare' | 'playing' | ' ended';
 } = {
   words: [],
   group: 0,
-  page: 0,
+  page: getRandomIntInclusive(),
   score: 0,
   rightInRow: 0,
+  status: 'prepare',
 };
 
 const sprintGameSlice = createSlice({

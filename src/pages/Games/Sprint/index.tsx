@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import useFetchWords from '../../../hooks/useFetchWords';
-import { getRandomIntInclusive } from '../../../utils';
+import { TStore } from '../../../store';
 import Difficuilt from './Difficuilt';
 import Question from './Question';
 import Rules from './Rules';
 
 const Sprint = () => {
-  const [isPlaying, setisPlaying] = useState(false);
-  const [group, setGroup] = useState(0);
-  const randomPage = getRandomIntInclusive();
-  const words = useFetchWords(group, randomPage).words;
+  const { status } = useSelector((state: TStore) => state.sprintGameReducer);
 
+  function setLevelHandler(group, page) {
+    const words = useFetchWords(group, page).words;
+  }
   return (
     <section className="sprint">
-      {isPlaying && <Question />}
-      {!isPlaying && (
+      {status === 'playing' && <Question />}
+      {status === 'prepare' && (
         <>
           <Rules />
           <Difficuilt handler={() => setisPlaying(true)} />
