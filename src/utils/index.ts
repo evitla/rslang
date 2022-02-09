@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { PAGES_AT_GROUP } from '../constants';
 
 import { TAuth, TUser } from '../types';
 
@@ -65,3 +66,8 @@ export const hasDuplicates = <T>(array: T[], newel: string): boolean => {
   const newArr = [...array].map((el) => JSON.stringify(el));
   return newArr.includes(newel);
 };
+
+export function getRandomIntInclusive(start = 0, end = PAGES_AT_GROUP) {
+  //Максимум и минимум включаются
+  return Math.floor(Math.random() * (end - start + 1)) + start;
+}
