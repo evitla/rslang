@@ -7,14 +7,13 @@ import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS } from '../../../constants';
 import { getRandomNumber } from '../../../utils';
 import { fetchQuestion, Question } from './api';
-import { TWord } from '../../../types';
-const TOTAL_QUESTIONS = 10;
+const TOTAL_QUESTIONS = 20;
 
-type AnswerObj = {
+export type AnswerObj = {
   question: string;
   answer: string;
   correct: boolean;
-  correctAnswer: string;
+  correctAnswer: boolean;
 };
 
 const Audiocall = () => {
@@ -39,10 +38,30 @@ const Audiocall = () => {
     setLoading(false);
   };
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {};
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!gameOver) {
+      const answer = e.currentTarget.value;
+      const correctArr = questions.map((question) => question[number]);
+      const correct = correctArr[number].word === answer;
+      if (correct) setScore((prev) => prev + 1);
+      const answerObj = {
+        question: correctArr[number].word,
+        answer,
+        correct,
+        correctAnswer: correctArr[number].isRight,
+      };
+      setUserAnswers((prev) => [...prev, answerObj]);
+    }
+  };
 
-  const nextQuestion = () => {};
-  const { words, isLoading, isError } = useFetchWords(group, 8);
+  const nextQuestion = () => {
+    const nextQ = number + 1;
+    if (nextQ === TOTAL_QUESTIONS) {
+      setGameOver(true);
+    } else {
+      setNumber(nextQ);
+    }
+  };
   console.log('questions', questions);
   return (
     <>
@@ -58,28 +77,19 @@ const Audiocall = () => {
           ))}
         </div>
       </GamePreview>
-      {/* <AudiocallQuestion
-        questionNum={number + 1}
-        totalQuestions={TOTAL_QUESTIONS}
-        questionAudio={questions[number].question}
-        answers={questions[number].answers}
-        userAnswer={userAnswers ? userAnswers[number] : undefined}
-        callback={checkAnswer}
-      /> */}
+
       <GameBg isPlay={isPlay}>
         <GamePlay>
-          {isLoading ? (
-            <h2>Loading...</h2>
-          ) : isError ? (
-            <div>Error while fetching</div>
-          ) : (
-            <>
-              {words.map((word, i) => {
-                if (i < 4) {
-                  return <AudiocallAnswer key={word.id} word={word} />;
-                }
-              })}
-            </>
+          {loading && <p>Loading Questions...</p>}
+          {!loading && !gameOver && (
+            <AudiocallQuestion
+              questionNum={number + 1}
+              totalQuestions={TOTAL_QUESTIONS}
+              questionAudio={questions[number]}
+              answers={questions[number]}
+              userAnswer={userAnswers ? userAnswers[number] : undefined}
+              callback={checkAnswer}
+            />
           )}
         </GamePlay>
       </GameBg>

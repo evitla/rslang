@@ -1,10 +1,12 @@
 import React from 'react';
+import { Question } from '../../pages/Games/Audiocall/api';
+import { AnswerObj } from '../../pages/Games/Audiocall/index';
 
 type AudiocallProps = {
-  questionAudio: string;
-  answers: string[];
+  questionAudio: Question[];
+  answers: Question[];
   callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  userAnswer: boolean;
+  userAnswer: AnswerObj | undefined;
   questionNum: number;
   totalQuestions: number;
 };
@@ -22,12 +24,18 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
       <p>
         Question: {questionNum} / {totalQuestions}
       </p>
-      <p dangerouslySetInnerHTML={{ __html: questionAudio }} />
+      <p
+        dangerouslySetInnerHTML={{ __html: questionAudio[questionNum].audio }}
+      />
       <div>
         {answers.map((answer) => (
-          <div>
-            <button disabled={userAnswer} onClick={callback}>
-              <span dangerouslySetInnerHTML={{ __html: answer }}></span>
+          <div key={answer.id}>
+            <button
+              disabled={!!userAnswer}
+              value={answer.word}
+              onClick={callback}
+            >
+              <span dangerouslySetInnerHTML={{ __html: answer.word }}></span>
             </button>
           </div>
         ))}
