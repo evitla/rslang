@@ -41,7 +41,7 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
       {play(`${FILES_URL}/${questionAudio.audio}`)}
       <p dangerouslySetInnerHTML={{ __html: questionAudio.word }} />
       <div>
-        {answers.map((answer, i) => (
+        {answers.map((answer) => (
           <div key={answer.id}>
             <button
               disabled={!!userAnswer}
