@@ -1,32 +1,22 @@
-import useFetchWords from '../../../hooks/useFetchWords';
-import { shuffleArray, getRandomNumber, getAll } from '../../../utils';
+import { shuffleArray, getRandomNumber, hasDuplicates } from '../../../utils';
 import { TWord } from '../../../types';
 import { WORDS_URL } from '../../../constants';
 
-export type Question = TWord & {
-  isRight: boolean;
-};
-
 export const fetchQuestion = async (group: number) => {
-  const newWords: Question[][] = [];
+  const newWords: TWord[][] = [];
   for (let i = 0; i < 20; i++) {
     const queries = `?group=${group}&page=${getRandomNumber(0, 29)}`;
     const data = await (await fetch(WORDS_URL + queries)).json();
-    const rightAnswer: Question[] = [
-      { ...data[getRandomNumber(0, 19)], isRight: true },
-    ];
-    for (let j = 0; j < 3; j++) {
-      const wrongAnswer = {
-        ...data[getRandomNumber(0, 19)],
-        isRight: false,
-      };
-      if (rightAnswer[0].word === wrongAnswer.word) {
+    const answers: TWord[] = [];
+    for (let j = 0; j < 4; j++) {
+      const answer = { ...data[getRandomNumber(0, 19)] };
+      if (hasDuplicates(answers, JSON.stringify(answer))) {
         j--;
       } else {
-        rightAnswer.push(wrongAnswer);
+        answers.push(answer);
       }
     }
-    newWords.push(shuffleArray(rightAnswer));
+    newWords.push(shuffleArray(answers));
   }
   return newWords;
 };

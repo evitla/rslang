@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import { TAuth, TUser, TWord } from '../types';
-import { Question } from '../pages/Games/Audiocall/api';
 
 export const getAll = async <T>(url: string, queryParams = ''): Promise<T> => {
   const response = await axios.get(`${url}${queryParams}`);
@@ -46,5 +45,10 @@ export const getRandomNumber = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-export const shuffleArray = (array: Question[]) =>
+export const shuffleArray = (array: TWord[]) =>
   [...array].sort(() => Math.random() - 0.5);
+
+export const hasDuplicates = (array: TWord[], newel: string) => {
+  const newArr = [...array].map((el) => JSON.stringify(el));
+  return newArr.includes(newel);
+};

@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
 import { GamePreview, GameBg, GamePlay } from './style';
-import useFetchWords from '../../../hooks/useFetchWords';
 import AudiocallButton from '../../../components/AudiocallButton';
-import AudiocallAnswer from '../../../components/AudiocallAnswer';
 import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS } from '../../../constants';
-import { getRandomNumber } from '../../../utils';
-import { fetchQuestion, Question } from './api';
+import { fetchQuestion } from './api';
+import { TWord } from '../../../types';
 const TOTAL_QUESTIONS = 20;
 
 export type AnswerObj = {
   question: string;
   answer: string;
   correct: boolean;
-  correctAnswer: boolean;
+  correctAnswer: string;
 };
 
 const Audiocall = () => {
   const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState<Question[][]>([]);
+  const [questions, setQuestions] = useState<TWord[][]>([]);
   const [number, setNumber] = useState(0);
   const [userAnswers, setUserAnswers] = useState<AnswerObj[]>([]);
   const [score, setScore] = useState(0);
@@ -42,13 +40,13 @@ const Audiocall = () => {
     if (!gameOver) {
       const answer = e.currentTarget.value;
       const correctArr = questions.map((question) => question[number]);
-      const correct = correctArr[number].word === answer;
+      const correct = correctArr[number].wordTranslate === answer;
       if (correct) setScore((prev) => prev + 1);
       const answerObj = {
         question: correctArr[number].word,
         answer,
         correct,
-        correctAnswer: correctArr[number].isRight,
+        correctAnswer: correctArr[number].wordTranslate,
       };
       setUserAnswers((prev) => [...prev, answerObj]);
     }
@@ -63,6 +61,9 @@ const Audiocall = () => {
     }
   };
   console.log('questions', questions);
+  console.log('userAnswers', userAnswers);
+
+  const decomposeQuestions = questions.map((question) => question[number]);
   return (
     <>
       <GamePreview isPlay={isPlay}>
@@ -85,7 +86,7 @@ const Audiocall = () => {
             <AudiocallQuestion
               questionNum={number + 1}
               totalQuestions={TOTAL_QUESTIONS}
-              questionAudio={questions[number]}
+              questionAudio={decomposeQuestions[number]}
               answers={questions[number]}
               userAnswer={userAnswers ? userAnswers[number] : undefined}
               callback={checkAnswer}

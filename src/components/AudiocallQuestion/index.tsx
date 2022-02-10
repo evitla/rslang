@@ -1,14 +1,30 @@
 import React from 'react';
-import { Question } from '../../pages/Games/Audiocall/api';
 import { AnswerObj } from '../../pages/Games/Audiocall/index';
+import { FILES_URL } from '../../constants/index';
+import { TWord } from '../../types/index';
 
 type AudiocallProps = {
-  questionAudio: Question[];
-  answers: Question[];
+  questionAudio: TWord;
+  answers: TWord[];
   callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
   userAnswer: AnswerObj | undefined;
   questionNum: number;
   totalQuestions: number;
+};
+
+const play = (src: string) => {
+  const audio = new Audio();
+  audio.src = src;
+  audio.currentTime = 0;
+  audio.volume = 0.5;
+  audio.loop = false;
+  console.log('played');
+
+  audio.play();
+
+  audio.onended = () => {
+    audio.currentTime = 0;
+  };
 };
 
 const AudiocallQuestion: React.FC<AudiocallProps> = ({
@@ -24,18 +40,19 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
       <p>
         Question: {questionNum} / {totalQuestions}
       </p>
-      <p
-        dangerouslySetInnerHTML={{ __html: questionAudio[questionNum].audio }}
-      />
+      {play(`${FILES_URL}/${questionAudio.audio}`)}
+      <p dangerouslySetInnerHTML={{ __html: questionAudio.audio }} />
       <div>
         {answers.map((answer) => (
           <div key={answer.id}>
             <button
               disabled={!!userAnswer}
-              value={answer.word}
+              value={answer.wordTranslate}
               onClick={callback}
             >
-              <span dangerouslySetInnerHTML={{ __html: answer.word }}></span>
+              <span
+                dangerouslySetInnerHTML={{ __html: answer.wordTranslate }}
+              ></span>
             </button>
           </div>
         ))}
