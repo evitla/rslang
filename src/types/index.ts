@@ -43,3 +43,13 @@ export type AudiocallProps = {
   questionNum: number;
   totalQuestions: number;
 };
+
+export type TsprintState = {
+  words: TWord[];
+  group: number;
+  page: number;
+  score: number;
+  rightInRow: number;
+  status: 'prepare' | 'playing' | ' ended';
+  currentWord: string;
+};

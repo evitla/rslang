@@ -1,21 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TWord } from '../types';
+import { TsprintState, TWord } from '../types';
 import { getRandomIntInclusive } from '../utils';
 
-const initialState: {
-  words: TWord[];
-  group: number;
-  page: number;
-  score: number;
-  rightInRow: number;
-  status: 'prepare' | 'playing' | ' ended';
-} = {
+const initialState: TsprintState = {
   words: [],
   group: 0,
   page: getRandomIntInclusive(),
   score: 0,
   rightInRow: 0,
   status: 'prepare',
+  currentWord: '',
 };
 
 const sprintGameSlice = createSlice({
@@ -25,9 +19,18 @@ const sprintGameSlice = createSlice({
     setWords: (state, { payload }: PayloadAction<TWord[]>) => {
       state.words = payload;
     },
+    setStatus: (state, { payload }: PayloadAction<TsprintState['status']>) => {
+      state.status = payload;
+    },
+    setOprioins: (state, { payload }: PayloadAction<{ group: number }>) => {
+      state.group = payload.group;
+    },
+    setCurrentWord: (state, { payload }: PayloadAction<string>) => {
+      state.currentWord = payload;
+    },
   },
 });
 
 export const sprintGameReducer = sprintGameSlice.reducer;
 
-export const { setWords } = sprintGameSlice.actions;
+export const { setWords, setStatus, setOprioins } = sprintGameSlice.actions;

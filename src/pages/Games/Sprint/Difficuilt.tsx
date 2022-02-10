@@ -1,9 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { TOTAL_GROUPS } from '../../../constants';
+import { setOprioins, setStatus } from '../../../slices/sprint';
 
-type LevelPropsType = PropsType & {
-  numb: number;
+type LevelPropsType = {
+  level: number;
+  handler: (category: number) => void;
 };
 const LevelWrapper = styled.div`
   display: flex;
@@ -15,28 +18,31 @@ const LevelButton = styled.button`
 `;
 
 const Level = (props: LevelPropsType) => {
-  const { numb, handler } = props;
+  const { level, handler } = props;
   return (
-    <LevelButton onClick={handler} className="sprint_level__button">
-      {numb}
+    <LevelButton
+      onClick={() => handler(level)}
+      className="sprint_level__button"
+    >
+      {level}
     </LevelButton>
   );
 };
 
-type PropsType = {
-  handler: () => void;
-};
-export default function Difficuilt(props: PropsType) {
-  const { handler } = props;
-
+export default function Difficuilt() {
   const levels = new Array(TOTAL_GROUPS).fill(0).map((el, index) => index + 1);
+  const dispatch = useDispatch();
 
+  async function handler(group: number) {
+    dispatch(setOprioins({ group }));
+    dispatch(setStatus('playing'));
+  }
   return (
     <div className="sprint_difficuilt">
       <h4>Выберите уровень сложности</h4>
       <LevelWrapper>
         {levels.map((level, index) => (
-          <Level handler={handler} key={index} numb={level}></Level>
+          <Level handler={handler} key={index} level={level}></Level>
         ))}
       </LevelWrapper>
     </div>
