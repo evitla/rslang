@@ -6,7 +6,7 @@ import { TWord } from '../../types/index';
 type AudiocallProps = {
   questionAudio: TWord;
   answers: TWord[];
-  callback: (e: React.MouseEvent<HTMLButtonElement>, i: number) => void;
+  callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
   userAnswer: AnswerObj | undefined;
   questionNum: number;
   totalQuestions: number;
@@ -33,7 +33,6 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
   questionNum,
   totalQuestions,
 }) => {
-  console.log('questionAudio', questionAudio);
   return (
     <div>
       <p>
@@ -47,9 +46,7 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
             <button
               disabled={!!userAnswer}
               value={answer.wordTranslate}
-              onClick={(e) => {
-                callback(e, i);
-              }}
+              onClick={callback}
             >
               <span
                 dangerouslySetInnerHTML={{ __html: answer.wordTranslate }}

@@ -58,17 +58,12 @@ const Audiocall = () => {
         correctAnswer: (qurrentQuestion as TWord).wordTranslate,
       };
       setUserAnswers((prev) => [...prev, answerObj]);
-      console.log('number', number);
       if (number + 1 !== TOTAL_QUESTIONS) {
         setCurQuestion(questions[number + 1][getRandomNumber(0, 3)]);
       }
       nextQuestion();
     }
   };
-
-  console.log('questions', questions);
-  console.log('userAnswers', userAnswers);
-  console.log('qurrentQuestion', qurrentQuestion);
   return (
     <>
       <GamePreview isPlay={isPlay}>
