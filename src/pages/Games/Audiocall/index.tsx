@@ -22,16 +22,15 @@ const Audiocall = () => {
   const [userAnswers, setUserAnswers] = useState<AnswerObj[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
-  const [group, setGroup] = useState(0);
   const [isPlay, setPlay] = useState(false);
-  const [pressedAnswer, setAnswer] = useState(0);
+  const [qurrentQuestion, setCurQuestion] = useState<TWord>();
   const startGame = async (groupID: number) => {
     setLoading(true);
     setGameOver(false);
-    setGroup(groupID);
     setPlay(true);
     const newQuestions = await fetchQuestion(groupID);
     setQuestions(newQuestions);
+    setCurQuestion(newQuestions[number][getRandomNumber(0, 3)]);
     setScore(0);
     setUserAnswers([]);
     setNumber(0);
@@ -47,29 +46,29 @@ const Audiocall = () => {
     }
   };
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>, i: number) => {
-    setAnswer(i);
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!gameOver) {
       const answer = e.currentTarget.value;
-      const correctArr = questions.map((question) => question[number]);
-      console.log('pressedAnswer', pressedAnswer);
-      console.log('correctArr', correctArr);
-
-      const correct = correctArr[i].wordTranslate === answer;
+      const correct = (qurrentQuestion as TWord).wordTranslate === answer;
       if (correct) setScore((prev) => prev + 1);
       const answerObj = {
-        question: correctArr[i].word,
+        question: (qurrentQuestion as TWord).word,
         answer,
         correct,
-        correctAnswer: correctArr[i].wordTranslate,
+        correctAnswer: (qurrentQuestion as TWord).wordTranslate,
       };
       setUserAnswers((prev) => [...prev, answerObj]);
+      console.log('number', number);
+      if (number + 1 !== TOTAL_QUESTIONS) {
+        setCurQuestion(questions[number + 1][getRandomNumber(0, 3)]);
+      }
+      nextQuestion();
     }
-    nextQuestion();
   };
 
   console.log('questions', questions);
   console.log('userAnswers', userAnswers);
+  console.log('qurrentQuestion', qurrentQuestion);
   return (
     <>
       <GamePreview isPlay={isPlay}>
@@ -92,7 +91,7 @@ const Audiocall = () => {
             <AudiocallQuestion
               questionNum={number + 1}
               totalQuestions={TOTAL_QUESTIONS}
-              questionAudio={questions[number][getRandomNumber(0, 3)]}
+              questionAudio={qurrentQuestion as TWord}
               answers={questions[number]}
               userAnswer={userAnswers ? userAnswers[number] : undefined}
               callback={checkAnswer}

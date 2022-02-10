@@ -40,7 +40,7 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
         Question: {questionNum} / {totalQuestions}
       </p>
       {play(`${FILES_URL}/${questionAudio.audio}`)}
-      <p dangerouslySetInnerHTML={{ __html: questionAudio.audio }} />
+      <p dangerouslySetInnerHTML={{ __html: questionAudio.word }} />
       <div>
         {answers.map((answer, i) => (
           <div key={answer.id}>
