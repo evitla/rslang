@@ -5,6 +5,7 @@ import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS } from '../../../constants';
 import { fetchQuestion } from './api';
 import { TWord } from '../../../types';
+import { getRandomNumber } from '../../../utils';
 const TOTAL_QUESTIONS = 20;
 
 export type AnswerObj = {
@@ -23,6 +24,7 @@ const Audiocall = () => {
   const [gameOver, setGameOver] = useState(true);
   const [group, setGroup] = useState(0);
   const [isPlay, setPlay] = useState(false);
+  const [pressedAnswer, setAnswer] = useState(0);
   const startGame = async (groupID: number) => {
     setLoading(true);
     setGameOver(false);
@@ -36,22 +38,6 @@ const Audiocall = () => {
     setLoading(false);
   };
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!gameOver) {
-      const answer = e.currentTarget.value;
-      const correctArr = questions.map((question) => question[number]);
-      const correct = correctArr[number].wordTranslate === answer;
-      if (correct) setScore((prev) => prev + 1);
-      const answerObj = {
-        question: correctArr[number].word,
-        answer,
-        correct,
-        correctAnswer: correctArr[number].wordTranslate,
-      };
-      setUserAnswers((prev) => [...prev, answerObj]);
-    }
-  };
-
   const nextQuestion = () => {
     const nextQ = number + 1;
     if (nextQ === TOTAL_QUESTIONS) {
@@ -60,10 +46,30 @@ const Audiocall = () => {
       setNumber(nextQ);
     }
   };
+
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>, i: number) => {
+    setAnswer(i);
+    if (!gameOver) {
+      const answer = e.currentTarget.value;
+      const correctArr = questions.map((question) => question[number]);
+      console.log('pressedAnswer', pressedAnswer);
+      console.log('correctArr', correctArr);
+
+      const correct = correctArr[i].wordTranslate === answer;
+      if (correct) setScore((prev) => prev + 1);
+      const answerObj = {
+        question: correctArr[i].word,
+        answer,
+        correct,
+        correctAnswer: correctArr[i].wordTranslate,
+      };
+      setUserAnswers((prev) => [...prev, answerObj]);
+    }
+    nextQuestion();
+  };
+
   console.log('questions', questions);
   console.log('userAnswers', userAnswers);
-
-  const decomposeQuestions = questions.map((question) => question[number]);
   return (
     <>
       <GamePreview isPlay={isPlay}>
@@ -86,7 +92,7 @@ const Audiocall = () => {
             <AudiocallQuestion
               questionNum={number + 1}
               totalQuestions={TOTAL_QUESTIONS}
-              questionAudio={decomposeQuestions[number]}
+              questionAudio={questions[number][getRandomNumber(0, 3)]}
               answers={questions[number]}
               userAnswer={userAnswers ? userAnswers[number] : undefined}
               callback={checkAnswer}

@@ -6,7 +6,7 @@ import { TWord } from '../../types/index';
 type AudiocallProps = {
   questionAudio: TWord;
   answers: TWord[];
-  callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  callback: (e: React.MouseEvent<HTMLButtonElement>, i: number) => void;
   userAnswer: AnswerObj | undefined;
   questionNum: number;
   totalQuestions: number;
@@ -18,8 +18,6 @@ const play = (src: string) => {
   audio.currentTime = 0;
   audio.volume = 0.5;
   audio.loop = false;
-  console.log('played');
-
   audio.play();
 
   audio.onended = () => {
@@ -35,6 +33,7 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
   questionNum,
   totalQuestions,
 }) => {
+  console.log('questionAudio', questionAudio);
   return (
     <div>
       <p>
@@ -43,12 +42,14 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
       {play(`${FILES_URL}/${questionAudio.audio}`)}
       <p dangerouslySetInnerHTML={{ __html: questionAudio.audio }} />
       <div>
-        {answers.map((answer) => (
+        {answers.map((answer, i) => (
           <div key={answer.id}>
             <button
               disabled={!!userAnswer}
               value={answer.wordTranslate}
-              onClick={callback}
+              onClick={(e) => {
+                callback(e, i);
+              }}
             >
               <span
                 dangerouslySetInnerHTML={{ __html: answer.wordTranslate }}
