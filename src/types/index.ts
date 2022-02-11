@@ -27,6 +27,7 @@ export type TAuth = {
   refreshToken: string;
   userId: string;
   name: string;
+}
 export type AudiocallProps = {
   questionAudio: TWord;
   answers: TWord[];
