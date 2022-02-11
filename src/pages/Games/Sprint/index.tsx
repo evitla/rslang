@@ -1,13 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
 import { TStore } from '../../../store';
 import Difficuilt from './Difficuilt';
 import Question from './Question';
 import Rules from './Rules';
+import Score from './Score';
 
 const Sprint = () => {
-  const { status } = useSelector((state: TStore) => state.sprintGameReducer);
+  const { status, score } = useSelector(
+    (state: TStore) => state.sprintGameReducer
+  );
 
   return (
     <section className="sprint">
@@ -18,6 +20,7 @@ const Sprint = () => {
           <Difficuilt />
         </>
       )}
+      {status === 'ended' && <Score score={score} />}
     </section>
   );
 };

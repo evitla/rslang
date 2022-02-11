@@ -1,4 +1,4 @@
-import { QueryKey, QueryOptions, useQuery } from 'react-query';
+import { QueryOptions, useQuery } from 'react-query';
 import { QUERY_KEY_WORDS, WORDS_URL } from '../constants';
 import { TWord } from '../types';
 import { getAll } from '../utils';

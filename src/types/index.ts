@@ -50,7 +50,7 @@ export type TsprintState = {
   page: number;
   score: number;
   rightInRow: number;
-  status: 'prepare' | 'playing' | ' ended';
+  status: 'prepare' | 'playing' | 'ended';
   currentWord: string;
   currentWordIndex: number;
 };

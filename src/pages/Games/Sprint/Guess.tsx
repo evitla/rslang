@@ -4,6 +4,7 @@ import {
   setCurrentWord,
   setCurrentWordIndex,
   setRightAnswer,
+  setStatus,
 } from '../../../slices/sprint';
 import { TStore } from '../../../store';
 import { getRandomIntExcludingExistingNumbers } from '../../../utils';
@@ -35,13 +36,14 @@ export default function Guess() {
     }
   }, [currentWord, words]);
   function buttonHandler(userAnswer: boolean, index: number) {
+    const nextWord = words[index + 1]?.word;
+    if (!nextWord) dispatch(setStatus('ended'));
     if (userAnswer === result) {
       dispatch(setRightAnswer());
-      dispatch(setCurrentWord(words[index + 1].word));
-    } else dispatch(setCurrentWord(words[index + 1].word));
+      dispatch(setCurrentWord(nextWord));
+    } else dispatch(setCurrentWord(nextWord));
     dispatch(setCurrentWordIndex(index + 1));
   }
-
   return (
     <div>
       <div>score: {score}</div>
