@@ -1,7 +1,5 @@
 import React from 'react';
-import { AnswerObj } from '../../pages/Games/Audiocall/index';
 import { FILES_URL } from '../../constants/index';
-import { TWord } from '../../types/index';
 import { AudiocallProps } from '../../types/index';
 
 const play = (src: string) => {

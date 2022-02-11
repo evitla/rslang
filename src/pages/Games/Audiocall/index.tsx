@@ -4,21 +4,14 @@ import AudiocallButton from '../../../components/AudiocallButton';
 import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
 import { fetchQuestion } from './api';
-import { TWord } from '../../../types';
+import { TWord, TAnswer } from '../../../types';
 import { getRandomNumber } from '../../../utils';
-
-export type AnswerObj = {
-  question: string;
-  answer: string;
-  correct: boolean;
-  correctAnswer: string;
-};
 
 const Audiocall = () => {
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<TWord[][]>([]);
   const [number, setNumber] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<AnswerObj[]>([]);
+  const [userAnswers, setUserAnswers] = useState<TAnswer[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
   const [isPlay, setPlay] = useState(false);

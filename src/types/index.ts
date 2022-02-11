@@ -28,11 +28,18 @@ export type TAuth = {
   userId: string;
   name: string;
 }
+export type TAnswer = {
+  question: string;
+  answer: string;
+  correct: boolean;
+  correctAnswer: string;
+};
+
 export type AudiocallProps = {
   questionAudio: TWord;
   answers: TWord[];
   callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  userAnswer: AnswerObj | undefined;
+  userAnswer: TAnswer | undefined;
   questionNum: number;
   totalQuestions: number;
 };
