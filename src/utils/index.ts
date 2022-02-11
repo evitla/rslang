@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { TAuth, TUser, TWord } from '../types';
+import { TAuth, TUser } from '../types';
 
 export const getAll = async <T>(url: string, queryParams = ''): Promise<T> => {
   const response = await axios.get(`${url}${queryParams}`);

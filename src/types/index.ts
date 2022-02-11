@@ -27,7 +27,7 @@ export type TAuth = {
   refreshToken: string;
   userId: string;
   name: string;
-}
+};
 export type TAnswer = {
   question: string;
   answer: string;
