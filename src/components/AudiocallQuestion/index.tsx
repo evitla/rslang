@@ -1,7 +1,7 @@
 import React from 'react';
 import { FILES_URL } from '../../constants/index';
 import { AudiocallProps } from '../../types/index';
-import { playAudio } from '../../utils';
+import { playAudiocall } from '../../utils';
 
 const AudiocallQuestion: React.FC<AudiocallProps> = ({
   questionAudio,
@@ -16,7 +16,7 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
       <p>
         Question: {questionNum} / {totalQuestions}
       </p>
-      {playAudio(`${FILES_URL}/${questionAudio.audio}`)}
+      {playAudiocall(`${FILES_URL}/${questionAudio.audio}`)}
       <p dangerouslySetInnerHTML={{ __html: questionAudio.word }} />
       <div>
         {answers.map((answer) => (

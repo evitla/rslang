@@ -15,10 +15,10 @@ const WordCard = ({ word }: { word: TWord }) => {
           <span>{word.wordTranslate}</span>
           <span>{word.transcription}</span>
           <button
-            onClick={() => {
-              playAudio(`${FILES_URL}/${word.audio}`);
-              playAudio(`${FILES_URL}/${word.audioMeaning}`);
-              playAudio(`${FILES_URL}/${word.audioExample}`);
+            onClick={async () => {
+              await playAudio(`${FILES_URL}/${word.audio}`);
+              await playAudio(`${FILES_URL}/${word.audioMeaning}`);
+              await playAudio(`${FILES_URL}/${word.audioExample}`);
             }}
           >
             play
