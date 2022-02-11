@@ -2,15 +2,7 @@ import React from 'react';
 import { AnswerObj } from '../../pages/Games/Audiocall/index';
 import { FILES_URL } from '../../constants/index';
 import { TWord } from '../../types/index';
-
-type AudiocallProps = {
-  questionAudio: TWord;
-  answers: TWord[];
-  callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  userAnswer: AnswerObj | undefined;
-  questionNum: number;
-  totalQuestions: number;
-};
+import { AudiocallProps } from '../../types/index';
 
 const play = (src: string) => {
   const audio = new Audio();

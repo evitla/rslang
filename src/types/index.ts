@@ -27,4 +27,11 @@ export type TAuth = {
   refreshToken: string;
   userId: string;
   name: string;
+export type AudiocallProps = {
+  questionAudio: TWord;
+  answers: TWord[];
+  callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  userAnswer: AnswerObj | undefined;
+  questionNum: number;
+  totalQuestions: number;
 };
