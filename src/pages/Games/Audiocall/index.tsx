@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { GamePreview, GameBg, GamePlay } from './style';
 import AudiocallButton from '../../../components/AudiocallButton';
 import AudiocallQuestion from '../../../components/AudiocallQuestion';
-import { TOTAL_GROUPS } from '../../../constants';
+import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
 import { fetchQuestion } from './api';
 import { TWord } from '../../../types';
 import { getRandomNumber } from '../../../utils';
-const TOTAL_QUESTIONS = 20;
 
 export type AnswerObj = {
   question: string;
