@@ -52,4 +52,5 @@ export type TsprintState = {
   rightInRow: number;
   status: 'prepare' | 'playing' | ' ended';
   currentWord: string;
+  currentWordIndex: number;
 };

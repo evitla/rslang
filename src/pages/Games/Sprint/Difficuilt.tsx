@@ -34,7 +34,7 @@ export default function Difficuilt() {
   const dispatch = useDispatch();
 
   async function handler(group: number) {
-    dispatch(setOprioins({ group }));
+    dispatch(setOprioins({ group: group - 1 }));
     dispatch(setStatus('playing'));
   }
   return (

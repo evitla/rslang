@@ -10,6 +10,7 @@ const initialState: TsprintState = {
   rightInRow: 0,
   status: 'prepare',
   currentWord: '',
+  currentWordIndex: 0,
 };
 
 const sprintGameSlice = createSlice({
@@ -28,9 +29,28 @@ const sprintGameSlice = createSlice({
     setCurrentWord: (state, { payload }: PayloadAction<string>) => {
       state.currentWord = payload;
     },
+    setRightAnswer: (state) => {
+      if (state.rightInRow <= 2) {
+        state.score += 20;
+        state.rightInRow += 1;
+      } else {
+        state.score += 40;
+        state.rightInRow = 0;
+      }
+    },
+    setCurrentWordIndex: (state, { payload }: PayloadAction<number>) => {
+      state.currentWordIndex = payload;
+    },
   },
 });
 
 export const sprintGameReducer = sprintGameSlice.reducer;
 
-export const { setWords, setStatus, setOprioins } = sprintGameSlice.actions;
+export const {
+  setWords,
+  setStatus,
+  setOprioins,
+  setCurrentWord,
+  setRightAnswer,
+  setCurrentWordIndex,
+} = sprintGameSlice.actions;
