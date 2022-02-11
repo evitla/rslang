@@ -48,7 +48,7 @@ export const getRandomNumber = (min: number, max: number) => {
 export const shuffleArray = <T>(array: T[]): T[] =>
   [...array].sort(() => Math.random() - 0.5);
 
-export const hasDuplicates = (array: TWord[], newel: string) => {
+export const hasDuplicates = <T>(array: T[], newel: string): boolean => {
   const newArr = [...array].map((el) => JSON.stringify(el));
   return newArr.includes(newel);
 };
