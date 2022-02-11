@@ -17,3 +17,5 @@ export const NAME_VALIDATION =
   /^[^(0-9~!@#$%*&()_—+=|:;"'`<>,.?\\/\\\s)]{1,30}$/;
 export const EMAIL_VALIDATION = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 export const MIN_PASSWORD_LENGTH = 8;
+export const TOTAL_QUESTIONS = 20;
+export const TOTAL_ANSWERS = 4;

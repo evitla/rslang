@@ -21,6 +21,19 @@ export const playAudio = (src: string) => {
   });
 };
 
+export const playAudiocall = (src: string) => {
+  const audio = new Audio();
+  audio.src = src;
+  audio.currentTime = 0;
+  audio.volume = 0.5;
+  audio.loop = false;
+  audio.play();
+
+  audio.onended = () => {
+    audio.currentTime = 0;
+  };
+};
+
 export const create = async <T>(url: string, body: T): Promise<T> => {
   const response = await axios.post(url, body);
   return response.data;
@@ -41,3 +54,14 @@ export const getLocalStorage = <T>(key: string) => {
 };
 
 export const removeLocalStorage = (key: string) => localStorage.removeItem(key);
+export const getRandomNumber = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
+export const shuffleArray = <T>(array: T[]): T[] =>
+  [...array].sort(() => Math.random() - 0.5);
+
+export const hasDuplicates = <T>(array: T[], newel: string): boolean => {
+  const newArr = [...array].map((el) => JSON.stringify(el));
+  return newArr.includes(newel);
+};
