@@ -7,7 +7,7 @@ import Rules from './Rules';
 import Score from './Score';
 
 const Sprint = () => {
-  const { status, score } = useSelector(
+  const { status, score, history } = useSelector(
     (state: TStore) => state.sprintGameReducer
   );
 
@@ -20,7 +20,7 @@ const Sprint = () => {
           <Difficuilt />
         </>
       )}
-      {status === 'ended' && <Score score={score} />}
+      {status === 'ended' && <Score score={score} history={history} />}
     </section>
   );
 };

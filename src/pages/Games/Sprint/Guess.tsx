@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   setCurrentWord,
   setCurrentWordIndex,
+  setHistory,
   setRightAnswer,
   setStatus,
 } from '../../../slices/sprint';
@@ -36,13 +37,15 @@ export default function Guess() {
     }
   }, [currentWord, words]);
   function buttonHandler(userAnswer: boolean, index: number) {
+    const isCorrect = userAnswer === result;
     const nextWord = words[index + 1]?.word;
     if (!nextWord) dispatch(setStatus('ended'));
-    if (userAnswer === result) {
+    if (isCorrect) {
       dispatch(setRightAnswer());
       dispatch(setCurrentWord(nextWord));
     } else dispatch(setCurrentWord(nextWord));
     dispatch(setCurrentWordIndex(index + 1));
+    dispatch(setHistory({ guessWord: currentWord, result: isCorrect }));
   }
   return (
     <div>

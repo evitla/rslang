@@ -44,6 +44,10 @@ export type AudiocallProps = {
   totalQuestions: number;
 };
 
+export type Thistory = {
+  guessWord: string;
+  result: boolean;
+};
 export type TsprintState = {
   words: TWord[];
   group: number;
@@ -53,4 +57,5 @@ export type TsprintState = {
   status: 'prepare' | 'playing' | 'ended';
   currentWord: string;
   currentWordIndex: number;
+  history: Thistory[];
 };

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TsprintState, TWord } from '../types';
+import { Thistory, TsprintState, TWord } from '../types';
 import { getRandomIntInclusive } from '../utils';
 
 const initialState: TsprintState = {
@@ -11,6 +11,7 @@ const initialState: TsprintState = {
   status: 'prepare',
   currentWord: '',
   currentWordIndex: 0,
+  history: [],
 };
 
 const sprintGameSlice = createSlice({
@@ -41,6 +42,17 @@ const sprintGameSlice = createSlice({
     setCurrentWordIndex: (state, { payload }: PayloadAction<number>) => {
       state.currentWordIndex = payload;
     },
+    setHistory: (state, { payload }: PayloadAction<Thistory>) => {
+      state.history.push(payload);
+    },
+    resetGame: (state) => {
+      state.status = 'playing';
+      state.history = [];
+      state.score = 0;
+      state.currentWordIndex = 0;
+      state.currentWord = '';
+      state.rightInRow = 0;
+    },
   },
 });
 
@@ -53,4 +65,6 @@ export const {
   setCurrentWord,
   setRightAnswer,
   setCurrentWordIndex,
+  setHistory,
+  resetGame,
 } = sprintGameSlice.actions;
