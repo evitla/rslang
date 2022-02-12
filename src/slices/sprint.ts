@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PAGES_AT_GROUP } from '../constants';
 import { Thistory, TsprintState, TWord } from '../types';
 import { getRandomIntInclusive } from '../utils';
 
 const initialState: TsprintState = {
   words: [],
   group: 0,
-  page: getRandomIntInclusive(),
+  page: 0,
   score: 0,
   rightInRow: 0,
   status: 'prepare',
@@ -53,6 +54,15 @@ const sprintGameSlice = createSlice({
       state.currentWord = '';
       state.rightInRow = 0;
     },
+    nextLevel: (state) => {
+      state.status = 'playing';
+      state.history = [];
+      state.score = 0;
+      state.currentWordIndex = 0;
+      state.currentWord = '';
+      state.rightInRow = 0;
+      if (state.page < PAGES_AT_GROUP) state.page += 1;
+    },
   },
 });
 
@@ -67,4 +77,5 @@ export const {
   setCurrentWordIndex,
   setHistory,
   resetGame,
+  nextLevel,
 } = sprintGameSlice.actions;
