@@ -63,3 +63,11 @@ export type ScorePropsType = Pick<
   TsprintState,
   'score' | 'history' | 'page' | 'words'
 >;
+export type TUserWord = {
+  difficulty: 'easy' | 'hard';
+  id?: string;
+  wordId?: string;
+  optional?: {
+    learned: boolean;
+  };
+};
