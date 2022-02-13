@@ -4,7 +4,7 @@ import { Card, CardContent, ImageContainer, WordInfo } from './style';
 import { playAudio } from '../../utils';
 import { TWord } from '../../types';
 import { FILES_URL } from '../../constants';
-import useSaveUserWord from '../../hooks/useHandleUserWord';
+import useHandleUserWord from '../../hooks/useHandleUserWord';
 
 const WordCard = ({
   word,
@@ -22,12 +22,7 @@ const WordCard = ({
   const [isDifficultWord, setIsDifficultWord] = useState(isDifficult);
   const [isLearnedWord, setIsLearnedWord] = useState(isLearned);
 
-  const {
-    handleSetWordHard,
-    handleSetWordEasy,
-    handleSetWordLearned,
-    handleSetWordNotLearned,
-  } = useSaveUserWord(
+  const handler = useHandleUserWord(
     word.id,
     isDifficult,
     isLearned,
@@ -39,8 +34,8 @@ const WordCard = ({
     <Card>
       <ImageContainer bgImage={`${FILES_URL}/${word.image}`} />
       <CardContent
-        isDifficult={!isDifficultGroup && isDifficultWord}
-        isLearned={isLearnedWord}
+        isDifficult={isAuthorized && !isDifficultGroup && isDifficultWord}
+        isLearned={isAuthorized && isLearnedWord}
       >
         <h2>{word.word}</h2>
         <WordInfo>
@@ -60,18 +55,20 @@ const WordCard = ({
         <p dangerouslySetInnerHTML={{ __html: word.textExample }} />
         <p dangerouslySetInnerHTML={{ __html: word.textMeaningTranslate }} />
         <p dangerouslySetInnerHTML={{ __html: word.textExampleTranslate }} />
-        {isAuthorized && (
+        {handler !== undefined && (
           <>
             {isLearnedWord ? (
-              <button onClick={handleSetWordNotLearned}>Не изученное</button>
+              <button onClick={handler.handleSetWordNotLearned}>
+                Не изученное
+              </button>
             ) : (
-              <button onClick={handleSetWordLearned}>Изученное</button>
+              <button onClick={handler.handleSetWordLearned}>Изученное</button>
             )}
             {!isDifficultWord && (
-              <button onClick={handleSetWordHard}>Сложное</button>
+              <button onClick={handler.handleSetWordHard}>Сложное</button>
             )}
             {isDifficultGroup && (
-              <button onClick={handleSetWordEasy}>Не сложное</button>
+              <button onClick={handler.handleSetWordEasy}>Не сложное</button>
             )}
           </>
         )}
