@@ -71,3 +71,12 @@ export type TUserWord = {
     learned: boolean;
   };
 };
+
+export type TBookPageContext = {
+  words: TWord[];
+  isLoading: boolean;
+  isError: boolean;
+  isIdle: boolean;
+  isDifficultGroup: boolean;
+  isAuthorized: boolean;
+};
