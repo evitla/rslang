@@ -1,23 +1,20 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useOutletContext } from 'react-router-dom';
 import WordCard from '../../../components/WordCard';
 import LoadingCard from '../../../components/WordCard/LoadingCard';
 import { LOADING_BLOCKS_COUNT } from '../../../constants';
-import { TStore } from '../../../store';
 import { TBookPageContext } from '../../../types';
 
 const BookPages = () => {
   const {
     words,
+    userWords,
     isLoading,
     isError,
     isIdle,
     isDifficultGroup,
     isAuthorized,
   }: TBookPageContext = useOutletContext();
-
-  const { userWords } = useSelector((state: TStore) => state.wordReducer);
 
   return (
     <>
