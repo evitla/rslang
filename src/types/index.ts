@@ -74,6 +74,7 @@ export type TUserWord = {
 
 export type TBookPageContext = {
   words: TWord[];
+  userWords: TUserWord[];
   isLoading: boolean;
   isError: boolean;
   isIdle: boolean;
