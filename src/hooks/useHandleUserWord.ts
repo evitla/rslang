@@ -39,7 +39,7 @@ const useHandleUserWord = (
     }
   );
 
-  const handleSetWordToDifficult = async () => {
+  const handleSetWordHard = async () => {
     setIsDifficult(true);
     updateWordMutation.mutate({ difficulty: 'hard' });
   };
@@ -67,7 +67,7 @@ const useHandleUserWord = (
 
   return {
     updateWordMutation,
-    handleSetWordToDifficult,
+    handleSetWordHard,
     handleSetWordEasy,
     handleSetWordLearned,
     handleSetWordNotLearned,
