@@ -64,6 +64,15 @@ export const remove = async (url: string, config: AxiosRequestConfig = {}) => {
   await axios.delete(url, config);
 };
 
+export const update = async <T>(
+  url: string,
+  body: T,
+  config: AxiosRequestConfig = {}
+): Promise<T> => {
+  const response = await axios.put(url, body, config);
+  return response.data;
+};
+
 export const setLocalStorage = <T>(key: string, value: T) =>
   localStorage.setItem(key, JSON.stringify(value));
 
