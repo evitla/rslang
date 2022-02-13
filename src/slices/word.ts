@@ -15,8 +15,16 @@ const wordSlice = createSlice({
       state.userWords = payload;
     },
 
-    onCreateUserWord: (state, { payload }: PayloadAction<TUserWord>) => {
-      if (state.userWords !== null) state.userWords.push(payload);
+    onUpdateUserWord: (state, { payload }: PayloadAction<TUserWord>) => {
+      if (state.userWords === null) return;
+      const wordIndex = state.userWords.findIndex(
+        (word) => word.id === payload.id
+      );
+      if (wordIndex === -1) {
+        state.userWords.push(payload);
+      } else {
+        Object.assign(state.userWords[wordIndex], payload);
+      }
     },
 
     onRemoveUserWord: (state, { payload }: PayloadAction<string>) => {
@@ -30,5 +38,5 @@ const wordSlice = createSlice({
 
 export const wordReducer = wordSlice.reducer;
 
-export const { onSaveUserWords, onCreateUserWord, onRemoveUserWord } =
+export const { onSaveUserWords, onUpdateUserWord, onRemoveUserWord } =
   wordSlice.actions;
