@@ -5,7 +5,7 @@ import WordCard from '../../../components/WordCard';
 import LoadingCard from '../../../components/WordCard/LoadingCard';
 import { LOADING_BLOCKS_COUNT } from '../../../constants';
 import { TStore } from '../../../store';
-import { TWord } from '../../../types';
+import { TBookPageContext } from '../../../types';
 
 const BookPages = () => {
   const {
@@ -15,14 +15,7 @@ const BookPages = () => {
     isIdle,
     isDifficultGroup,
     isAuthorized,
-  }: {
-    words: TWord[];
-    isLoading: boolean;
-    isError: boolean;
-    isIdle: boolean;
-    isDifficultGroup: boolean;
-    isAuthorized: boolean;
-  } = useOutletContext();
+  }: TBookPageContext = useOutletContext();
 
   const { userWords } = useSelector((state: TStore) => state.wordReducer);
 
