@@ -6,6 +6,7 @@ import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
 import { fetchQuestion } from './api';
 import { TWord, TAnswer } from '../../../types';
 import { getRandomNumber } from '../../../utils';
+import GameResult from '../../../components/GameResult';
 
 const Audiocall = () => {
   const [loading, setLoading] = useState(false);
@@ -70,7 +71,6 @@ const Audiocall = () => {
           ))}
         </div>
       </GamePreview>
-
       <GameBg isPlay={isPlay}>
         <GamePlay>
           {loading && <p>Loading Questions...</p>}
@@ -86,6 +86,7 @@ const Audiocall = () => {
             />
           )}
         </GamePlay>
+        {!loading && gameOver && <GameResult userAnswers={userAnswers} />}
       </GameBg>
     </>
   );
