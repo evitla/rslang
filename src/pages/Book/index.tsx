@@ -27,11 +27,12 @@ const Book = () => {
   const isDifficultGroup = +groupId === AUTH_TOTAL_GROUPS;
 
   const context = {
-    words: isDifficultGroup ? difficultWordsQuery.words : words,
-    isLoading: isDifficultGroup ? difficultWordsQuery.isLoading : isLoading,
-    isError: isDifficultGroup ? difficultWordsQuery.isError : isError,
-    isIdle: isDifficultGroup ? difficultWordsQuery.isIdle : isIdle,
+    words: isDifficultGroup ? difficultWordsQuery?.words : words,
+    isLoading: isDifficultGroup ? difficultWordsQuery?.isLoading : isLoading,
+    isError: isDifficultGroup ? difficultWordsQuery?.isError : isError,
+    isIdle: isDifficultGroup ? difficultWordsQuery?.isIdle : isIdle,
     isDifficultGroup,
+    isAuthorized: user !== null,
   };
 
   return (
