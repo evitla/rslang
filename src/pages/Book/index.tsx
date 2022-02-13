@@ -1,27 +1,34 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import WordCard from '../../components/WordCard';
-import LoadingCard from '../../components/WordCard/LoadingCard';
-import {
-  AUTH_TOTAL_GROUPS,
-  LOADING_BLOCKS_COUNT,
-  TOTAL_GROUPS,
-} from '../../constants';
+import { Link, Outlet, useParams } from 'react-router-dom';
+import { AUTH_TOTAL_GROUPS, TOTAL_GROUPS } from '../../constants';
+import useFetchUserWords from '../../hooks/useFetchUserWords';
 import useFetchWords from '../../hooks/useFetchWords';
 import { TStore } from '../../store';
 
 const Book = () => {
-  const { user } = useSelector((state: TStore) => state.userReducer);
-
   const { pageId, groupId } = useParams();
   if (pageId === undefined) throw new Error('Page not found');
   if (groupId === undefined) throw new Error('Group not found');
 
-  const { words, isLoading, isError } = useFetchWords(
+  const { user } = useSelector((state: TStore) => state.userReducer);
+
+  const difficultWordsQuery = useFetchUserWords(user?.userId, user?.token);
+
+  const { words, isLoading, isError, isIdle } = useFetchWords(
     +groupId - 1,
     +pageId - 1
   );
+
+  const isDifficultGroup = +groupId === AUTH_TOTAL_GROUPS;
+
+  const context = {
+    words: isDifficultGroup ? difficultWordsQuery.words : words,
+    isLoading: isDifficultGroup ? difficultWordsQuery.isLoading : isLoading,
+    isError: isDifficultGroup ? difficultWordsQuery.isError : isError,
+    isIdle: isDifficultGroup ? difficultWordsQuery.isIdle : isIdle,
+    isDifficultGroup,
+  };
 
   return (
     <>
@@ -50,28 +57,7 @@ const Book = () => {
           )
         )}
       </div>
-      {
-        // TODO: refactor word cards: style, and maybe create separate component
-      }
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '32px 48px',
-        }}
-      >
-        {isLoading ? (
-          <LoadingCard count={LOADING_BLOCKS_COUNT} />
-        ) : isError ? (
-          <div>Error while fetching</div>
-        ) : (
-          <>
-            {words.map((word) => (
-              <WordCard key={word.id} word={word} />
-            ))}
-          </>
-        )}
-      </div>
+      <Outlet context={context} />
     </>
   );
 };
