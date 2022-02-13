@@ -11,6 +11,14 @@ export const getAll = async <T>(
   return response.data;
 };
 
+export const getOne = async <T>(
+  url: string,
+  config: AxiosRequestConfig = {}
+): Promise<T> => {
+  const response = await axios.get(url, config);
+  return response.data;
+};
+
 export const playAudio = (src: string) => {
   return new Promise((res) => {
     const audio = new Audio();
