@@ -17,7 +17,7 @@ const useFetchUserWords = (
   filterCallback: (word: TUserWord) => boolean = () => true,
   options: QueryOptions = {}
 ) => {
-  if (!userId || !token) throw new Error('User is not authorized');
+  if (!userId || !token) return;
 
   const dispatch = useDispatch();
 

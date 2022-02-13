@@ -17,7 +17,7 @@ const useHandleUserWord = (
 
   const { user } = useSelector((state: TStore) => state.userReducer);
 
-  if (user === null) throw new Error('User not authorized');
+  if (user === null) return;
 
   const url = `${USERS_URL}/${user.userId}/words/${wordId}`;
   const config = {
