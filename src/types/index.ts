@@ -43,3 +43,12 @@ export type AudiocallProps = {
   questionNum: number;
   totalQuestions: number;
 };
+
+export type TUserWord = {
+  difficulty: 'easy' | 'hard';
+  id?: string;
+  wordId?: string;
+  optional?: {
+    learned: boolean;
+  };
+};
