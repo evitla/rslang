@@ -80,3 +80,11 @@ export type TBookPageContext = {
   isDifficultGroup: boolean;
   isAuthorized: boolean;
 };
+
+export type TWordCard = {
+  word: TWord;
+  isAuthorized: boolean;
+  isDifficultGroup: boolean;
+  isDifficult: boolean;
+  isLearned: boolean;
+};

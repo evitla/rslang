@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Card, CardContent, ImageContainer, WordInfo } from './style';
 import { playAudio } from '../../utils';
-import { TWord } from '../../types';
+import { TWordCard } from '../../types';
 import { FILES_URL } from '../../constants';
 import useHandleUserWord from '../../hooks/useHandleUserWord';
 
@@ -12,13 +12,7 @@ const WordCard = ({
   isDifficultGroup,
   isDifficult,
   isLearned,
-}: {
-  word: TWord;
-  isAuthorized: boolean;
-  isDifficultGroup: boolean;
-  isDifficult: boolean;
-  isLearned: boolean;
-}) => {
+}: TWordCard) => {
   const [isDifficultWord, setIsDifficultWord] = useState(isDifficult);
   const [isLearnedWord, setIsLearnedWord] = useState(isLearned);
 
