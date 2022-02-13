@@ -1,9 +1,12 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import { TAuth, TUser } from '../types';
 
-export const getAll = async <T>(url: string, queryParams = ''): Promise<T> => {
-  const response = await axios.get(`${url}${queryParams}`);
+export const getAll = async <T>(
+  url: string,
+  config: AxiosRequestConfig = {}
+): Promise<T[]> => {
+  const response = await axios.get(url, config);
   return response.data;
 };
 
@@ -34,8 +37,12 @@ export const playAudiocall = (src: string) => {
   };
 };
 
-export const create = async <T>(url: string, body: T): Promise<T> => {
-  const response = await axios.post(url, body);
+export const create = async <T>(
+  url: string,
+  body: T,
+  config: AxiosRequestConfig = {}
+): Promise<T> => {
+  const response = await axios.post(url, body, config);
   return response.data;
 };
 
