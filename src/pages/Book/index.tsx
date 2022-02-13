@@ -13,7 +13,11 @@ const Book = () => {
 
   const { user } = useSelector((state: TStore) => state.userReducer);
 
-  const difficultWordsQuery = useFetchUserWords(user?.userId, user?.token);
+  const difficultWordsQuery = useFetchUserWords(
+    user?.userId,
+    user?.token,
+    (word) => word.difficulty === 'hard'
+  );
 
   const { words, isLoading, isError, isIdle } = useFetchWords(
     +groupId - 1,
