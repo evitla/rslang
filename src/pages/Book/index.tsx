@@ -5,6 +5,7 @@ import { AUTH_TOTAL_GROUPS, TOTAL_GROUPS } from '../../constants';
 import useFetchUserWords from '../../hooks/useFetchUserWords';
 import useFetchWords from '../../hooks/useFetchWords';
 import { TStore } from '../../store';
+import { StyledBook } from './style';
 
 const Book = () => {
   const { pageId, groupId } = useParams();
@@ -12,6 +13,7 @@ const Book = () => {
   if (groupId === undefined) throw new Error('Group not found');
 
   const { user } = useSelector((state: TStore) => state.userReducer);
+  const { userWords } = useSelector((state: TStore) => state.wordReducer);
 
   const difficultWordsQuery = useFetchUserWords(
     user?.userId,
@@ -26,17 +28,31 @@ const Book = () => {
 
   const isDifficultGroup = +groupId === AUTH_TOTAL_GROUPS;
 
+  const allLearned = isDifficultGroup
+    ? userWords !== null &&
+      userWords.length !== 0 &&
+      userWords.every((w) => w.optional?.learned)
+    : userWords !== null &&
+      words !== undefined &&
+      userWords.length >= words.length &&
+      words.every(
+        (word) =>
+          userWords.find((w) => w.wordId === word.id && w.optional?.learned) !==
+          undefined
+      );
+
   const context = {
     words: isDifficultGroup ? difficultWordsQuery?.words : words,
     isLoading: isDifficultGroup ? difficultWordsQuery?.isLoading : isLoading,
     isError: isDifficultGroup ? difficultWordsQuery?.isError : isError,
     isIdle: isDifficultGroup ? difficultWordsQuery?.isIdle : isIdle,
+    userWords,
     isDifficultGroup,
     isAuthorized: user !== null,
   };
 
   return (
-    <>
+    <StyledBook allLearned={allLearned}>
       <h2>Book page</h2>
       {
         // TODO: refactor Page pagination: create component, style
@@ -63,7 +79,7 @@ const Book = () => {
         )}
       </div>
       <Outlet context={context} />
-    </>
+    </StyledBook>
   );
 };
 
