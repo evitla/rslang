@@ -1,10 +1,10 @@
 import { useMutation } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { USERS_URL } from '../constants';
-import { onUpdateUserWord } from '../slices/word';
+import { onRemoveUserWord, onUpdateUserWord } from '../slices/word';
 import { TStore } from '../store';
 import { TUserWord } from '../types';
-import { create, update } from '../utils';
+import { create, remove, update } from '../utils';
 
 const useHandleUserWord = (
   wordId: string,
@@ -39,6 +39,12 @@ const useHandleUserWord = (
     }
   );
 
+  const removeWordMutation = useMutation(async () => remove(url, config), {
+    onSuccess: () => {
+      dispatch(onRemoveUserWord(wordId));
+    },
+  });
+
   const handleSetWordHard = async () => {
     setIsDifficult(true);
     updateWordMutation.mutate({ difficulty: 'hard' });
@@ -46,11 +52,18 @@ const useHandleUserWord = (
 
   const handleSetWordEasy = async () => {
     setIsDifficult(false);
+
+    if (!isLearned) {
+      removeWordMutation.mutate();
+      return;
+    }
+
     updateWordMutation.mutate({ difficulty: 'easy' });
   };
 
   const handleSetWordLearned = async () => {
     setIsLearned(true);
+
     updateWordMutation.mutate({
       difficulty: isDifficult ? 'hard' : 'easy',
       optional: { learned: true },
@@ -59,6 +72,12 @@ const useHandleUserWord = (
 
   const handleSetWordNotLearned = async () => {
     setIsLearned(false);
+
+    if (!isDifficult) {
+      removeWordMutation.mutate();
+      return;
+    }
+
     updateWordMutation.mutate({
       difficulty: isDifficult ? 'hard' : 'easy',
       optional: { learned: false },
@@ -67,6 +86,7 @@ const useHandleUserWord = (
 
   return {
     updateWordMutation,
+    removeWordMutation,
     handleSetWordHard,
     handleSetWordEasy,
     handleSetWordLearned,
