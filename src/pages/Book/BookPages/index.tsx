@@ -56,6 +56,12 @@ const BookPages = () => {
                     (w) => w.wordId === word.id && w.difficulty === 'hard'
                   ) !== undefined
                 }
+                isLearned={
+                  userWords !== null &&
+                  userWords.find(
+                    (w) => w.wordId === word.id && w.optional?.learned
+                  ) !== undefined
+                }
               />
             ))}
           </>
