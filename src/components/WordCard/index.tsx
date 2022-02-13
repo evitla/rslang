@@ -23,7 +23,7 @@ const WordCard = ({
   const [isLearnedWord, setIsLearnedWord] = useState(isLearned);
 
   const {
-    handleSetWordToDifficult,
+    handleSetWordHard,
     handleSetWordEasy,
     handleSetWordLearned,
     handleSetWordNotLearned,
@@ -68,7 +68,7 @@ const WordCard = ({
               <button onClick={handleSetWordLearned}>Изученное</button>
             )}
             {!isDifficultWord && (
-              <button onClick={handleSetWordToDifficult}>Сложное</button>
+              <button onClick={handleSetWordHard}>Сложное</button>
             )}
             {isDifficultGroup && (
               <button onClick={handleSetWordEasy}>Не сложное</button>
