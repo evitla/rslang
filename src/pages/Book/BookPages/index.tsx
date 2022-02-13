@@ -14,15 +14,15 @@ const BookPages = () => {
     isError,
     isIdle,
     isDifficultGroup,
+    isAuthorized,
   }: {
     words: TWord[];
     isLoading: boolean;
     isError: boolean;
     isIdle: boolean;
     isDifficultGroup: boolean;
+    isAuthorized: boolean;
   } = useOutletContext();
-
-  const { user } = useSelector((state: TStore) => state.userReducer);
 
   const { userWords } = useSelector((state: TStore) => state.wordReducer);
 
@@ -48,7 +48,7 @@ const BookPages = () => {
               <WordCard
                 key={word.id}
                 word={word}
-                isAuthorized={user !== null}
+                isAuthorized={isAuthorized}
                 isDifficultGroup={isDifficultGroup}
                 isDifficult={
                   userWords !== null &&
