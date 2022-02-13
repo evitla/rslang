@@ -14,6 +14,7 @@ import { getAll, getOne } from '../utils';
 const useFetchUserWords = (
   userId = '',
   token = '',
+  filterCallback: (word: TUserWord) => boolean = () => true,
   options: QueryOptions = {}
 ) => {
   if (!userId || !token) throw new Error('User is not authorized');
@@ -40,9 +41,11 @@ const useFetchUserWords = (
     [QUERY_KEY_WORDS, uw],
     async () => {
       const words = await Promise.all(
-        uw.map(async (userWord) =>
-          getOne<TWord>(`${WORDS_URL}/${userWord.wordId}`)
-        )
+        uw
+          .filter(filterCallback)
+          .map(async (userWord) =>
+            getOne<TWord>(`${WORDS_URL}/${userWord.wordId}`)
+          )
       );
       return words;
     },
