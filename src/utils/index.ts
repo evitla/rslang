@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { PAGES_AT_GROUP } from '../constants';
 
-import { TAuth, TUser } from '../types';
+import { StatsState, TAuth, TUser } from '../types';
 
 export const getAll = async <T>(
   url: string,
@@ -115,7 +115,7 @@ export function fiftyfifty() {
   const result = Math.random();
   return result > 0.5;
 }
-export const getUserStats = async <T>(url: string, id = ''): Promise<T> => {
-  const response = await axios.get(`${url}${id}/statistics`);
+export const getUserStats = async (url: string, id = '') => {
+  const response = await axios.get<StatsState>(`${url}${id}/statistics`);
   return response.data;
 };

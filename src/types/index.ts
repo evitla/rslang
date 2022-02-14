@@ -94,3 +94,17 @@ export type TWordCard = {
   isDifficult: boolean;
   isLearned: boolean;
 };
+export type GameStatType = {
+  newWords: number;
+  persentRight: number;
+  rightInRow: number;
+};
+
+export type StatsState = {
+  learnedWords: number;
+  totalRightPercent: number;
+  games: {
+    sprint: GameStatType;
+    audiocall: GameStatType;
+  };
+};

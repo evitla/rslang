@@ -1,4 +1,5 @@
 import React from 'react';
+import { Outlet } from 'react-router';
 import useLogout from '../../hooks/useLogout';
 
 const User = () => {
@@ -15,6 +16,7 @@ const User = () => {
         <li>Изученные слова</li>
         <li>Статистика</li>
       </ol>
+      <Outlet />
     </div>
   );
 };
