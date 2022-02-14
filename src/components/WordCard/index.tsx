@@ -18,8 +18,7 @@ const WordCard = ({
 
   const handler = useHandleUserWord(
     word.id,
-    isDifficultWord,
-    isLearnedWord,
+    isDifficultWord || isLearnedWord,
     setIsDifficultWord,
     setIsLearnedWord
   );

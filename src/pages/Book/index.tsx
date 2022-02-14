@@ -28,18 +28,19 @@ const Book = () => {
 
   const isDifficultGroup = +groupId === AUTH_TOTAL_GROUPS;
 
-  const allLearned = isDifficultGroup
-    ? userWords !== null &&
-      userWords.length !== 0 &&
-      userWords.every((w) => w.optional?.learned)
-    : userWords !== null &&
-      words !== undefined &&
-      userWords.length >= words.length &&
-      words.every(
-        (word) =>
-          userWords.find((w) => w.wordId === word.id && w.optional?.learned) !==
-          undefined
-      );
+  const allLearned =
+    !isDifficultGroup &&
+    userWords !== null &&
+    words !== undefined &&
+    userWords.length >= words.length &&
+    words.every(
+      (word) =>
+        userWords.find(
+          (w) =>
+            w.wordId === word.id &&
+            (w.optional?.learned || w.difficulty === 'hard')
+        ) !== undefined
+    );
 
   const context = {
     words: isDifficultGroup ? difficultWordsQuery?.words : words,
