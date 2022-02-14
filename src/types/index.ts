@@ -108,3 +108,12 @@ export type StatsState = {
     audiocall: GameStatType;
   };
 };
+
+export type AudioCallState = {
+  questions: TWord[][];
+  number: number;
+  userAnswers: TAnswer[];
+  score: number;
+  gameOver: boolean;
+  qurrentQuestion: TWord | null;
+};

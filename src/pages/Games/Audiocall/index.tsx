@@ -7,35 +7,44 @@ import { fetchQuestion } from './api';
 import { TWord, TAnswer } from '../../../types';
 import { getRandomNumber } from '../../../utils';
 import GameResult from '../../../components/GameResult';
+import { TStore } from '../../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setCurQuestion,
+  setGameOver,
+  setNumber,
+  setQuestions,
+  setScore,
+  setUserAnswers,
+} from '../../../slices/audiocall';
 
 const Audiocall = () => {
+  const { questions, number, userAnswers, score, gameOver, qurrentQuestion } =
+    useSelector((state: TStore) => state.audioGameReducer);
+
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState<TWord[][]>([]);
-  const [number, setNumber] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<TAnswer[]>([]);
-  const [score, setScore] = useState(0);
-  const [gameOver, setGameOver] = useState(true);
   const [isPlay, setPlay] = useState(false);
-  const [qurrentQuestion, setCurQuestion] = useState<TWord>();
+
   const startGame = async (groupID: number) => {
     setLoading(true);
-    setGameOver(false);
+    dispatch(setGameOver(false));
     setPlay(true);
     const newQuestions = await fetchQuestion(groupID);
-    setQuestions(newQuestions);
-    setCurQuestion(newQuestions[number][getRandomNumber(0, 3)]);
-    setScore(0);
-    setUserAnswers([]);
-    setNumber(0);
+    dispatch(setQuestions(newQuestions));
+    dispatch(setCurQuestion(newQuestions[number][getRandomNumber(0, 3)]));
+    dispatch(setScore(0));
+    dispatch(setUserAnswers([]));
+    dispatch(setNumber(0));
     setLoading(false);
   };
 
   const nextQuestion = () => {
     const nextQ = number + 1;
     if (nextQ === TOTAL_QUESTIONS) {
-      setGameOver(true);
+      dispatch(setGameOver(true));
     } else {
-      setNumber(nextQ);
+      dispatch(setNumber(nextQ));
     }
   };
 
@@ -43,7 +52,7 @@ const Audiocall = () => {
     if (!gameOver) {
       const answer = e.currentTarget.value;
       const correct = (qurrentQuestion as TWord).wordTranslate === answer;
-      if (correct) setScore((prev) => prev + 1);
+      if (correct) dispatch(setScore(score + 1));
       const answerObj = {
         questionAudio: (qurrentQuestion as TWord).audio,
         question: (qurrentQuestion as TWord).word,
@@ -52,9 +61,10 @@ const Audiocall = () => {
         isCorrect: correct,
         correctAnswer: (qurrentQuestion as TWord).wordTranslate,
       };
-      setUserAnswers((prev) => [...prev, answerObj]);
+      const newUserAnswers = [...userAnswers, answerObj];
+      dispatch(setUserAnswers(newUserAnswers));
       if (number + 1 !== TOTAL_QUESTIONS) {
-        setCurQuestion(questions[number + 1][getRandomNumber(0, 3)]);
+        dispatch(setCurQuestion(questions[number + 1][getRandomNumber(0, 3)]));
       }
       nextQuestion();
     }
