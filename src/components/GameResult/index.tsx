@@ -2,6 +2,7 @@ import React from 'react';
 import { TAnswer } from '../../types';
 import { FILES_URL } from '../../constants/index';
 import { playAudio } from '../../utils';
+import { StyledTable, ResultWrapper, TableWrapper } from './style';
 
 const GameResult = ({ userAnswers }: { userAnswers: TAnswer[] }) => {
   const answers = userAnswers.map((answer) => {
@@ -25,18 +26,23 @@ const GameResult = ({ userAnswers }: { userAnswers: TAnswer[] }) => {
     );
   });
   return (
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>{answers}</tbody>
-    </table>
+    <ResultWrapper>
+      <h3>Результаты</h3>
+      <TableWrapper>
+        <StyledTable>
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>{answers}</tbody>
+        </StyledTable>
+      </TableWrapper>
+    </ResultWrapper>
   );
 };
 
