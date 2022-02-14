@@ -8,7 +8,10 @@ import {
   setStatus,
 } from '../../../slices/sprint';
 import { TStore } from '../../../store';
-import { getRandomIntExcludingExistingNumbers } from '../../../utils';
+import {
+  fiftyfifty,
+  getRandomIntExcludingExistingNumbers,
+} from '../../../utils';
 
 export default function Guess() {
   const { currentWord, words, currentWordIndex, score } = useSelector(
@@ -16,10 +19,7 @@ export default function Guess() {
   );
   const dispatch = useDispatch();
   const [variant, setvariant] = useState('');
-  function fiftyfifty() {
-    const result = Math.random();
-    return result > 0.5 ? true : false;
-  }
+
   const result = fiftyfifty();
 
   useEffect(() => {

@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PAGES_AT_GROUP } from '../constants';
+import { BONUS_POINTS, PAGES_AT_GROUP, POINTS } from '../constants';
 import { Thistory, TsprintState, TWord } from '../types';
-import { getRandomIntInclusive } from '../utils';
 
 const initialState: TsprintState = {
   words: [],
@@ -33,10 +32,10 @@ const sprintGameSlice = createSlice({
     },
     setRightAnswer: (state) => {
       if (state.rightInRow <= 2) {
-        state.score += 20;
+        state.score += POINTS;
         state.rightInRow += 1;
       } else {
-        state.score += 40;
+        state.score += BONUS_POINTS;
         state.rightInRow = 0;
       }
     },

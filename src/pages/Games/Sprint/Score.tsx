@@ -1,19 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { PAGES_AT_GROUP } from '../../../constants';
-import { Thistory, TWord } from '../../../types';
+import { ScorePropsType } from '../../../types';
 import History from './History';
 import NextLevel from './NextLevel';
 import ResetGame from './ResetGame';
 
-type Tprops = {
-  score: number;
-  history: Thistory[];
-  page: number;
-  words: TWord[];
-};
-
-export default function Score(props: Tprops) {
+export default function Score(props: ScorePropsType) {
   const { score, history, page, words } = props;
   return (
     <div>

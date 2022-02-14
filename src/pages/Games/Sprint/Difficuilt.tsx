@@ -1,21 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
 import { TOTAL_GROUPS } from '../../../constants';
 import { setOprioins, setStatus } from '../../../slices/sprint';
+import { LevelButton, LevelWrapper } from './styles';
 
 type LevelPropsType = {
   level: number;
   handler: (category: number) => void;
 };
-const LevelWrapper = styled.div`
-  display: flex;
-  column-gap: 1rem;
-`;
-
-const LevelButton = styled.button`
-  width: 3rem;
-`;
 
 const Level = (props: LevelPropsType) => {
   const { level, handler } = props;

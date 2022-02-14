@@ -82,3 +82,8 @@ export function getRandomIntExcludingExistingNumbers(
   else if (random === exclude && exclude === end) random = random - 1;
   return random;
 }
+
+export function fiftyfifty() {
+  const result = Math.random();
+  return result > 0.5;
+}

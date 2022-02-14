@@ -59,3 +59,7 @@ export type TsprintState = {
   currentWordIndex: number;
   history: Thistory[];
 };
+export type ScorePropsType = Pick<
+  TsprintState,
+  'score' | 'history' | 'page' | 'words'
+>;

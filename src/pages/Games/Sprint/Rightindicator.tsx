@@ -1,26 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import { IndicatorWrapper, Star } from './styles';
 
-const IndicatorWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-type StarPropsType = {
-  isRight: boolean;
-};
-
-const Star = styled.div<StarPropsType>`
-  background: red;
-  width: 5rem;
-  height: 5rem;
-  background: red;
-  ${(props) =>
-    props.isRight &&
-    css`
-      background: green;
-    `}
-`;
 type PropsType = {
   rightAnswerToBonus: number;
   rightInTheRow: number;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ROUND_TIME } from '../../../constants';
 import useFetchWords from '../../../hooks/useFetchWords';
 import { setCurrentWord, setStatus, setWords } from '../../../slices/sprint';
 import { TStore } from '../../../store';
@@ -7,7 +8,7 @@ import Guess from './Guess';
 import Rightindicator from './Rightindicator';
 
 export default function Question() {
-  const [timer, setTimer] = useState(60);
+  const [timer, setTimer] = useState(ROUND_TIME);
   const [idInt, setidInt] = useState<NodeJS.Timer | null>(null);
 
   const dispatch = useDispatch();
