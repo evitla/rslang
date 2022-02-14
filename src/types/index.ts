@@ -29,9 +29,11 @@ export type TAuth = {
   name: string;
 };
 export type TAnswer = {
+  questionAudio: string;
   question: string;
+  transcript: string;
   answer: string;
-  correct: boolean;
+  isCorrect: boolean;
   correctAnswer: string;
 };
 

@@ -6,6 +6,7 @@ import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
 import { fetchQuestion } from './api';
 import { TWord, TAnswer } from '../../../types';
 import { getRandomNumber } from '../../../utils';
+import GameResult from '../../../components/GameResult';
 
 const Audiocall = () => {
   const [loading, setLoading] = useState(false);
@@ -44,9 +45,11 @@ const Audiocall = () => {
       const correct = (qurrentQuestion as TWord).wordTranslate === answer;
       if (correct) setScore((prev) => prev + 1);
       const answerObj = {
+        questionAudio: (qurrentQuestion as TWord).audio,
         question: (qurrentQuestion as TWord).word,
+        transcript: (qurrentQuestion as TWord).transcription,
         answer,
-        correct,
+        isCorrect: correct,
         correctAnswer: (qurrentQuestion as TWord).wordTranslate,
       };
       setUserAnswers((prev) => [...prev, answerObj]);
@@ -70,7 +73,6 @@ const Audiocall = () => {
           ))}
         </div>
       </GamePreview>
-
       <GameBg isPlay={isPlay}>
         <GamePlay>
           {loading && <p>Loading Questions...</p>}
@@ -86,6 +88,7 @@ const Audiocall = () => {
             />
           )}
         </GamePlay>
+        {!loading && gameOver && <GameResult userAnswers={userAnswers} />}
       </GameBg>
     </>
   );
