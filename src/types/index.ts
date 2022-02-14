@@ -43,3 +43,23 @@ export type AudiocallProps = {
   questionNum: number;
   totalQuestions: number;
 };
+
+export type Thistory = {
+  guessWord: string;
+  result: boolean;
+};
+export type TsprintState = {
+  words: TWord[];
+  group: number;
+  page: number;
+  score: number;
+  rightInRow: number;
+  status: 'prepare' | 'playing' | 'ended';
+  currentWord: string;
+  currentWordIndex: number;
+  history: Thistory[];
+};
+export type ScorePropsType = Pick<
+  TsprintState,
+  'score' | 'history' | 'page' | 'words'
+>;
