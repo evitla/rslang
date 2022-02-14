@@ -115,3 +115,7 @@ export function fiftyfifty() {
   const result = Math.random();
   return result > 0.5;
 }
+export const getUserStats = async <T>(url: string, id = ''): Promise<T> => {
+  const response = await axios.get(`${url}${id}/statistics`);
+  return response.data;
+};
