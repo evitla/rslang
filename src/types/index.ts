@@ -48,6 +48,7 @@ export type Thistory = {
   guessWord: string;
   result: boolean;
 };
+
 export type TsprintState = {
   words: TWord[];
   group: number;
@@ -59,7 +60,35 @@ export type TsprintState = {
   currentWordIndex: number;
   history: Thistory[];
 };
+
 export type ScorePropsType = Pick<
   TsprintState,
   'score' | 'history' | 'page' | 'words'
 >;
+
+export type TUserWord = {
+  difficulty: 'easy' | 'hard';
+  id?: string;
+  wordId?: string;
+  optional?: {
+    learned: boolean;
+  };
+};
+
+export type TBookPageContext = {
+  words: TWord[];
+  userWords: TUserWord[];
+  isLoading: boolean;
+  isError: boolean;
+  isIdle: boolean;
+  isDifficultGroup: boolean;
+  isAuthorized: boolean;
+};
+
+export type TWordCard = {
+  word: TWord;
+  isAuthorized: boolean;
+  isDifficultGroup: boolean;
+  isDifficult: boolean;
+  isLearned: boolean;
+};

@@ -14,8 +14,13 @@ export const ImageContainer = styled.div<{ bgImage: string }>`
   background-position: center;
 `;
 
-export const CardContent = styled.div`
-  background-color: rgba(255, 255, 255, 0.65);
+export const CardContent = styled.div<{
+  isDifficult: boolean;
+  isLearned: boolean;
+}>`
+  background-color: ${({ isDifficult }) =>
+    isDifficult ? 'rgba(255, 0, 0, 0.25)' : 'rgba(255, 255, 255, 0.65)'};
+  color: ${({ isLearned }) => (isLearned ? 'green' : 'black')};
   position: absolute;
   z-index: 1;
   bottom: 0;

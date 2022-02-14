@@ -1,10 +1,21 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { PAGES_AT_GROUP } from '../constants';
 
 import { TAuth, TUser } from '../types';
 
-export const getAll = async <T>(url: string, queryParams = ''): Promise<T> => {
-  const response = await axios.get(`${url}${queryParams}`);
+export const getAll = async <T>(
+  url: string,
+  config: AxiosRequestConfig = {}
+): Promise<T[]> => {
+  const response = await axios.get(url, config);
+  return response.data;
+};
+
+export const getOne = async <T>(
+  url: string,
+  config: AxiosRequestConfig = {}
+): Promise<T> => {
+  const response = await axios.get(url, config);
   return response.data;
 };
 
@@ -35,13 +46,30 @@ export const playAudiocall = (src: string) => {
   };
 };
 
-export const create = async <T>(url: string, body: T): Promise<T> => {
-  const response = await axios.post(url, body);
+export const create = async <T>(
+  url: string,
+  body: T,
+  config: AxiosRequestConfig = {}
+): Promise<T> => {
+  const response = await axios.post(url, body, config);
   return response.data;
 };
 
 export const loginUser = async (url: string, user: TUser): Promise<TAuth> => {
   const response = await axios.post(url, user);
+  return response.data;
+};
+
+export const remove = async (url: string, config: AxiosRequestConfig = {}) => {
+  await axios.delete(url, config);
+};
+
+export const update = async <T>(
+  url: string,
+  body: T,
+  config: AxiosRequestConfig = {}
+): Promise<T> => {
+  const response = await axios.put(url, body, config);
   return response.data;
 };
 
