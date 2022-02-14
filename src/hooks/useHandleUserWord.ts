@@ -25,10 +25,10 @@ const useHandleUserWord = (
 
   const updateWordMutation = useMutation(
     async (difficultWord: TUserWord) => {
-        const data = isSaved
-          ? await update(url, difficultWord, config)
-          : await create(url, difficultWord, config);
-        return data;
+      const data = isSaved
+        ? await update(url, difficultWord, config)
+        : await create(url, difficultWord, config);
+      return data;
     },
     {
       onSuccess: (newData) => {
@@ -51,7 +51,7 @@ const useHandleUserWord = (
       difficulty: 'hard',
       optional: {
         learned: false,
-      }
+      },
     });
   };
 
