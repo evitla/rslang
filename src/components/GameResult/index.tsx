@@ -1,15 +1,17 @@
 import React from 'react';
 import { TAnswer } from '../../types';
+import { FILES_URL } from '../../constants/index';
+import { playAudio } from '../../utils';
 
 const GameResult = ({ userAnswers }: { userAnswers: TAnswer[] }) => {
   const answers = userAnswers.map((answer) => {
     return (
       <tr key={answer.answer}>
-        <td>Sound</td>
+        <td>{answer.questionAudio}</td>
         <td>{answer.question}</td>
-        <td>transcript</td>
+        <td>{answer.transcript}</td>
         <td>{answer.correctAnswer}</td>
-        <td>{answer.isCorrect ? 'Right' : 'Not Right'}</td>
+        <td>{answer.isCorrect ? '✔️' : '❌'}</td>
       </tr>
     );
   });
