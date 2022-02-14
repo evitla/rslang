@@ -8,10 +8,9 @@ import { create, remove, update } from '../utils';
 
 const useHandleUserWord = (
   wordId: string,
-  isDifficult: boolean,
-  isLearned: boolean,
-  setIsDifficult: (isDifficult: boolean) => void,
-  setIsLearned: (isLearned: boolean) => void
+  isSaved: boolean,
+  setIsDifficult: (isDifficult: boolean) => void = () => {},
+  setIsLearned: (isLearned: boolean) => void = () => {}
 ) => {
   const dispatch = useDispatch();
 
@@ -26,11 +25,10 @@ const useHandleUserWord = (
 
   const updateWordMutation = useMutation(
     async (difficultWord: TUserWord) => {
-      const data =
-        isDifficult || isLearned
+        const data = isSaved
           ? await update(url, difficultWord, config)
           : await create(url, difficultWord, config);
-      return data;
+        return data;
     },
     {
       onSuccess: (newData) => {
@@ -47,41 +45,34 @@ const useHandleUserWord = (
 
   const handleSetWordHard = async () => {
     setIsDifficult(true);
-    updateWordMutation.mutate({ difficulty: 'hard' });
+    setIsLearned(false);
+
+    updateWordMutation.mutate({
+      difficulty: 'hard',
+      optional: {
+        learned: false,
+      }
+    });
   };
 
   const handleSetWordEasy = async () => {
     setIsDifficult(false);
-
-    if (!isLearned) {
-      removeWordMutation.mutate();
-      return;
-    }
-
-    updateWordMutation.mutate({ difficulty: 'easy' });
+    removeWordMutation.mutate();
   };
 
   const handleSetWordLearned = async () => {
     setIsLearned(true);
+    setIsDifficult(false);
 
     updateWordMutation.mutate({
-      difficulty: isDifficult ? 'hard' : 'easy',
+      difficulty: 'easy',
       optional: { learned: true },
     });
   };
 
   const handleSetWordNotLearned = async () => {
     setIsLearned(false);
-
-    if (!isDifficult) {
-      removeWordMutation.mutate();
-      return;
-    }
-
-    updateWordMutation.mutate({
-      difficulty: isDifficult ? 'hard' : 'easy',
-      optional: { learned: false },
-    });
+    removeWordMutation.mutate();
   };
 
   return {
