@@ -9,7 +9,7 @@ const GameResult = ({ userAnswers }: { userAnswers: TAnswer[] }) => {
         <td>{answer.question}</td>
         <td>transcript</td>
         <td>{answer.correctAnswer}</td>
-        <td>{answer.correct ? 'Right' : 'Not Right'}</td>
+        <td>{answer.isCorrect ? 'Right' : 'Not Right'}</td>
       </tr>
     );
   });

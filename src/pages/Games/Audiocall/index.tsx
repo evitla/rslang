@@ -45,9 +45,11 @@ const Audiocall = () => {
       const correct = (qurrentQuestion as TWord).wordTranslate === answer;
       if (correct) setScore((prev) => prev + 1);
       const answerObj = {
+        questionAudio: (qurrentQuestion as TWord).audio,
         question: (qurrentQuestion as TWord).word,
+        transcript: (qurrentQuestion as TWord).transcription,
         answer,
-        correct,
+        isCorrect: correct,
         correctAnswer: (qurrentQuestion as TWord).wordTranslate,
       };
       setUserAnswers((prev) => [...prev, answerObj]);
