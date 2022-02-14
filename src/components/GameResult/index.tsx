@@ -7,7 +7,16 @@ const GameResult = ({ userAnswers }: { userAnswers: TAnswer[] }) => {
   const answers = userAnswers.map((answer) => {
     return (
       <tr key={answer.answer}>
-        <td>{answer.questionAudio}</td>
+        <td>
+          <button
+            type="button"
+            onClick={async () => {
+              await playAudio(`${FILES_URL}/${answer.questionAudio}`);
+            }}
+          >
+            Play
+          </button>
+        </td>
         <td>{answer.question}</td>
         <td>{answer.transcript}</td>
         <td>{answer.correctAnswer}</td>
