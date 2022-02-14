@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FILES_URL } from '../../constants/index';
 import { AudiocallProps } from '../../types/index';
-import { playAudiocall } from '../../utils';
+import { playAudio } from '../../utils';
 
 const AudiocallQuestion: React.FC<AudiocallProps> = ({
   questionAudio,
@@ -11,12 +11,17 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
   questionNum,
   totalQuestions,
 }) => {
+  useEffect(() => {
+    (async function () {
+      await playAudio(`${FILES_URL}/${questionAudio.audio}`);
+    })();
+  }, [questionAudio]);
+
   return (
     <div>
       <p>
         Question: {questionNum} / {totalQuestions}
       </p>
-      {playAudiocall(`${FILES_URL}/${questionAudio.audio}`)}
       <p dangerouslySetInnerHTML={{ __html: questionAudio.word }} />
       <div>
         {answers.map((answer) => (

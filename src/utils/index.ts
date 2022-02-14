@@ -33,19 +33,6 @@ export const playAudio = (src: string) => {
   });
 };
 
-export const playAudiocall = (src: string) => {
-  const audio = new Audio();
-  audio.src = src;
-  audio.currentTime = 0;
-  audio.volume = 0.5;
-  audio.loop = false;
-  audio.play();
-
-  audio.onended = () => {
-    audio.currentTime = 0;
-  };
-};
-
 export const create = async <T>(
   url: string,
   body: T,
