@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { USERS_URL } from '../../../constants';
 import {
   setCurrentWord,
   setCurrentWordIndex,
@@ -9,12 +8,9 @@ import {
   setStatus,
 } from '../../../slices/sprint';
 import { TStore } from '../../../store';
-import { TUserWord } from '../../../types';
 import {
   fiftyfifty,
-  getOne,
   getRandomIntExcludingExistingNumbers,
-  update,
   updateWordProgress,
 } from '../../../utils';
 
@@ -49,12 +45,9 @@ export default function Guess() {
     const currWordId = words[index]?.id;
     const nextWord = words[index + 1]?.word;
     const nextWordId = words[index + 1]?.id;
-
     await updateWordProgress(userId, currWordId, token, true);
-
     if (!nextWord) dispatch(setStatus('ended'));
     if (isCorrect) {
-      // update(updateURL,);
       dispatch(setRightAnswer());
       dispatch(setCurrentWord({ word: nextWord, id: nextWordId }));
     } else dispatch(setCurrentWord({ word: nextWord, id: nextWordId }));
