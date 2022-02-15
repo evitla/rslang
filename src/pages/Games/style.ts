@@ -47,6 +47,10 @@ export const GameWrapper = styled.div`
       .card__snippet {
         margin: 20px 0;
       }
+
+      img {
+        transform: scale(1.1);
+      }
     }
 
     &__thumb {

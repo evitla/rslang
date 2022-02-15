@@ -9,7 +9,7 @@ const Games = () => (
     <div className="card-wrapper">
       <div className="card">
         <figure className="card__thumb">
-          <img src={audiocallSVG} alt="" />
+          <img className="card__image" src={audiocallSVG} alt="" />
           <figcaption className="card__caption">
             <h2 className="card__title">Аудиовызов</h2>
             <p className="card__snippet">
@@ -24,7 +24,7 @@ const Games = () => (
       </div>
       <div className="card">
         <figure className="card__thumb">
-          <img src={audiocallSVG} alt="" />
+          <img className="card__image" src={audiocallSVG} alt="" />
           <figcaption className="card__caption">
             <h2 className="card__title">Аудиовызов</h2>
             <p className="card__snippet">
