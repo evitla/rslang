@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
+
 import { GamePreview, GameBg, GamePlay } from './style';
 import AudiocallButton from '../../../components/AudiocallButton';
 import AudiocallQuestion from '../../../components/AudiocallQuestion';
@@ -28,7 +30,7 @@ const Audiocall = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [isPlay, setPlay] = useState(false);
-
+  const navigate = useNavigate();
   const startGame = async (groupID: number) => {
     setLoading(true);
     setPlay(true);
@@ -80,16 +82,15 @@ const Audiocall = () => {
   return (
     <>
       <GamePreview isPlay={isPlay}>
-        <h2>Аудиовызов</h2>
-        <p>
-          Тренировка Аудиовызов развивает словарный запас. Вы должны выбрать
-          перевод услышанного слова.
-        </p>
+        <h2>Выберите сложность</h2>
         <div>
           {Array.from({ length: TOTAL_GROUPS }, (_, i) => (
             <AudiocallButton key={i} groupNum={i} startGame={startGame} />
           ))}
         </div>
+        <button type="button" onClick={() => navigate('/games')}>
+          Вернуться к играм
+        </button>
       </GamePreview>
       <GameBg isPlay={isPlay}>
         <GamePlay>

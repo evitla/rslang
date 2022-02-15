@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const GameWrapper = styled.div<{ showCards: boolean }>`
+export const GameWrapper = styled.div`
   padding: 20px;
   img {
     display: block;
@@ -12,7 +12,7 @@ export const GameWrapper = styled.div<{ showCards: boolean }>`
     font-weight: 600;
   }
   .card-wrapper {
-    display: ${(props) => (props.showCards ? 'flex' : 'none')};
+    display: flex;
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;

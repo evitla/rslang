@@ -1,3 +1,4 @@
+import { group } from 'console';
 import React from 'react';
 import { StyledButton } from './style';
 
@@ -10,7 +11,7 @@ const AudiocallButton = ({
 }) => {
   return (
     <>
-      <StyledButton onClick={() => startGame(groupNum)}>
+      <StyledButton groupNum={groupNum} onClick={() => startGame(groupNum)}>
         {groupNum + 1}
       </StyledButton>
     </>

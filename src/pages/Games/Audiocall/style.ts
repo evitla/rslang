@@ -12,6 +12,10 @@ export const GamePreview = styled.div<{ isPlay: boolean }>`
   height: 100%;
   max-height: 400px;
   margin: 0 auto;
+  h2 {
+    text-align: center;
+    margin-bottom: 5px;
+  }
 `;
 
 export const GameBg = styled.div<{ isPlay: boolean }>`

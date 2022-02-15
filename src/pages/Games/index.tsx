@@ -1,14 +1,12 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { GameWrapper } from './style';
-import { useState } from 'react';
 import audiocallSVG from '../../assets/images/audiocall.svg';
 import sprintSVG from '../../assets/images/sprint.svg';
 
 const Games = () => {
-  const [showCards, setShowCards] = useState(true);
   return (
-    <GameWrapper showCards={showCards}>
+    <GameWrapper>
       <h2>Games</h2>
       <div className="card-wrapper">
         <div className="card">
@@ -20,11 +18,7 @@ const Games = () => {
                 Тренировка Аудиовызов развивает словарный запас. Вы должны
                 выбрать перевод услышанного слова.
               </p>
-              <Link
-                to="audiocall"
-                className="card__button"
-                onClick={() => setShowCards(false)}
-              >
+              <Link to="audiocall" className="card__button">
                 Играть
               </Link>
             </figcaption>
@@ -39,11 +33,7 @@ const Games = () => {
                 В мини-игре "Спринт" от вас требуется выбрать - верен ли перевод
                 слова на русский язык.
               </p>
-              <Link
-                to="sprint"
-                className="card__button"
-                onClick={() => setShowCards(false)}
-              >
+              <Link to="sprint" className="card__button">
                 Играть
               </Link>
             </figcaption>
