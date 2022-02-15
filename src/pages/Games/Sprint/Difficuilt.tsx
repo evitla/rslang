@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { TOTAL_GROUPS } from '../../../constants';
-import { setOprioins, setStatus } from '../../../slices/sprint';
+import { setOptioins, setStatus } from '../../../slices/sprint';
 import { LevelButton, LevelWrapper } from './styles';
 
 type LevelPropsType = {
@@ -26,7 +26,7 @@ export default function Difficuilt() {
   const dispatch = useDispatch();
 
   async function handler(group: number) {
-    dispatch(setOprioins({ group: group - 1 }));
+    dispatch(setOptioins({ group: group - 1 }));
     dispatch(setStatus('playing'));
   }
   return (

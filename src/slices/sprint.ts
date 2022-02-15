@@ -25,7 +25,7 @@ const sprintGameSlice = createSlice({
     setStatus: (state, { payload }: PayloadAction<TsprintState['status']>) => {
       state.status = payload;
     },
-    setOprioins: (state, { payload }: PayloadAction<{ group: number }>) => {
+    setOptioins: (state, { payload }: PayloadAction<{ group: number }>) => {
       state.group = payload.group;
     },
     setCurrentWord: (
@@ -74,7 +74,7 @@ export const sprintGameReducer = sprintGameSlice.reducer;
 export const {
   setWords,
   setStatus,
-  setOprioins,
+  setOptioins,
   setCurrentWord,
   setRightAnswer,
   setCurrentWordIndex,
