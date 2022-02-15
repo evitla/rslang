@@ -17,6 +17,9 @@ const audioGameSlice = createSlice({
     setQuestions: (state, { payload }: PayloadAction<TWord[][]>) => {
       state.questions = payload;
     },
+    startNewGame: (state, { payload }: PayloadAction<AudioCallState>) => {
+      Object.assign(state, payload);
+    },
     setNumber: (state, { payload }: PayloadAction<number>) => {
       state.number = payload;
     },
@@ -44,4 +47,5 @@ export const {
   setScore,
   setGameOver,
   setCurQuestion,
+  startNewGame,
 } = audioGameSlice.actions;

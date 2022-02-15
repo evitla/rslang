@@ -4,7 +4,7 @@ import AudiocallButton from '../../../components/AudiocallButton';
 import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
 import { fetchQuestion } from './api';
-import { TWord } from '../../../types';
+import { AudioCallState, TWord } from '../../../types';
 import { getRandomNumber, updateWordProgress } from '../../../utils';
 import GameResult from '../../../components/GameResult';
 import { TStore } from '../../../store';
@@ -13,9 +13,9 @@ import {
   setCurQuestion,
   setGameOver,
   setNumber,
-  setQuestions,
   setScore,
   setUserAnswers,
+  startNewGame,
 } from '../../../slices/audiocall';
 
 const Audiocall = () => {
@@ -31,14 +31,17 @@ const Audiocall = () => {
 
   const startGame = async (groupID: number) => {
     setLoading(true);
-    dispatch(setGameOver(false));
     setPlay(true);
     const newQuestions = await fetchQuestion(groupID);
-    dispatch(setQuestions(newQuestions));
-    dispatch(setCurQuestion(newQuestions[number][getRandomNumber(0, 3)]));
-    dispatch(setScore(0));
-    dispatch(setUserAnswers([]));
-    dispatch(setNumber(0));
+    const defaultState: AudioCallState = {
+      questions: newQuestions,
+      qurrentQuestion: newQuestions[number][getRandomNumber(0, 3)],
+      score: 0,
+      userAnswers: [],
+      number: 0,
+      gameOver: false,
+    };
+    dispatch(startNewGame(defaultState));
     setLoading(false);
   };
 

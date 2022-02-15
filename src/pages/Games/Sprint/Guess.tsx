@@ -27,18 +27,18 @@ export default function Guess() {
   const result = fiftyfifty();
 
   useEffect(() => {
+    let translate = '';
     if (result) {
-      const translate = words[currentWordIndex].wordTranslate;
-      setvariant(translate);
+      translate = words[currentWordIndex].wordTranslate;
     } else {
       const randomIndex = getRandomIntExcludingExistingNumbers(
         0,
         words.length - 1,
         currentWordIndex
       );
-      const translate = words[randomIndex].wordTranslate;
-      setvariant(translate);
+      translate = words[randomIndex].wordTranslate;
     }
+    setvariant(translate);
   }, [currentWord, words]);
   async function buttonHandler(userAnswer: boolean, index: number) {
     const isCorrect = userAnswer === result;
