@@ -17,13 +17,23 @@ const Games = () => (
               перевод услышанного слова.
             </p>
             <Link to="audiocall" className="card__button">
-              Аудиовызов
+              Играть
             </Link>
           </figcaption>
         </figure>
       </div>
       <div className="card">
-        <Link to="sprint">Спринт</Link>
+        <figure className="card__thumb">
+          <img src={audiocallSVG} alt="" />
+          <figcaption className="card__caption">
+            <h2 className="card__title">Аудиовызов</h2>
+            <p className="card__snippet">
+              Тренировка Аудиовызов развивает словарный запас. Вы должны выбрать
+              перевод услышанного слова.
+            </p>
+            <Link to="sprint">Спринт</Link>
+          </figcaption>
+        </figure>
       </div>
     </div>
     <Outlet />

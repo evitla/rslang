@@ -3,6 +3,12 @@ import styled from 'styled-components';
 export const GameWrapper = styled.div`
   padding: 20px;
 
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
   h2 {
     font-weight: 600;
   }
@@ -20,6 +26,7 @@ export const GameWrapper = styled.div`
     margin: 10px;
     background-color: white;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+    height: 400px;
 
     &:hover {
       .card__caption {
@@ -45,11 +52,11 @@ export const GameWrapper = styled.div`
     &__thumb {
       position: relative;
       max-height: 400px;
+      height: 100%;
+
       overflow: hidden;
 
-      @include breakpoint(desktop) {
-        max-height: 500px;
-      }
+      max-height: 500px;
 
       &::after {
         position: absolute;
@@ -65,9 +72,7 @@ export const GameWrapper = styled.div`
         );
         transition: 0.3s;
 
-        @include breakpoint(desktop) {
-          top: calc(100% - 140px);
-        }
+        top: calc(100% - 140px);
       }
     }
 
@@ -85,10 +90,8 @@ export const GameWrapper = styled.div`
       text-align: center;
       transition: 0.3s;
 
-      @include breakpoint(desktop) {
-        top: calc(100% - 110px);
-        transform: unset;
-      }
+      top: calc(100% - 50px);
+      transform: unset;
     }
 
     &__title {
@@ -117,9 +120,7 @@ export const GameWrapper = styled.div`
       -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
 
-      @include breakpoint(desktop) {
-        margin: 60px 0;
-      }
+      margin: 60px 0;
     }
 
     &__button {
