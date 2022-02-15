@@ -30,9 +30,9 @@ export default function Question() {
 
   useEffect(() => {
     if (isSuccess) {
-      const { word } = words[0];
+      const { word, id } = words[0];
       dispatch(setWords(words));
-      dispatch(setCurrentWord(word));
+      dispatch(setCurrentWord({ word, id }));
     }
   }, [words, isSuccess]);
   //timer logic

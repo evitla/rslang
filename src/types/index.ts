@@ -61,6 +61,7 @@ export type TsprintState = {
   currentWord: string;
   currentWordIndex: number;
   history: Thistory[];
+  currentWordId: string;
 };
 
 export type ScorePropsType = Pick<
@@ -72,9 +73,23 @@ export type TUserWord = {
   difficulty: 'easy' | 'hard';
   id?: string;
   wordId?: string;
-  optional?: {
-    learned: boolean;
-  };
+  optional?: UserWordOptions;
+};
+export type PlayedOptions = {
+  rightTimes: number;
+  wrongTimes: number;
+};
+
+export type UserWordOptions = {
+  learned: boolean;
+  isPlayed?: PlayedOptions;
+};
+
+export type GetOneWordRes = {
+  difficulty: 'easy' | 'hard';
+  id: string;
+  wordId: string;
+  optional: UserWordOptions;
 };
 
 export type TBookPageContext = {
