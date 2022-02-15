@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { GameWrapper } from './style';
 
 const Games = () => (
-  <div>
-    <h2>Games Page</h2>
-    <div>
+  <GameWrapper>
+    <h2>Games</h2>
+    <div className="game-wrapper">
       <Link to="audiocall">Аудиовызов</Link>
     </div>
-    <div>
+    <div className="game-wrapper">
       <Link to="sprint">Спринт</Link>
     </div>
     <Outlet />
-  </div>
+  </GameWrapper>
 );
 
 export default Games;
