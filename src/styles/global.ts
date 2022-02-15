@@ -13,6 +13,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: ${({ theme }) => theme.fontFamily};
     background-color: ${({ theme }) => theme.colors.bg};
     color: ${({ theme }) => theme.colors.font};
+    font-weight: 500;
   }
   
   a {
@@ -22,6 +23,10 @@ const GlobalStyles = createGlobalStyle`
 
   ul {
     list-style: none;
+  }
+
+  button {
+    font-family: inherit;
   }
 `;
 

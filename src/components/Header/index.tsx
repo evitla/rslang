@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import AuthForm from '../AuthForm';
@@ -7,10 +7,11 @@ import { FlexWrapper } from '../../styles/wrapper';
 import { START_GROUP, START_PAGE } from '../../constants';
 import { useSelector } from 'react-redux';
 import { TStore } from '../../store';
+import useOpenAuthForm from '../../hooks/useOpenAuthForm';
 
 const Header = () => {
   const { user } = useSelector((state: TStore) => state.userReducer);
-  const [isAuthFormOpen, setIsAuthFormOpen] = useState(false);
+  const { isAuthFormOpen, setIsAuthFormOpen } = useOpenAuthForm();
 
   return (
     <StyledHeader>

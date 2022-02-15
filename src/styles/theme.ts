@@ -1,9 +1,11 @@
 export const baseTheme: ITheme = {
-  fontFamily: `'Mukta', sans-serif;`,
+  fontFamily: `'Montserrat', sans-serif`,
 
   colors: {
-    bg: 'white',
-    font: 'black',
+    bg: '#fff3e6',
+    font: '#371e03',
+    secondaryFont: '#9b9595',
+    gradient: 'linear-gradient(to right, #ffaf58, #ff4141)',
   },
 };
 
@@ -13,5 +15,7 @@ export interface ITheme {
   colors: {
     bg: string;
     font: string;
+    secondaryFont: string;
+    gradient: string;
   };
 }
