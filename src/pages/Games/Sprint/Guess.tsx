@@ -47,10 +47,10 @@ export default function Guess() {
     const nextWordId = words[index + 1]?.id;
     await updateWordProgress(userId, currWordId, token, true);
     if (!nextWord) dispatch(setStatus('ended'));
+    dispatch(setCurrentWord({ word: nextWord, id: nextWordId }));
     if (isCorrect) {
       dispatch(setRightAnswer());
-      dispatch(setCurrentWord({ word: nextWord, id: nextWordId }));
-    } else dispatch(setCurrentWord({ word: nextWord, id: nextWordId }));
+    }
     dispatch(setCurrentWordIndex(index + 1));
     dispatch(setHistory({ guessWord: currentWord, result: isCorrect }));
   }
