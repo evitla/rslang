@@ -1,15 +1,30 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { GameWrapper } from './style';
+import audiocallSVG from '../../assets/images/audiocall.svg';
 
 const Games = () => (
   <GameWrapper>
     <h2>Games</h2>
-    <div className="game-wrapper">
-      <Link to="audiocall">Аудиовызов</Link>
-    </div>
-    <div className="game-wrapper">
-      <Link to="sprint">Спринт</Link>
+    <div className="card-wrapper">
+      <div className="card">
+        <figure className="card__thumb">
+          <img src={audiocallSVG} alt="" />
+          <figcaption className="card__caption">
+            <h2 className="card__title">Аудиовызов</h2>
+            <p className="card__snippet">
+              Тренировка Аудиовызов развивает словарный запас. Вы должны выбрать
+              перевод услышанного слова.
+            </p>
+            <Link to="audiocall" className="card__button">
+              Аудиовызов
+            </Link>
+          </figcaption>
+        </figure>
+      </div>
+      <div className="card">
+        <Link to="sprint">Спринт</Link>
+      </div>
     </div>
     <Outlet />
   </GameWrapper>
