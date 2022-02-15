@@ -12,6 +12,7 @@ const initialState: TsprintState = {
   currentWord: '',
   currentWordIndex: 0,
   history: [],
+  currentWordId: '',
 };
 
 const sprintGameSlice = createSlice({
@@ -27,8 +28,11 @@ const sprintGameSlice = createSlice({
     setOprioins: (state, { payload }: PayloadAction<{ group: number }>) => {
       state.group = payload.group;
     },
-    setCurrentWord: (state, { payload }: PayloadAction<string>) => {
-      state.currentWord = payload;
+    setCurrentWord: (
+      state,
+      { payload }: PayloadAction<{ word: string; id: string }>
+    ) => {
+      state.currentWord = payload.word;
     },
     setRightAnswer: (state) => {
       if (state.rightInRow <= 2) {
@@ -46,7 +50,7 @@ const sprintGameSlice = createSlice({
       state.history.push(payload);
     },
     resetGame: (state) => {
-      state.status = 'playing';
+      state.status = 'prepare';
       state.history = [];
       state.score = 0;
       state.currentWordIndex = 0;

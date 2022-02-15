@@ -4,8 +4,8 @@ import AudiocallButton from '../../../components/AudiocallButton';
 import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
 import { fetchQuestion } from './api';
-import { TWord, TAnswer } from '../../../types';
-import { getRandomNumber } from '../../../utils';
+import { TWord } from '../../../types';
+import { getRandomNumber, updateWordProgress } from '../../../utils';
 import GameResult from '../../../components/GameResult';
 import { TStore } from '../../../store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +21,9 @@ import {
 const Audiocall = () => {
   const { questions, number, userAnswers, score, gameOver, qurrentQuestion } =
     useSelector((state: TStore) => state.audioGameReducer);
+  const { userId, token } = useSelector(
+    (state: TStore) => state.userReducer.user!
+  );
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -48,10 +51,12 @@ const Audiocall = () => {
     }
   };
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const checkAnswer = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!gameOver) {
       const answer = e.currentTarget.value;
       const correct = (qurrentQuestion as TWord).wordTranslate === answer;
+      const word = qurrentQuestion!.id;
+      await updateWordProgress(userId, word, token, correct);
       if (correct) dispatch(setScore(score + 1));
       const answerObj = {
         questionAudio: (qurrentQuestion as TWord).audio,

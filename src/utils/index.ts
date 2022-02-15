@@ -1,7 +1,15 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { PAGES_AT_GROUP } from '../constants';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { PAGES_AT_GROUP, USERS_URL } from '../constants';
+import * as lodash from 'lodash';
 
-import { StatsState, TAuth, TUser } from '../types';
+import {
+  GetOneWordRes,
+  PlayedOptions,
+  StatsState,
+  TAuth,
+  TUser,
+  TUserWord,
+} from '../types';
 
 export const getAll = async <T>(
   url: string,
@@ -105,4 +113,48 @@ export function fiftyfifty() {
 export const getUserStats = async (url: string, id = '') => {
   const response = await axios.get<StatsState>(`${url}${id}/statistics`);
   return response.data;
+};
+
+export const updateWordProgress = async (
+  userId: string,
+  currWordId: string,
+  token: string,
+  right: boolean
+) => {
+  const URL = `${USERS_URL}/${userId}/words/${currWordId}`;
+  const auth = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const defaultOptions = {
+    rightTimes: 0,
+    wrongTimes: 0,
+  };
+  try {
+    const response: GetOneWordRes = await getOne(URL, auth);
+    const options: PlayedOptions = lodash.get(
+      response,
+      'optional.isPlayed',
+      defaultOptions
+    );
+    if (right) options.rightTimes += 1;
+    else options.wrongTimes += 1;
+    response.optional.isPlayed = options;
+    const { difficulty, optional } = response;
+    await update(URL, { difficulty, optional }, auth);
+  } catch (error) {
+    const err = error as AxiosError;
+    if (err.response?.status === 404) {
+      const body: TUserWord = {
+        difficulty: 'easy',
+        optional: {
+          learned: true,
+          isPlayed: {
+            rightTimes: right ? 1 : 0,
+            wrongTimes: right ? 0 : 1,
+          },
+        },
+      };
+      await create(URL, body, auth);
+    }
+  }
 };
