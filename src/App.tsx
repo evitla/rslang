@@ -19,7 +19,6 @@ const App = () => {
         value={{ isAuthFormOpen, setIsAuthFormOpen }}
       >
         <Header />
-        <hr />
         <main>
           <Wrapper>
             <Routes>
@@ -35,7 +34,6 @@ const App = () => {
             </Routes>
           </Wrapper>
         </main>
-        <hr />
         <Footer />
       </SetIsAuthFormOpenContext.Provider>
       <GlobalStyles />
