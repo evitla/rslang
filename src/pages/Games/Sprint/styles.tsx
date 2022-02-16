@@ -127,14 +127,32 @@ export const ScoreTable = styled.div`
 `;
 
 export const ResultsWrapper = styled.div`
-  ul {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  max-height: 65vh;
+  min-height: 400px;
+  min-width: 500px;
+  border: 3px solid hsla(0, 0%, 100%, 0.7);
+  border-radius: 20px;
+  padding: 15px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  table {
+    border-spacing: 0;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #333;
+  }
+  th {
+    padding: 5px 10px;
+  }
 
-    li {
-      display: flex;
-      gap: 10px;
-    }
+  td {
+    padding: 5px 8px;
+    border-collapse: collapse;
+    border: none;
+    vertical-align: center;
+    text-align: center;
   }
 `;
