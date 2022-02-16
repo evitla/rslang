@@ -110,7 +110,6 @@ export function fiftyfifty() {
   const result = Math.random();
   return result > 0.5;
 }
-<<<<<<< HEAD
 export const getUserStats = async (url: string, id = '') => {
   const response = await axios.get<StatsState>(`${url}${id}/statistics`);
   return response.data;
@@ -157,7 +156,6 @@ export const updateWordProgress = async (
       };
       await create(URL, body, auth);
     }
-=======
 
 export const defineColor = (number: number) => {
   switch (number) {
@@ -175,6 +173,5 @@ export const defineColor = (number: number) => {
       return 'rgb(89, 72, 77);';
     default:
       return 'rgb(89, 72, 77);';
->>>>>>> cc98dc6 (refactor: put define color to utils)
   }
 };

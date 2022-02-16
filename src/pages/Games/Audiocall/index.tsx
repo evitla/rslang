@@ -6,7 +6,7 @@ import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
 import { fetchQuestion } from './api';
 import { AudioCallState, TWord } from '../../../types';
-import { getRandomNumber, updateWordProgress } from '../../../utils';
+import { getRandomNumber, updateWordProgress } from '../../../utils/index';
 import GameResult from '../../../components/GameResult';
 import { TStore } from '../../../store';
 import { useDispatch, useSelector } from 'react-redux';
