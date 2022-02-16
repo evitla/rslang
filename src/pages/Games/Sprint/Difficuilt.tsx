@@ -4,6 +4,7 @@ import { TOTAL_GROUPS } from '../../../constants';
 import { setOptioins, setStatus } from '../../../slices/sprint';
 import { LevelButton, LevelWrapper } from './styles';
 import { GamePreview } from '../Audiocall/style';
+import { StyledButton } from '../../../components/AudiocallButton/style';
 type LevelPropsType = {
   level: number;
   handler: (category: number) => void;
@@ -12,12 +13,13 @@ type LevelPropsType = {
 const Level = (props: LevelPropsType) => {
   const { level, handler } = props;
   return (
-    <LevelButton
+    <StyledButton
       onClick={() => handler(level)}
       className="sprint_level__button"
+      groupNum={level - 1}
     >
       {level}
-    </LevelButton>
+    </StyledButton>
   );
 };
 
