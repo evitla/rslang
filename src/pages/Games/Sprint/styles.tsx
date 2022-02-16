@@ -29,7 +29,7 @@ export const IndicatorWrapper = styled.div`
 `;
 
 export const PreviewSprint = styled.div`
-  padding: 20px 0;
+  padding-top: 20px;
   .rules {
     text-align: center;
     text-decoration: underline;

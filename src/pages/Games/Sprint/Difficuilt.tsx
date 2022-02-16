@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { TOTAL_GROUPS } from '../../../constants';
 import { setOptioins, setStatus } from '../../../slices/sprint';
 import { LevelButton, LevelWrapper } from './styles';
-
+import { GamePreview } from '../Audiocall/style';
 type LevelPropsType = {
   level: number;
   handler: (category: number) => void;
@@ -30,13 +30,13 @@ export default function Difficuilt() {
     dispatch(setStatus('playing'));
   }
   return (
-    <div className="sprint_difficuilt">
-      <h4>Выберите уровень сложности</h4>
-      <LevelWrapper>
+    <GamePreview>
+      <h2>Выберите уровень сложности</h2>
+      <div className="btns-wrapper">
         {levels.map((level, index) => (
           <Level handler={handler} key={index} level={level}></Level>
         ))}
-      </LevelWrapper>
-    </div>
+      </div>
+    </GamePreview>
   );
 }
