@@ -34,4 +34,11 @@ export const PreviewSprint = styled.div`
     text-align: center;
     text-decoration: underline;
   }
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    text-align: center;
+  }
 `;
