@@ -52,7 +52,7 @@ export default function Question() {
   return (
     <SprintGamePlay>
       <div className="question-wrapper">
-        <p>time: {timer}</p>
+        <p className="time">{timer}</p>
         {wordsFromState.length > 0 && (
           <>
             <Rightindicator

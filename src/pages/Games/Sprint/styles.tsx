@@ -58,6 +58,11 @@ export const SprintGamePlay = styled.div`
     background: #fff;
     font-size: 16px;
   }
+
+  .time {
+    text-align: center;
+    font-size: 22px;
+  }
 `;
 
 export const QuestionWrapper = styled.div`

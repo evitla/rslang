@@ -57,9 +57,9 @@ export default function Guess() {
   }
   return (
     <QuestionWrapper>
-      <div>score: {score}</div>
-      <div>Загадываемое слово: {currentWord}</div>
-      <div>Возможный вариант: {variant}</div>
+      <p className="score">score: {score}</p>
+      <p className="word-to-guess">{currentWord}</p>
+      <p className="answer-word">{variant}</p>
       <button
         onClick={() => buttonHandler(false, currentWordIndex)}
         type="button"
