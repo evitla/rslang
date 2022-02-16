@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { TOTAL_GROUPS } from '../../../constants';
 import { setOptioins, setStatus } from '../../../slices/sprint';
 import { LevelButton, LevelWrapper } from './styles';
@@ -26,6 +27,7 @@ const Level = (props: LevelPropsType) => {
 export default function Difficuilt() {
   const levels = new Array(TOTAL_GROUPS).fill(0).map((el, index) => index + 1);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   async function handler(group: number) {
     dispatch(setOptioins({ group: group - 1 }));
@@ -39,6 +41,9 @@ export default function Difficuilt() {
           <Level handler={handler} key={index} level={level}></Level>
         ))}
       </div>
+      <button className="back" type="button" onClick={() => navigate('/games')}>
+        Вернуться к играм
+      </button>
     </GamePreview>
   );
 }
