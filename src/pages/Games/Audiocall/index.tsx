@@ -81,38 +81,43 @@ const Audiocall = () => {
   };
   return (
     <>
-      <GamePreview isPlay={isPlay}>
-        <h2>Выберите сложность</h2>
-        <div>
-          {Array.from({ length: TOTAL_GROUPS }, (_, i) => (
-            <AudiocallButton key={i} groupNum={i} startGame={startGame} />
-          ))}
-        </div>
-        <button
-          className="back"
-          type="button"
-          onClick={() => navigate('/games')}
-        >
-          Вернуться к играм
-        </button>
-      </GamePreview>
-      <GameBg isPlay={isPlay}>
-        <GamePlay>
-          {loading && <p>Loading Questions...</p>}
-          {!gameOver && !loading && <p>Score: {score} </p>}
-          {!loading && !gameOver && (
-            <AudiocallQuestion
-              questionNum={number + 1}
-              totalQuestions={TOTAL_QUESTIONS}
-              questionAudio={qurrentQuestion as TWord}
-              answers={questions[number]}
-              userAnswer={userAnswers ? userAnswers[number] : undefined}
-              callback={checkAnswer}
-            />
-          )}
-        </GamePlay>
-        {!loading && gameOver && <GameResult userAnswers={userAnswers} />}
-      </GameBg>
+      {!isPlay && (
+        <GamePreview>
+          <h2>Выберите сложность</h2>
+          <div className="btns-wrapper">
+            {Array.from({ length: TOTAL_GROUPS }, (_, i) => (
+              <AudiocallButton key={i} groupNum={i} startGame={startGame} />
+            ))}
+          </div>
+          <button
+            className="back"
+            type="button"
+            onClick={() => navigate('/games')}
+          >
+            Вернуться к играм
+          </button>
+        </GamePreview>
+      )}
+
+      {isPlay && (
+        <GameBg>
+          <GamePlay>
+            {loading && <p>Loading Questions...</p>}
+            {!gameOver && !loading && <p>Score: {score} </p>}
+            {!loading && !gameOver && (
+              <AudiocallQuestion
+                questionNum={number + 1}
+                totalQuestions={TOTAL_QUESTIONS}
+                questionAudio={qurrentQuestion as TWord}
+                answers={questions[number]}
+                userAnswer={userAnswers ? userAnswers[number] : undefined}
+                callback={checkAnswer}
+              />
+            )}
+          </GamePlay>
+          {!loading && gameOver && <GameResult userAnswers={userAnswers} />}
+        </GameBg>
+      )}
     </>
   );
 };

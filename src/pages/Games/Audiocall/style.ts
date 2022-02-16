@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 
-export const GamePreview = styled.div<{ isPlay: boolean }>`
-  ${(props) =>
-    props.isPlay &&
-    `
-    display: none;
-  `}
+export const GamePreview = styled.div`
   display: grid;
   position: relative;
   width: 100%;
@@ -13,6 +8,7 @@ export const GamePreview = styled.div<{ isPlay: boolean }>`
   height: 100%;
   max-height: 400px;
   margin: 0 auto;
+  padding-top: 20px;
   h2 {
     text-align: center;
     margin-bottom: 5px;
@@ -34,14 +30,15 @@ export const GamePreview = styled.div<{ isPlay: boolean }>`
       background: #c0392b;
     }
   }
+
+  .btns-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 `;
 
-export const GameBg = styled.div<{ isPlay: boolean }>`
-  ${(props) =>
-    !props.isPlay &&
-    `
-    display: none;
-`}
+export const GameBg = styled.div`
   background: #f5cd79;
 `;
 
