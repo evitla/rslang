@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { TOTAL_GROUPS } from '../../../constants';
 import { setOptioins, setStatus } from '../../../slices/sprint';
-import { LevelButton, LevelWrapper } from './styles';
 import { GamePreview } from '../Audiocall/style';
 import { StyledButton } from '../../../components/AudiocallButton/style';
 type LevelPropsType = {

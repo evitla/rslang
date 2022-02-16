@@ -156,7 +156,8 @@ export const updateWordProgress = async (
       };
       await create(URL, body, auth);
     }
-
+  }
+};
 export const defineColor = (number: number) => {
   switch (number) {
     case 0:
