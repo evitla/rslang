@@ -41,3 +41,7 @@ export const SprintWrapper = styled.div`
   background-image: linear-gradient(to right, #de6262, #ffb88c);
   height: calc(100% - 25px);
 `;
+
+export const SprintGamePlay = styled.div`
+  
+`;

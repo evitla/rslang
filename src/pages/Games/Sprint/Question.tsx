@@ -6,6 +6,7 @@ import { setCurrentWord, setStatus, setWords } from '../../../slices/sprint';
 import { TStore } from '../../../store';
 import Guess from './Guess';
 import Rightindicator from './Rightindicator';
+import { SprintGamePlay } from './styles';
 
 export default function Question() {
   const [timer, setTimer] = useState(ROUND_TIME);
