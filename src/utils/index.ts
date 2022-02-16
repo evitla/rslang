@@ -116,10 +116,6 @@ export function fiftyfifty() {
   const result = Math.random();
   return result > 0.5;
 }
-export const getUserStats = async (url: string, id = '') => {
-  const response = await axios.get<StatsState>(`${url}${id}/statistics`);
-  return response.data;
-};
 
 function changeWordDifficult(word: GetOneExistedWordRes) {
   const updatedWord = { ...word };
@@ -217,4 +213,15 @@ export const defineColor = (groupId: number, opacity = '') => {
     default:
       return `#f94144${opacity}`;
   }
+};
+export const getUserStats = async (userId: string) => {
+  const URL = `${USERS_URL}/${userId}/statistics}`;
+  const response = await axios.get<StatsState>(URL);
+  return response.data;
+};
+
+export const updateUserStats = async (userId: string, body) => {
+  const URL = `${USERS_URL}/${userId}/statistics}`;
+  const response = await axios.put<StatsState>(URL, body);
+  return response.data;
 };
