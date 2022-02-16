@@ -1,8 +1,14 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { PAGES_AT_GROUP, USERS_URL } from '../constants';
+import {
+  EASY_TO_LEARNED_COUNT,
+  HARD_TO_LEARNED_COUNT,
+  PAGES_AT_GROUP,
+  USERS_URL,
+} from '../constants';
 import * as lodash from 'lodash';
 
 import {
+  GetOneExistedWordRes,
   GetOneWordRes,
   PlayedOptions,
   StatsState,
@@ -115,6 +121,36 @@ export const getUserStats = async (url: string, id = '') => {
   return response.data;
 };
 
+function changeWordDifficult(word: GetOneExistedWordRes) {
+  const updatedWord = { ...word };
+  const rightInRow = updatedWord.optional.isPlayed.rightInRow;
+  let learned = updatedWord.optional.learned;
+  const { difficulty } = updatedWord;
+  if (difficulty === 'easy' && rightInRow === EASY_TO_LEARNED_COUNT) {
+    learned = true;
+  }
+
+  if (difficulty === 'hard' && rightInRow === HARD_TO_LEARNED_COUNT) {
+    learned = true;
+  }
+  return updatedWord;
+}
+
+function toggleWordLearned(word: GetOneExistedWordRes, answer: boolean) {
+  const updatedWord = { ...word };
+
+  const isPlayed: PlayedOptions = lodash.get(updatedWord, 'optional.isPlayed');
+  if (!answer) {
+    isPlayed.rightInRow = 0;
+    isPlayed.wrongTimes += 1;
+    updatedWord.optional.learned = false;
+  } else {
+    isPlayed.rightTimes += 1;
+    isPlayed.rightInRow += 1;
+  }
+  return updatedWord;
+}
+
 export const updateWordProgress = async (
   userId: string,
   currWordId: string,
@@ -125,9 +161,10 @@ export const updateWordProgress = async (
   const auth = {
     headers: { Authorization: `Bearer ${token}` },
   };
-  const defaultOptions = {
+  const defaultOptions: PlayedOptions = {
     rightTimes: 0,
     wrongTimes: 0,
+    rightInRow: 0,
   };
   try {
     const response: GetOneWordRes = await getOne(URL, auth);
@@ -136,10 +173,16 @@ export const updateWordProgress = async (
       'optional.isPlayed',
       defaultOptions
     );
-    if (right) options.rightTimes += 1;
-    else options.wrongTimes += 1;
-    response.optional.isPlayed = options;
-    const { difficulty, optional } = response;
+    let updatedWord: GetOneExistedWordRes = {
+      ...response,
+      optional: { ...response.optional, isPlayed: options },
+    };
+
+    updatedWord = toggleWordLearned(updatedWord, right);
+    console.log(updatedWord);
+    updatedWord = changeWordDifficult(updatedWord);
+
+    const { difficulty, optional } = updatedWord;
     await update(URL, { difficulty, optional }, auth);
   } catch (error) {
     const err = error as AxiosError;
@@ -147,10 +190,11 @@ export const updateWordProgress = async (
       const body: TUserWord = {
         difficulty: 'easy',
         optional: {
-          learned: true,
+          learned: false,
           isPlayed: {
             rightTimes: right ? 1 : 0,
             wrongTimes: right ? 0 : 1,
+            rightInRow: right ? 1 : 0,
           },
         },
       };

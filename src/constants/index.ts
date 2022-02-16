@@ -14,6 +14,8 @@ export const PAGES_AT_GROUP = 30;
 export const ROUND_TIME = 60;
 export const POINTS = 20;
 export const BONUS_POINTS = 20;
+export const EASY_TO_LEARNED_COUNT = 3;
+export const HARD_TO_LEARNED_COUNT = 5;
 
 export const USERS_URL = `${DB_URL}/users`;
 export const SIGNIN_URL = `${DB_URL}/signin`;

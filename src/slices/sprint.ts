@@ -43,6 +43,9 @@ const sprintGameSlice = createSlice({
         state.rightInRow = 0;
       }
     },
+    setWrongAnswer: (state) => {
+      state.rightInRow = 0;
+    },
     setCurrentWordIndex: (state, { payload }: PayloadAction<number>) => {
       state.currentWordIndex = payload;
     },
