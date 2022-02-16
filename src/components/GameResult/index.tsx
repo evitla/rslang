@@ -31,7 +31,11 @@ const GameResult = ({ userAnswers }: { userAnswers: TAnswer[] }) => {
   return (
     <ResultWrapper>
       <h3>Результаты</h3>
-      <button type="button" onClick={() => navigate('/games')}>
+      <button
+        className="back-to-games"
+        type="button"
+        onClick={() => navigate('/games')}
+      >
         Вернуться к играм
       </button>
       <TableWrapper>

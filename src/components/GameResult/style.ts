@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ResultWrapper = styled.div`
+  display: grid;
   min-width: 500px;
   margin: auto;
   padding: 30px 20px;
@@ -8,6 +9,23 @@ export const ResultWrapper = styled.div`
 
   h3 {
     text-align: center;
+  }
+
+  .back-to-games {
+    padding: 5px 10px;
+    background: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    margin-left: auto;
+    color: #fff;
+    border: 2px solid #fff;
+    transition: all 0.3s linear;
+    font-weight: 600;
+
+    &:hover {
+      background: #ffe4c4;
+    }
   }
 `;
 
