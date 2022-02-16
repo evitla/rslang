@@ -15,42 +15,6 @@ export const StyledHeader = styled.header<{ isMenuOpen: boolean }>`
     column-gap: 3.5rem;
   }
 
-  nav {
-    width: 320px;
-    background: ${({ theme }) => theme.colors.gradient};
-    box-shadow: -2px 0px 6px 0px rgba(55, 30, 3, 0.6);
-    position: absolute;
-    top: 0;
-    right: ${({ isMenuOpen }) => (isMenuOpen ? '0' : '-100%')};
-    z-index: 10;
-    height: 100vh;
-    transition: right 0.3s;
-
-    @media screen and (min-width: 1024px) {
-      width: 380px;
-      background: inherit;
-      box-shadow: none;
-      position: initial;
-      height: auto;
-    }
-  }
-
-  ul {
-    display: flex;
-    padding: 100px 0 0 40px;
-    gap: 2rem;
-    height: 100%;
-    flex-direction: column;
-
-    @media screen and (min-width: 1024px) {
-      height: auto;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0;
-    }
-  }
-
   .right-side {
     display: flex;
     column-gap: 2rem;
@@ -109,5 +73,41 @@ export const StyledHeader = styled.header<{ isMenuOpen: boolean }>`
   .line3 {
     transform: ${({ isMenuOpen }) =>
       isMenuOpen ? 'rotate(45deg) translate(-5px, -6px)' : 'none'};
+  }
+`;
+
+export const StyledNav = styled.nav<{ isMenuOpen: boolean }>`
+  width: 320px;
+  background: ${({ theme }) => theme.colors.gradient};
+  box-shadow: -2px 0px 6px 0px rgba(55, 30, 3, 0.6);
+  position: absolute;
+  top: 0;
+  right: ${({ isMenuOpen }) => (isMenuOpen ? '0' : '-100%')};
+  z-index: 10;
+  height: 100vh;
+  transition: right 0.3s;
+
+  @media screen and (min-width: 1024px) {
+    width: 380px;
+    background: inherit;
+    box-shadow: none;
+    position: initial;
+    height: auto;
+  }
+`;
+
+export const StyledUList = styled.ul`
+  display: flex;
+  padding: 100px 0 0 40px;
+  gap: 2rem;
+  height: 100%;
+  flex-direction: column;
+
+  @media screen and (min-width: 1024px) {
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
   }
 `;
