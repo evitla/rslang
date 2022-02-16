@@ -60,19 +60,23 @@ export default function Guess() {
       <p className="score">score: {score}</p>
       <p className="word-to-guess">{currentWord}</p>
       <p className="answer-word">{variant}</p>
-      <button
-        onClick={() => buttonHandler(false, currentWordIndex)}
-        type="button"
-      >
-        Не Верно
-      </button>
-      <button
-        onClick={() => buttonHandler(true, currentWordIndex)}
-        type="button"
-      >
-        {' '}
-        Верно
-      </button>
+      <div className="btn-wrap">
+        <button
+          onClick={() => buttonHandler(false, currentWordIndex)}
+          type="button"
+          className="wrong"
+        >
+          Не Верно
+        </button>
+        <button
+          onClick={() => buttonHandler(true, currentWordIndex)}
+          type="button"
+          className="right"
+        >
+          {' '}
+          Верно
+        </button>
+      </div>
     </QuestionWrapper>
   );
 }

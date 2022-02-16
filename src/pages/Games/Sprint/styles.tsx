@@ -52,19 +52,60 @@ export const SprintGamePlay = styled.div`
 
   .question-wrapper {
     max-width: 600px;
+    min-width: 300px;
     border: 2px solid #fff;
     border-radius: 8px;
     padding: 10px 15px;
     background: #fff;
     font-size: 16px;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+      0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
   }
 
   .time {
     text-align: center;
     font-size: 22px;
+    margin-bottom: 15px;
   }
 `;
 
 export const QuestionWrapper = styled.div`
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+
+  .word-to-guess {
+    font-size: 18px;
+  }
+
+  .btn-wrap {
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+
+    button {
+      border-radius: 8px;
+      padding: 5px 10px;
+      box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+        0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+      cursor: pointer;
+      border: 2px solid #d3d3d3;
+      font-weight: 600;
+      transition: all 0.3s linear;
+
+      &.wrong {
+        background: #fff0f5;
+      }
+      &.right {
+        background: #e0ffff;
+      }
+
+      &:hover {
+        transform: scale(0.95);
+      }
+    }
+  }
 `;
