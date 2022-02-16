@@ -102,8 +102,8 @@ const Audiocall = () => {
       {isPlay && (
         <GameBg>
           <GamePlay>
-            {loading && <p>Loading Questions...</p>}
-            {!gameOver && !loading && <p>Score: {score} </p>}
+            {loading && <p className="loading">Loading Questions...</p>}
+            {!gameOver && !loading && <p className="score">Score: {score} </p>}
             {!loading && !gameOver && (
               <AudiocallQuestion
                 questionNum={number + 1}

@@ -44,9 +44,16 @@ export const GameBg = styled.div`
 `;
 
 export const GamePlay = styled.div`
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 20px;
+
+  .loading {
+    margin: auto;
+    font-weight: 600;
+    font-size: 18px;
+  }
 `;
