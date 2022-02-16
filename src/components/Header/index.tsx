@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import AuthForm from '../AuthForm';
-import { StyledHeader } from './style';
+import { StyledHeader, StyledNav, StyledUList } from './style';
 import { StyledButton } from '../../styles/components';
 import { FlexWrapper } from '../../styles/wrapper';
 import { START_GROUP, START_PAGE } from '../../constants';
@@ -31,8 +31,8 @@ const Header = () => {
           RS Lang Logo
         </Link>
         <div className="navigation">
-          <nav>
-            <ul>
+          <StyledNav isMenuOpen={isMenuOpen}>
+            <StyledUList>
               <li>
                 <Link to={`book/${START_GROUP}/${START_PAGE}`}>
                   Электронный учебник
@@ -41,8 +41,8 @@ const Header = () => {
               <li>
                 <Link to="games">Мини-игры</Link>
               </li>
-            </ul>
-          </nav>
+            </StyledUList>
+          </StyledNav>
           <div className="right-side">
             {user !== null ? (
               <Link to="user" className="user">
