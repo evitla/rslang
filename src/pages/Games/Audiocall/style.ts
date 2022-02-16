@@ -49,6 +49,7 @@ export const GamePlay = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   gap: 20px;
 
   .loading {

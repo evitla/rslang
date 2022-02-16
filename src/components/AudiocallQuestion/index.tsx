@@ -3,6 +3,7 @@ import { FILES_URL } from '../../constants/index';
 import { AudiocallProps } from '../../types/index';
 import { playAudio } from '../../utils';
 import { QuestionWrapper } from './style';
+import soundSVG from '../../assets/images/sound.svg';
 
 const AudiocallQuestion: React.FC<AudiocallProps> = ({
   questionAudio,
