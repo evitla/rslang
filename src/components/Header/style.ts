@@ -87,7 +87,7 @@ export const StyledHeader = styled.header<{ isMenuOpen: boolean }>`
   }
 
   .burger-line {
-    background: ${({ theme }) => theme.colors.font};;
+    background: ${({ theme }) => theme.colors.font};
     width: 2rem;
     height: 2px;
     transition: all 0.3s ease;
