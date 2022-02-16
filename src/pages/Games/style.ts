@@ -10,6 +10,7 @@ export const GameWrapper = styled.div`
 
   h2 {
     font-weight: 600;
+    text-align: center;
   }
   .card-wrapper {
     display: flex;
