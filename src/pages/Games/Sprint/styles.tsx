@@ -27,3 +27,7 @@ export const IndicatorWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const PreviewSprint = styled.div`
+  
+`;
