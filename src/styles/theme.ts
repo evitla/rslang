@@ -4,7 +4,7 @@ export const baseTheme: ITheme = {
   colors: {
     bg: '#fff3e6',
     font: '#371e03',
-    secondaryFont: '#9b9595',
+    secondaryFont: '#828181',
     gradient: 'linear-gradient(to right, #ffaf58, #ff4141)',
   },
 };
