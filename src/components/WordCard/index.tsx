@@ -12,6 +12,7 @@ const WordCard = ({
   isDifficultGroup,
   isDifficult,
   isLearned,
+  isPlayed,
 }: TWordCard) => {
   const [isDifficultWord, setIsDifficultWord] = useState(isDifficult);
   const [isLearnedWord, setIsLearnedWord] = useState(isLearned);
@@ -64,6 +65,12 @@ const WordCard = ({
               <button onClick={handler.handleSetWordEasy}>Не сложное</button>
             )}
           </>
+        )}
+        {isPlayed && (
+          <div>
+            <p>Отвечено верно {isPlayed.rightTimes}</p>
+            <p>Отвечено неверно {isPlayed.wrongTimes}</p>
+          </div>
         )}
       </CardContent>
     </Card>
