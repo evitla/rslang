@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TAnswer } from '../../types';
 import { FILES_URL } from '../../constants/index';
 import { playAudio } from '../../utils';
@@ -6,6 +7,7 @@ import { StyledTable, ResultWrapper, TableWrapper } from './style';
 import soundSVG from '../../assets/images/sound.svg';
 
 const GameResult = ({ userAnswers }: { userAnswers: TAnswer[] }) => {
+  const navigate = useNavigate();
   const answers = userAnswers.map((answer) => {
     return (
       <tr key={answer.answer}>
@@ -29,6 +31,9 @@ const GameResult = ({ userAnswers }: { userAnswers: TAnswer[] }) => {
   return (
     <ResultWrapper>
       <h3>Результаты</h3>
+      <button type="button" onClick={() => navigate('/games')}>
+        Вернуться к играм
+      </button>
       <TableWrapper>
         <StyledTable>
           <thead>
