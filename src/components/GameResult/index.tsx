@@ -13,6 +13,7 @@ const GameResult = ({ userAnswers }: { userAnswers: TAnswer[] }) => {
       <tr key={answer.answer}>
         <td>
           <button
+            className="play-sound"
             type="button"
             onClick={async () => {
               await playAudio(`${FILES_URL}/${answer.questionAudio}`);

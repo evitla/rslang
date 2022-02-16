@@ -123,6 +123,7 @@ export const ScoreTable = styled.div`
   .score {
     font-size: 20px;
     text-decoration: underline;
+    margin-bottom: 20px;
   }
 `;
 
@@ -136,6 +137,11 @@ export const ResultsWrapper = styled.div`
   overflow-y: scroll;
   ::-webkit-scrollbar {
     width: 10px;
+  }
+  .img {
+    display: block;
+    width: 100%;
+    max-width: 30px;
   }
   table {
     border-spacing: 0;
@@ -154,5 +160,18 @@ export const ResultsWrapper = styled.div`
     border: none;
     vertical-align: center;
     text-align: center;
+  }
+  .play-sound {
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: all 0.1s linear;
+
+    &:hover {
+      transform: scale(0.9);
+    }
+    &:active {
+      transform: scale(0.8);
+    }
   }
 `;

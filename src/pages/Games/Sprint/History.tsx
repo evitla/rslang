@@ -3,6 +3,7 @@ import { FILES_URL } from '../../../constants';
 import { Thistory, TWord } from '../../../types';
 import { playAudio } from '../../../utils';
 import { ResultsWrapper } from './styles';
+import soundSVG from '../../../assets/images/sound.svg';
 
 type Tprops = {
   history: Thistory[];
@@ -37,8 +38,9 @@ export default function History(props: Tprops) {
                 <button
                   onClick={() => playSound(words, h.guessWord)}
                   type="button"
+                  className="play-sound"
                 >
-                  PlayAudio
+                  <img className="img" src={soundSVG} alt="" />
                 </button>
               </td>
             </tr>

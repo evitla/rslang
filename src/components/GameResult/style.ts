@@ -64,4 +64,18 @@ export const StyledTable = styled.table`
     vertical-align: center;
     text-align: center;
   }
+
+  .play-sound {
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: all 0.1s linear;
+
+    &:hover {
+      transform: scale(0.9);
+    }
+    &:active {
+      transform: scale(0.8);
+    }
+  }
 `;
