@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 
 import AuthForm from '../AuthForm';
-import { StyledHeader, StyledNav, StyledUList } from './style';
+import { StyledHeader, StyledListItem, StyledNav, StyledUList } from './style';
 import { StyledButton } from '../../styles/components';
 import { FlexWrapper } from '../../styles/wrapper';
 import { START_GROUP, START_PAGE } from '../../constants';
@@ -20,6 +21,8 @@ const Header = () => {
   const burgerRef = useRef<HTMLButtonElement>(null);
   useClickOutside(burgerRef, setIsMenuOpen);
 
+  const { pathname } = useLocation();
+
   const handleOpenMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -33,14 +36,14 @@ const Header = () => {
         <div className="navigation">
           <StyledNav isMenuOpen={isMenuOpen}>
             <StyledUList>
-              <li>
+              <StyledListItem active={pathname.includes('book')}>
                 <Link to={`book/${START_GROUP}/${START_PAGE}`}>
                   Электронный учебник
                 </Link>
-              </li>
-              <li>
+              </StyledListItem>
+              <StyledListItem active={pathname.includes('games')}>
                 <Link to="games">Мини-игры</Link>
-              </li>
+              </StyledListItem>
             </StyledUList>
           </StyledNav>
           <div className="right-side">
