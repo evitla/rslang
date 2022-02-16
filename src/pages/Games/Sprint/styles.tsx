@@ -126,7 +126,7 @@ export const ScoreTable = styled.div`
     margin-bottom: 20px;
   }
 
-  .score-btns{
+  .score-btns {
     display: flex;
     margin-top: 10px;
     gap: 10px;
