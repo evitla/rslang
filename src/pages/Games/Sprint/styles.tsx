@@ -33,3 +33,11 @@ export const PreviewSprint = styled.div`
     text-align: center;
   }
 `;
+
+export const SprintWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  left: 0;
+  background-image: linear-gradient(to right, #de6262, #ffb88c);
+  height: calc(100% - 25px);
+`;
