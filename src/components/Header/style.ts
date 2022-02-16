@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const StyledHeader = styled.header<{ isMenuOpen: boolean }>`
-  font-size: 1.125rem;
   padding-top: 25px;
   font-weight: 600;
 
@@ -30,11 +29,9 @@ export const StyledHeader = styled.header<{ isMenuOpen: boolean }>`
   }
 
   button {
-    font-size: 1em;
-
     @media screen and (min-width: 1024px) {
       font-size: inherit;
-      padding: 1em 1.75em;
+      padding: 0.75em 1.75em;
     }
   }
 
