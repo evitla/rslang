@@ -14,11 +14,7 @@ type LevelPropsType = {
 const Level = (props: LevelPropsType) => {
   const { level, handler } = props;
   return (
-    <StyledButton
-      onClick={() => handler(level)}
-      className="sprint_level__button"
-      groupNum={level - 1}
-    >
+    <StyledButton onClick={() => handler(level)} groupNum={level - 1}>
       {level}
     </StyledButton>
   );

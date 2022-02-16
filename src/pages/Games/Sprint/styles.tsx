@@ -1,14 +1,5 @@
 import styled, { css } from 'styled-components';
 
-export const LevelWrapper = styled.div`
-  display: flex;
-  column-gap: 1rem;
-`;
-
-export const LevelButton = styled.button`
-  width: 3rem;
-`;
-
 type StarPropsType = {
   isRight: boolean;
 };
