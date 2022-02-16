@@ -4,9 +4,9 @@ type StarPropsType = {
   isRight: boolean;
 };
 export const Star = styled.div<StarPropsType>`
-  background: red;
-  width: 5rem;
-  height: 5rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
   background: red;
   ${(props) =>
     props.isRight &&
@@ -17,6 +17,9 @@ export const Star = styled.div<StarPropsType>`
 export const IndicatorWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
 `;
 
 export const PreviewSprint = styled.div`
