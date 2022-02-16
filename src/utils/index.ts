@@ -124,15 +124,14 @@ export const getUserStats = async (url: string, id = '') => {
 function changeWordDifficult(word: GetOneExistedWordRes) {
   const updatedWord = { ...word };
   const rightInRow = updatedWord.optional.isPlayed.rightInRow;
-  let learned = updatedWord.optional.learned;
-  let { difficulty } = updatedWord;
+  const { difficulty } = updatedWord;
   if (difficulty === 'easy' && rightInRow === EASY_TO_LEARNED_COUNT) {
-    learned = true;
+    updatedWord.optional.learned = true;
   }
 
   if (difficulty === 'hard' && rightInRow === HARD_TO_LEARNED_COUNT) {
-    learned = true;
-    difficulty = 'easy';
+    updatedWord.optional.learned = true;
+    updatedWord.difficulty = 'easy';
   }
   return updatedWord;
 }
@@ -180,9 +179,7 @@ export const updateWordProgress = async (
     };
 
     updatedWord = toggleWordLearned(updatedWord, right);
-    console.log(updatedWord);
     updatedWord = changeWordDifficult(updatedWord);
-
     const { difficulty, optional } = updatedWord;
     await update(URL, { difficulty, optional }, auth);
   } catch (error) {

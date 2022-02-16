@@ -23,9 +23,7 @@ export default function Guess() {
   );
   const dispatch = useDispatch();
   const [variant, setvariant] = useState('');
-
-  const result = fiftyfifty();
-
+  const [result, setResult] = useState(fiftyfifty());
   useEffect(() => {
     let translate = '';
     if (result) {
@@ -56,6 +54,7 @@ export default function Guess() {
     }
     dispatch(setCurrentWordIndex(index + 1));
     dispatch(setHistory({ guessWord: currentWord, result: isCorrect }));
+    setResult(fiftyfifty());
   }
   return (
     <div>
