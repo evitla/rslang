@@ -125,6 +125,12 @@ export const ScoreTable = styled.div`
     text-decoration: underline;
     margin-bottom: 20px;
   }
+
+  .score-btns{
+    display: flex;
+    margin-top: 10px;
+    gap: 10px;
+  }
 `;
 
 export const ResultsWrapper = styled.div`
@@ -172,6 +178,24 @@ export const ResultsWrapper = styled.div`
     }
     &:active {
       transform: scale(0.8);
+    }
+  }
+`;
+
+export const ScoreButtonStyle = styled.div`
+  button {
+    display: block;
+    padding: 10px 15px;
+    border: 1px solid white;
+    text-transform: uppercase;
+    transition: 0.3s;
+    margin-top: 10px;
+    cursor: pointer;
+    min-width: 140px;
+
+    &:hover {
+      color: black;
+      background-color: white;
     }
   }
 `;

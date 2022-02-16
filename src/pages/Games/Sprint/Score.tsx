@@ -5,7 +5,7 @@ import { ScorePropsType } from '../../../types';
 import History from './History';
 import NextLevel from './NextLevel';
 import ResetGame from './ResetGame';
-import { ScoreTable } from './styles';
+import { ScoreTable, ScoreButtonStyle } from './styles';
 
 export default function Score(props: ScorePropsType) {
   const { score, history, page, words } = props;
@@ -13,9 +13,15 @@ export default function Score(props: ScorePropsType) {
     <ScoreTable>
       <p className="score">Score: {score}</p>
       <History words={words} history={history} />
-      <ResetGame />
-      {page < PAGES_AT_GROUP && <NextLevel />}
-      <Link to="/">HomePage</Link>
+      <div className="score-btns">
+        <ResetGame />
+        {page < PAGES_AT_GROUP && <NextLevel />}
+        <ScoreButtonStyle>
+          <button>
+            <Link to="/">HomePage</Link>
+          </button>
+        </ScoreButtonStyle>
+      </div>
     </ScoreTable>
   );
 }
