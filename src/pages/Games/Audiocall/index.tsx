@@ -88,7 +88,11 @@ const Audiocall = () => {
             <AudiocallButton key={i} groupNum={i} startGame={startGame} />
           ))}
         </div>
-        <button type="button" onClick={() => navigate('/games')}>
+        <button
+          className="back"
+          type="button"
+          onClick={() => navigate('/games')}
+        >
           Вернуться к играм
         </button>
       </GamePreview>

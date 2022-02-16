@@ -6,6 +6,7 @@ export const GamePreview = styled.div<{ isPlay: boolean }>`
     `
     display: none;
   `}
+  display: grid;
   position: relative;
   width: 100%;
   max-width: 800px;
@@ -15,6 +16,23 @@ export const GamePreview = styled.div<{ isPlay: boolean }>`
   h2 {
     text-align: center;
     margin-bottom: 5px;
+  }
+
+  .back {
+    width: 100%;
+    max-width: 170px;
+    padding: 10px 5px;
+    background: #f39c12;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border: 2px solid #e67e22;
+    margin: 20px auto;
+    transition: all 0.3s linear;
+
+    &:hover {
+      background: #c0392b;
+    }
   }
 `;
 
