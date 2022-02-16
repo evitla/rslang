@@ -4,7 +4,7 @@ const Button = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 0.5em 1.75em;
+  padding: 0.75em 1.75em;
   border-radius: 32px;
 
   &.gradient-btn {
