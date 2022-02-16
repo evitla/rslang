@@ -39,7 +39,8 @@ export const GamePreview = styled.div`
 `;
 
 export const GameBg = styled.div`
-  background: #f5cd79;
+  background-image: linear-gradient(to right, #ffafbd, #ffc3a0);
+  height: calc(100vh - 25px);
 `;
 
 export const GamePlay = styled.div`
