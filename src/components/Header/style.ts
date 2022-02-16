@@ -111,3 +111,18 @@ export const StyledUList = styled.ul`
     padding: 0;
   }
 `;
+
+export const StyledListItem = styled.li<{ active: boolean }>`
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    height: 2px;
+    width: ${({ active }) => (active ? '100%' : '0')};
+    background-color: ${({ theme }) => theme.colors.font};
+    transition: width 0.25s;
+  }
+`;
