@@ -12,10 +12,20 @@ export const ResultWrapper = styled.div`
 `;
 
 export const TableWrapper = styled.div`
+  max-height: 65vh;
   min-height: 400px;
   border: 3px solid hsla(0, 0%, 100%, 0.7);
   border-radius: 20px;
   padding: 15px;
+  overflow-y: scroll;
+  .img {
+    display: block;
+    width: 100%;
+    max-width: 30px;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 `;
 
 export const StyledTable = styled.table`

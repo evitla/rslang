@@ -3,6 +3,7 @@ import { TAnswer } from '../../types';
 import { FILES_URL } from '../../constants/index';
 import { playAudio } from '../../utils';
 import { StyledTable, ResultWrapper, TableWrapper } from './style';
+import soundSVG from '../../assets/images/sound.svg';
 
 const GameResult = ({ userAnswers }: { userAnswers: TAnswer[] }) => {
   const answers = userAnswers.map((answer) => {
@@ -15,7 +16,7 @@ const GameResult = ({ userAnswers }: { userAnswers: TAnswer[] }) => {
               await playAudio(`${FILES_URL}/${answer.questionAudio}`);
             }}
           >
-            Play
+            <img className="img" src={soundSVG} alt="" />
           </button>
         </td>
         <td>{answer.question}</td>
