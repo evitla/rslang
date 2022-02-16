@@ -108,6 +108,7 @@ export type TWordCard = {
   isDifficultGroup: boolean;
   isDifficult: boolean;
   isLearned: boolean;
+  isPlayed?: PlayedOptions;
 };
 export type GameStatType = {
   newWords: number;

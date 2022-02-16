@@ -3,7 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 import WordCard from '../../../components/WordCard';
 import LoadingCard from '../../../components/WordCard/LoadingCard';
 import { LOADING_BLOCKS_COUNT } from '../../../constants';
-import { TBookPageContext } from '../../../types';
+import { TBookPageContext, TUserWord, TWord } from '../../../types';
 
 const BookPages = () => {
   const {
@@ -15,6 +15,12 @@ const BookPages = () => {
     isDifficultGroup,
     isAuthorized,
   }: TBookPageContext = useOutletContext();
+
+  function detectIsPlayed(arr: TUserWord[], word: TWord) {
+    const res = arr.find((w) => w.wordId === word.id);
+    if (res) return res.optional?.isPlayed;
+    return res;
+  }
 
   return (
     <>
@@ -51,6 +57,9 @@ const BookPages = () => {
                   userWords.find(
                     (w) => w.wordId === word.id && w.optional?.learned
                   ) !== undefined
+                }
+                isPlayed={
+                  userWords ? detectIsPlayed(userWords, word) : undefined
                 }
               />
             ))}
