@@ -13,6 +13,7 @@ import {
   getRandomIntExcludingExistingNumbers,
   updateWordProgress,
 } from '../../../utils';
+import { QuestionWrapper } from './styles';
 
 export default function Guess() {
   const { currentWord, words, currentWordIndex, score } = useSelector(
@@ -55,7 +56,7 @@ export default function Guess() {
     dispatch(setHistory({ guessWord: currentWord, result: isCorrect }));
   }
   return (
-    <div>
+    <QuestionWrapper>
       <div>score: {score}</div>
       <div>Загадываемое слово: {currentWord}</div>
       <div>Возможный вариант: {variant}</div>
@@ -72,6 +73,6 @@ export default function Guess() {
         {' '}
         Верно
       </button>
-    </div>
+    </QuestionWrapper>
   );
 }

@@ -56,5 +56,10 @@ export const SprintGamePlay = styled.div`
     border-radius: 8px;
     padding: 10px 15px;
     background: #fff;
+    font-size: 16px;
   }
+`;
+
+export const QuestionWrapper = styled.div`
+  
 `;
