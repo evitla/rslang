@@ -32,6 +32,7 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
               disabled={!!userAnswer}
               value={answer.wordTranslate}
               onClick={callback}
+              className="button"
             >
               <span
                 dangerouslySetInnerHTML={{ __html: answer.wordTranslate }}
