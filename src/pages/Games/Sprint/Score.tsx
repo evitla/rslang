@@ -11,8 +11,7 @@ export default function Score(props: ScorePropsType) {
   const { score, history, page, words } = props;
   return (
     <ScoreTable>
-      Score
-      <p>{score}</p>
+      <p className="score">Score: {score}</p>
       <History words={words} history={history} />
       <ResetGame />
       {page < PAGES_AT_GROUP && <NextLevel />}

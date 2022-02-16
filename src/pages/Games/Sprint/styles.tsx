@@ -118,4 +118,14 @@ export const ScoreTable = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+
+  .score {
+    font-size: 20px;
+    text-decoration: underline;
+  }
+`;
+
+export const ResultsWrapper = styled.div`
+  
 `;

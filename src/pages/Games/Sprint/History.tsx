@@ -2,6 +2,7 @@ import React from 'react';
 import { FILES_URL } from '../../../constants';
 import { Thistory, TWord } from '../../../types';
 import { playAudio } from '../../../utils';
+import { ResultsWrapper } from './styles';
 
 type Tprops = {
   history: Thistory[];
@@ -18,7 +19,7 @@ export default function History(props: Tprops) {
     await playAudio(`${FILES_URL}/${fileName}`);
   }
   return (
-    <div>
+    <ResultsWrapper>
       <ul>
         {history.map((h, index) => {
           return (
@@ -36,6 +37,6 @@ export default function History(props: Tprops) {
           );
         })}
       </ul>
-    </div>
+    </ResultsWrapper>
   );
 }
