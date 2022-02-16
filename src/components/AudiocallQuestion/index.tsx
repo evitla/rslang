@@ -24,7 +24,15 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
       <h3 className="question-num">
         Question: {questionNum} / {totalQuestions}
       </h3>
-      <p dangerouslySetInnerHTML={{ __html: questionAudio.word }} />
+      <button
+        className="button"
+        type="button"
+        onClick={async () => {
+          await playAudio(`${FILES_URL}/${questionAudio.audio}`);
+        }}
+      >
+        <img className="img" src={soundSVG} alt="" />
+      </button>
       <div>
         {answers.map((answer) => (
           <div key={answer.id}>

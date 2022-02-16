@@ -27,10 +27,6 @@ export const QuestionWrapper = styled.div`
     border-radius: 0.5rem;
     box-sizing: border-box;
     color: #111827;
-    font-family: 'Inter var', ui-sans-serif, system-ui, -apple-system, system-ui,
-      'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-      'Noto Color Emoji';
     font-size: 0.875rem;
     font-weight: 600;
     line-height: 1.25rem;
