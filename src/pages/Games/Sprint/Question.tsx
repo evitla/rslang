@@ -50,7 +50,7 @@ export default function Question() {
   }, [timer]);
 
   return (
-    <div>
+    <SprintGamePlay>
       time: {timer}
       {wordsFromState.length > 0 && (
         <>
@@ -61,6 +61,6 @@ export default function Question() {
           <Guess></Guess>
         </>
       )}
-    </div>
+    </SprintGamePlay>
   );
 }

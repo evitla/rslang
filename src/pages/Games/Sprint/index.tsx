@@ -27,7 +27,9 @@ const Sprint = () => {
         </>
       )}
       {status === 'ended' && (
-        <Score page={page} score={score} history={history} words={words} />
+        <SprintWrapper>
+          <Score page={page} score={score} history={history} words={words} />
+        </SprintWrapper>
       )}
     </section>
   );
