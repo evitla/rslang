@@ -51,16 +51,18 @@ export default function Question() {
 
   return (
     <SprintGamePlay>
-      time: {timer}
-      {wordsFromState.length > 0 && (
-        <>
-          <Rightindicator
-            rightAnswerToBonus={3}
-            rightInTheRow={rightInRow}
-          ></Rightindicator>
-          <Guess></Guess>
-        </>
-      )}
+      <div className="question-wrapper">
+        <p>time: {timer}</p>
+        {wordsFromState.length > 0 && (
+          <>
+            <Rightindicator
+              rightAnswerToBonus={3}
+              rightInTheRow={rightInRow}
+            ></Rightindicator>
+            <Guess></Guess>
+          </>
+        )}
+      </div>
     </SprintGamePlay>
   );
 }
