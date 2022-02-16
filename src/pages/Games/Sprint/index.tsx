@@ -13,8 +13,13 @@ const Sprint = () => {
   );
 
   return (
-    <SprintWrapper>
-      {status === 'playing' && <Question />}
+    <section>
+      {status === 'playing' && (
+        <SprintWrapper>
+          {' '}
+          <Question />
+        </SprintWrapper>
+      )}
       {status === 'prepare' && (
         <>
           <Rules />
@@ -24,7 +29,7 @@ const Sprint = () => {
       {status === 'ended' && (
         <Score page={page} score={score} history={history} words={words} />
       )}
-    </SprintWrapper>
+    </section>
   );
 };
 
