@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const QuestionWrapper = styled.div`
+  display: grid;
   .question-num {
     margin-bottom: 30px;
     text-align: center;
@@ -10,7 +11,6 @@ export const QuestionWrapper = styled.div`
     display: block;
     width: 100%;
     max-width: 30px;
-    margin: 0 auto;
   }
 
   .answers-wrapper {
@@ -56,5 +56,9 @@ export const QuestionWrapper = styled.div`
 
   .button:focus-visible {
     box-shadow: none;
+  }
+
+  .button.play-audio {
+    margin: 0 auto;
   }
 `;
