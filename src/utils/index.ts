@@ -125,13 +125,14 @@ function changeWordDifficult(word: GetOneExistedWordRes) {
   const updatedWord = { ...word };
   const rightInRow = updatedWord.optional.isPlayed.rightInRow;
   let learned = updatedWord.optional.learned;
-  const { difficulty } = updatedWord;
+  let { difficulty } = updatedWord;
   if (difficulty === 'easy' && rightInRow === EASY_TO_LEARNED_COUNT) {
     learned = true;
   }
 
   if (difficulty === 'hard' && rightInRow === HARD_TO_LEARNED_COUNT) {
     learned = true;
+    difficulty = 'easy';
   }
   return updatedWord;
 }
