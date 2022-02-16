@@ -24,7 +24,7 @@ export default function History(props: Tprops) {
         {history.map((h, index) => {
           return (
             <li key={index}>
-              <span>{h.guessWord}</span> <span>{String(h.result)}</span>
+              <span>{h.guessWord}</span> <span>{h.result ? '✔️' : '❌'}</span>
               <div>
                 <button
                   onClick={() => playSound(words, h.guessWord)}

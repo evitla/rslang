@@ -127,5 +127,14 @@ export const ScoreTable = styled.div`
 `;
 
 export const ResultsWrapper = styled.div`
-  
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    li {
+      display: flex;
+      gap: 10px;
+    }
+  }
 `;
