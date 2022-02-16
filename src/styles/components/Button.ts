@@ -6,6 +6,7 @@ const Button = styled.button`
   cursor: pointer;
   padding: 0.75em 1.75em;
   border-radius: 32px;
+  background: transparent;
 
   &.gradient-btn {
     background: ${({ theme }) => theme.colors.gradient};
