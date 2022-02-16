@@ -13,4 +13,9 @@ export const StyledButton = styled.button<{ groupNum: number }>`
   cursor: pointer;
   color: #fff;
   background: ${(props) => defineColor(props.groupNum)};
+  transition: all 0.3s linear;
+
+  &:hover {
+    transform: scale(0.95);
+  }
 `;
