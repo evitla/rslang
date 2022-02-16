@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { FILES_URL } from '../../constants/index';
 import { AudiocallProps } from '../../types/index';
 import { playAudio } from '../../utils';
+import { QuestionWrapper } from './style';
 
 const AudiocallQuestion: React.FC<AudiocallProps> = ({
   questionAudio,
@@ -18,10 +19,10 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
   }, [questionAudio]);
 
   return (
-    <div>
-      <p>
+    <QuestionWrapper>
+      <h3 className="question-num">
         Question: {questionNum} / {totalQuestions}
-      </p>
+      </h3>
       <p dangerouslySetInnerHTML={{ __html: questionAudio.word }} />
       <div>
         {answers.map((answer) => (
@@ -38,7 +39,7 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
           </div>
         ))}
       </div>
-    </div>
+    </QuestionWrapper>
   );
 };
 
