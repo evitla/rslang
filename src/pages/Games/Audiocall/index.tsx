@@ -114,8 +114,10 @@ const Audiocall = () => {
                 callback={checkAnswer}
               />
             )}
+            {!loading && gameOver && userAnswers.length > 0 && (
+              <GameResult userAnswers={userAnswers} />
+            )}
           </GamePlay>
-          {!loading && gameOver && <GameResult userAnswers={userAnswers} />}
         </GameBg>
       )}
     </>
