@@ -1,45 +1,75 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 
 import AuthForm from '../AuthForm';
-import { StyledHeader } from './style';
+import { StyledHeader, StyledListItem, StyledNav, StyledUList } from './style';
+import { StyledButton } from '../../styles/components';
 import { FlexWrapper } from '../../styles/wrapper';
 import { START_GROUP, START_PAGE } from '../../constants';
-import { useSelector } from 'react-redux';
 import { TStore } from '../../store';
 import useOpenAuthForm from '../../hooks/useOpenAuthForm';
+import useClickOutside from '../../hooks/useClickOutside';
+
+import userIcon from '../../assets/images/user-icon.svg';
 
 const Header = () => {
   const { user } = useSelector((state: TStore) => state.userReducer);
   const { isAuthFormOpen, setIsAuthFormOpen } = useOpenAuthForm();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  useClickOutside(burgerRef, setIsMenuOpen);
+
+  const { pathname } = useLocation();
+
+  const handleOpenMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
-    <StyledHeader>
+    <StyledHeader isMenuOpen={isMenuOpen}>
       <FlexWrapper>
-        <Link to="/">RS Lang Logo</Link>
-        <nav>
-          <ul>
-            <li>
-              <Link to={`book/${START_GROUP}/${START_PAGE}`}>
-                Электронный учебник
-              </Link>
-            </li>
-            <li>
-              <Link to="games">Мини-игры</Link>
-            </li>
+        <Link className="logo" to="/">
+          RS Lang Logo
+        </Link>
+        <div className="navigation">
+          <StyledNav isMenuOpen={isMenuOpen}>
+            <StyledUList>
+              <StyledListItem active={pathname.includes('book')}>
+                <Link to={`book/${START_GROUP}/${START_PAGE}`}>
+                  Электронный учебник
+                </Link>
+              </StyledListItem>
+              <StyledListItem active={pathname.includes('games')}>
+                <Link to="games">Мини-игры</Link>
+              </StyledListItem>
+            </StyledUList>
+          </StyledNav>
+          <div className="right-side">
             {user !== null ? (
-              <li>
-                <Link to="user">User Icon</Link>
-              </li>
+              <Link to="user" className="user">
+                <img src={userIcon} alt="" />
+              </Link>
             ) : (
-              <li>
-                <button onClick={() => setIsAuthFormOpen(!isAuthFormOpen)}>
-                  Войти
-                </button>
-              </li>
+              <StyledButton
+                className="gradient-btn"
+                onClick={() => setIsAuthFormOpen(!isAuthFormOpen)}
+              >
+                Зарегистрироваться
+              </StyledButton>
             )}
-          </ul>
-        </nav>
+            <StyledButton
+              ref={burgerRef}
+              className="burger"
+              onClick={handleOpenMenu}
+            >
+              <div className="burger-line line1"></div>
+              <div className="burger-line line2"></div>
+              <div className="burger-line line3"></div>
+            </StyledButton>
+          </div>
+        </div>
       </FlexWrapper>
       {isAuthFormOpen && <AuthForm setIsOpen={setIsAuthFormOpen} />}
     </StyledHeader>
