@@ -34,7 +34,7 @@ const WordCard = ({
     } else {
       await handler?.handleSetWordNotLearned();
     }
-  }
+  };
 
   return (
     <Card>
@@ -63,11 +63,17 @@ const WordCard = ({
         </div>
         <div className="word-text">
           <p dangerouslySetInnerHTML={{ __html: word.textMeaning }} />
-          <p className="translation" dangerouslySetInnerHTML={{ __html: word.textMeaningTranslate }} />
+          <p
+            className="translation"
+            dangerouslySetInnerHTML={{ __html: word.textMeaningTranslate }}
+          />
         </div>
         <div className="word-text">
           <p dangerouslySetInnerHTML={{ __html: word.textExample }} />
-          <p className="translation" dangerouslySetInnerHTML={{ __html: word.textExampleTranslate }} />
+          <p
+            className="translation"
+            dangerouslySetInnerHTML={{ __html: word.textExampleTranslate }}
+          />
         </div>
         {handler !== undefined && (
           <>
@@ -79,9 +85,15 @@ const WordCard = ({
             )}
           </>
         )}
-        <StyledCheckbox title='Изучено?'>
-          <input type="checkbox" name="learned" checked={isLearnedWord} onChange={handleSetLearned}/>
+        <StyledCheckbox>
+          <input
+            type="checkbox"
+            name="learned"
+            checked={isLearnedWord}
+            onChange={handleSetLearned}
+          />
           <span></span>
+          <div className="tooltip">Изучено?</div>
         </StyledCheckbox>
         {isPlayed && (
           <div>
