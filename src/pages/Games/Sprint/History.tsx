@@ -2,6 +2,8 @@ import React from 'react';
 import { FILES_URL } from '../../../constants';
 import { Thistory, TWord } from '../../../types';
 import { playAudio } from '../../../utils';
+import { ResultsWrapper } from './styles';
+import soundSVG from '../../../assets/images/sound.svg';
 
 type Tprops = {
   history: Thistory[];
@@ -18,24 +20,33 @@ export default function History(props: Tprops) {
     await playAudio(`${FILES_URL}/${fileName}`);
   }
   return (
-    <div>
-      <ul>
+    <ResultsWrapper>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
         {history.map((h, index) => {
           return (
-            <li key={index}>
-              <span>{h.guessWord}</span> <span>{String(h.result)}</span>
-              <div>
+            <tr key={index}>
+              <td>{h.guessWord}</td>
+              <td>{h.result ? '✔️' : '❌'}</td>
+              <td>
                 <button
                   onClick={() => playSound(words, h.guessWord)}
                   type="button"
+                  className="play-sound"
                 >
-                  PlayAudio
+                  <img className="img" src={soundSVG} alt="" />
                 </button>
-              </div>
-            </li>
+              </td>
+            </tr>
           );
         })}
-      </ul>
-    </div>
+      </table>
+    </ResultsWrapper>
   );
 }

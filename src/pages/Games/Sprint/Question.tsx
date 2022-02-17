@@ -6,6 +6,7 @@ import { setCurrentWord, setStatus, setWords } from '../../../slices/sprint';
 import { TStore } from '../../../store';
 import Guess from './Guess';
 import Rightindicator from './Rightindicator';
+import { SprintGamePlay } from './styles';
 
 export default function Question() {
   const [timer, setTimer] = useState(ROUND_TIME);
@@ -49,17 +50,19 @@ export default function Question() {
   }, [timer]);
 
   return (
-    <div>
-      time: {timer}
-      {wordsFromState.length > 0 && (
-        <>
-          <Rightindicator
-            rightAnswerToBonus={3}
-            rightInTheRow={rightInRow}
-          ></Rightindicator>
-          <Guess></Guess>
-        </>
-      )}
-    </div>
+    <SprintGamePlay>
+      <div className="question-wrapper">
+        <p className="time">{timer}</p>
+        {wordsFromState.length > 0 && (
+          <>
+            <Rightindicator
+              rightAnswerToBonus={3}
+              rightInTheRow={rightInRow}
+            ></Rightindicator>
+            <Guess></Guess>
+          </>
+        )}
+      </div>
+    </SprintGamePlay>
   );
 }

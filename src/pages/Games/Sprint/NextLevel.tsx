@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { nextLevel } from '../../../slices/sprint';
+import { ScoreButtonStyle } from './styles';
 
 export default function NextLevel() {
   const dispatch = useDispatch();
@@ -8,10 +9,10 @@ export default function NextLevel() {
     dispatch(nextLevel());
   }
   return (
-    <div>
+    <ScoreButtonStyle>
       <button onClick={handler} type="button">
         Продолжить
       </button>
-    </div>
+    </ScoreButtonStyle>
   );
 }

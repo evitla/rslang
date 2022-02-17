@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ResultWrapper = styled.div`
+  display: grid;
   min-width: 500px;
   margin: auto;
   padding: 30px 20px;
@@ -9,21 +10,47 @@ export const ResultWrapper = styled.div`
   h3 {
     text-align: center;
   }
+
+  .back-to-games {
+    padding: 5px 10px;
+    background: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    margin-left: auto;
+    color: #fff;
+    border: 2px solid #fff;
+    transition: all 0.3s linear;
+    font-weight: 600;
+
+    &:hover {
+      background: #ffe4c4;
+    }
+  }
 `;
 
 export const TableWrapper = styled.div`
   max-height: 65vh;
   min-height: 400px;
+  border: 3px solid hsla(0, 0%, 100%, 0.7);
+  border-radius: 20px;
+  padding: 15px;
   overflow-y: scroll;
+  .img {
+    display: block;
+    width: 100%;
+    max-width: 30px;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 `;
 
 export const StyledTable = styled.table`
   border-spacing: 0;
-  border: 3px solid hsla(0, 0%, 100%, 0.7);
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  border-radius: 20px;
   color: #333;
 
   th {
@@ -36,5 +63,19 @@ export const StyledTable = styled.table`
     border: none;
     vertical-align: center;
     text-align: center;
+  }
+
+  .play-sound {
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: all 0.1s linear;
+
+    &:hover {
+      transform: scale(0.9);
+    }
+    &:active {
+      transform: scale(0.8);
+    }
   }
 `;

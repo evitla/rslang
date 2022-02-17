@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { defineColor } from '../../utils';
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.button<{ groupNum: number }>`
   width: 100%;
   max-width: 100px;
   outline: none;
@@ -10,4 +11,11 @@ export const StyledButton = styled.button`
   border: 2px solid palevioletred;
   border-radius: 3px;
   cursor: pointer;
+  color: #fff;
+  background: ${(props) => defineColor(props.groupNum)};
+  transition: all 0.3s linear;
+
+  &:hover {
+    transform: scale(0.95);
+  }
 `;

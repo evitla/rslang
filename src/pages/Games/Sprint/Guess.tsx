@@ -13,6 +13,7 @@ import {
   getRandomIntExcludingExistingNumbers,
   updateWordProgress,
 } from '../../../utils';
+import { QuestionWrapper } from './styles';
 
 export default function Guess() {
   const { currentWord, words, currentWordIndex, score } = useSelector(
@@ -55,23 +56,27 @@ export default function Guess() {
     dispatch(setHistory({ guessWord: currentWord, result: isCorrect }));
   }
   return (
-    <div>
-      <div>score: {score}</div>
-      <div>Загадываемое слово: {currentWord}</div>
-      <div>Возможный вариант: {variant}</div>
-      <button
-        onClick={() => buttonHandler(false, currentWordIndex)}
-        type="button"
-      >
-        Не Верно
-      </button>
-      <button
-        onClick={() => buttonHandler(true, currentWordIndex)}
-        type="button"
-      >
-        {' '}
-        верно
-      </button>
-    </div>
+    <QuestionWrapper>
+      <p className="score">score: {score}</p>
+      <p className="word-to-guess">{currentWord}</p>
+      <p className="answer-word">{variant}</p>
+      <div className="btn-wrap">
+        <button
+          onClick={() => buttonHandler(false, currentWordIndex)}
+          type="button"
+          className="wrong"
+        >
+          Не Верно
+        </button>
+        <button
+          onClick={() => buttonHandler(true, currentWordIndex)}
+          type="button"
+          className="right"
+        >
+          {' '}
+          Верно
+        </button>
+      </div>
+    </QuestionWrapper>
   );
 }

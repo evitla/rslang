@@ -5,6 +5,7 @@ import Difficuilt from './Difficuilt';
 import Question from './Question';
 import Rules from './Rules';
 import Score from './Score';
+import { SprintWrapper } from './styles';
 
 const Sprint = () => {
   const { status, score, history, page, words } = useSelector(
@@ -12,8 +13,13 @@ const Sprint = () => {
   );
 
   return (
-    <section className="sprint">
-      {status === 'playing' && <Question />}
+    <section>
+      {status === 'playing' && (
+        <SprintWrapper>
+          {' '}
+          <Question />
+        </SprintWrapper>
+      )}
       {status === 'prepare' && (
         <>
           <Rules />
@@ -21,7 +27,9 @@ const Sprint = () => {
         </>
       )}
       {status === 'ended' && (
-        <Score page={page} score={score} history={history} words={words} />
+        <SprintWrapper>
+          <Score page={page} score={score} history={history} words={words} />
+        </SprintWrapper>
       )}
     </section>
   );
