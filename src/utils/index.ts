@@ -15,10 +15,11 @@ import {
   GetOneExistedWordRes,
   GetOneWordRes,
   PlayedOptions,
-  StatsState,
+  ShortStatsGameType,
   TAuth,
   TUser,
   TUserWord,
+  UpdateStatsBody,
 } from '../types';
 
 export const getAll = async <T>(
@@ -234,14 +235,44 @@ export const isValidPageAndGroup = (
   );
 };
 
-export const getUserStats = async (userId: string) => {
+export const getUserStats = async (userId: string, token: string) => {
   const URL = `${USERS_URL}/${userId}/statistics}`;
-  const response = await axios.get<StatsState>(URL);
+  const auth = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const response = await axios.get<UpdateStatsBody>(URL, auth);
   return response.data;
 };
 
-export const updateUserStats = async (userId: string, body: StatsState) => {
+export const updateUserStats = async (
+  userId: string,
+  body: UpdateStatsBody
+) => {
   const URL = `${USERS_URL}/${userId}/statistics}`;
-  const response = await axios.put<StatsState>(URL, body);
+  const response = await axios.put<UpdateStatsBody>(URL, body);
   return response.data;
 };
+function setTwoDigitNumDate(date: string) {
+  if (date.length === 1) return '0' + date;
+  return date;
+}
+
+export function extractStatsByDate(gameStats: ShortStatsGameType) {
+  const copy = { ...gameStats };
+  let currentDate = new Date(Date.now()).getDate().toLocaleString();
+  let currentMouth = (new Date(Date.now()).getMonth() + 1).toLocaleString();
+  currentDate = setTwoDigitNumDate(currentDate);
+  currentMouth = setTwoDigitNumDate(currentMouth);
+  const dayWithMonth = `${currentDate}.${currentMouth}`;
+  const result: ShortStatsGameType = {};
+
+  lodash.forOwn(copy, (gamesValue, game) => {
+    gamesValue?.map((el) => {
+      lodash.forOwn(el, (gameInfo, gameDate) => {
+        if (gameDate === dayWithMonth) lodash.set(result, game, gameInfo);
+      });
+    });
+  });
+
+  return result;
+}
