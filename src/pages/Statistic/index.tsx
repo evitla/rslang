@@ -1,25 +1,11 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadStats } from '../../slices/stats';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { TStore } from '../../store';
-import { getUserStats } from '../../utils';
 import GameSection from './GameSection';
 import TotalSection from './TotalSection';
 
 export default function Statistic() {
-  const { userId, token } = useSelector(
-    (state: TStore) => state.userReducer!.user!
-  );
   const statsState = useSelector((state: TStore) => state.statsReducer);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    (async function () {
-      const res = await getUserStats(userId, token);
-      dispatch(loadStats(res));
-    })();
-  }, []);
-
   const { games } = statsState.optional.shortStats;
 
   return (
