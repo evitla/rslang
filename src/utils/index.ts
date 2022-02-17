@@ -158,21 +158,21 @@ export const updateWordProgress = async (
     }
   }
 };
-export const defineColor = (number: number) => {
-  switch (number) {
+export const defineColor = (groupId: number, opacity = '') => {
+  switch (groupId) {
     case 0:
-      return 'rgb(242, 105, 92);';
+      return `#577590${opacity}`;
     case 1:
-      return 'rgb(242, 166, 99);';
+      return `#43aa8b${opacity}`;
     case 2:
-      return 'rgb(250, 170, 186);';
+      return `#90be6d${opacity}`;
     case 3:
-      return 'rgb(136, 191, 176);';
+      return `#f9c74f${opacity}`;
     case 4:
-      return 'rgb(96, 164, 191);';
+      return `#f8961e${opacity}`;
     case 5:
-      return 'rgb(89, 72, 77);';
+      return `#f3722c${opacity}`;
     default:
-      return 'rgb(89, 72, 77);';
+      return `#f94144${opacity}`;
   }
 };
