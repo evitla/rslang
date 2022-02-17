@@ -216,12 +216,26 @@ export const defineColor = (groupId: number, opacity = '') => {
   }
 };
 export const getUserStats = async (userId: string, token: string) => {
-  const URL = `${USERS_URL}/${userId}/statistics}`;
-  const auth = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-  const response = await axios.get<UpdateStatsBody>(URL, auth);
-  return response.data;
+  try {
+    const URL = `${USERS_URL}/${userId}/statistics}`;
+    const auth = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const response = await axios.get<UpdateStatsBody>(URL, auth);
+    return response.data;
+  } catch (error) {
+    return {
+      learnedWords: 0,
+      optional: {
+        shortStats: {
+          games: {
+            audiocall: [],
+            sprint: [],
+          },
+        },
+      },
+    };
+  }
 };
 
 export const updateUserStats = async (
