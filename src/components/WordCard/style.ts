@@ -57,7 +57,7 @@ export const CardContent = styled.div<{
   }
 
   .translation {
-    color: ${({ theme }) => theme.colors.secondaryFont}
+    color: ${({ theme }) => theme.colors.secondaryFont};
   }
 
   .title {
@@ -90,17 +90,46 @@ export const StyledCheckbox = styled.label`
   right: 2rem;
   cursor: pointer;
   user-select: none;
-  
+  width: 0;
+
+  .tooltip {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    opacity: 0;
+    background-color: #52b788;
+    color: ${({ theme }) => theme.colors.bg};
+    padding: 6px 3px;
+    border-radius: 4px;
+    transition: all 0.5s;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      transform: translateY(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent transparent #52b788;
+    }
+  }
+
+  &:hover .tooltip {
+    opacity: 1;
+    transform: translateX(-30px);
+  }
+
   input {
     cursor: pointer;
     width: 0;
     height: 0;
     opacity: 0;
-    
+
     &:checked ~ span {
       background-color: #52b788;
       border: none;
-      
+
       &::after {
         display: block;
       }
@@ -113,12 +142,12 @@ export const StyledCheckbox = styled.label`
     right: 0;
     width: 32px;
     height: 32px;
-    background-color: white;
+    background-color: ${({ theme }) => theme.colors.bg};
     border: 1.5px solid ${({ theme }) => theme.colors.font};
     border-radius: 4px;
-    
+
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       display: none;
       left: 10px;
