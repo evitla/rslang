@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import WordCard from '../../../components/WordCard';
 import LoadingCard from '../../../components/WordCard/LoadingCard';
 import { LOADING_BLOCKS_COUNT } from '../../../constants';
@@ -17,7 +17,6 @@ const BookPages = () => {
     isDifficultGroup,
     isAuthorized,
     groupId,
-    pageId,
   }: TBookPageContext = useOutletContext();
 
   function detectIsPlayed(arr: TUserWord[], word: TWord) {
@@ -28,17 +27,6 @@ const BookPages = () => {
 
   return (
     <>
-      <div>
-        <button>
-          <Link to={`/book/${+groupId}/${+pageId - 1}`}>Prev Page</Link>
-        </button>
-        <button>
-          <Link to={`/book/${+groupId}/${+pageId + 1}`}>Next Page</Link>
-        </button>
-      </div>
-      {
-        // TODO: refactor word cards: style, and maybe create separate component
-      }
       <WordCardsContainer scrollColor={defineColor(groupId - 1, 'CC')}>
         {isLoading || isIdle ? (
           <LoadingCard count={LOADING_BLOCKS_COUNT} />
