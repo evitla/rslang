@@ -131,15 +131,6 @@ export type GameStatType = {
   rightInRow: number;
 };
 
-export type StatsState = {
-  learnedWords: number;
-  totalRightPercent: number;
-  games: {
-    sprint: GameStatType;
-    audiocall: GameStatType;
-  };
-};
-
 export type AudioCallState = {
   questions: TWord[][];
   number: number;
@@ -147,4 +138,28 @@ export type AudioCallState = {
   score: number;
   gameOver: boolean;
   qurrentQuestion: TWord | null;
+};
+
+export type GamseStats = {
+  [key: string]: {
+    newWords: number;
+    rightPercent: number;
+    rightInRow: number;
+  };
+};
+
+export type ShortStatsGameType = {
+  sprint?: GamseStats[];
+  audiocall?: GamseStats[];
+};
+export type UpdateStatsBody = {
+  learnedWords: number;
+  optional: {
+    shortStats: {
+      games?: ShortStatsGameType;
+      words?: {
+        [key: string]: number;
+      };
+    };
+  };
 };

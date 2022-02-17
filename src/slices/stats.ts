@@ -1,28 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { StatsState } from '../types';
+import { UpdateStatsBody } from '../types';
 
-const initialState: StatsState = {
-  games: {
-    sprint: {
-      newWords: 0,
-      persentRight: 0,
-      rightInRow: 0,
-    },
-    audiocall: {
-      newWords: 0,
-      persentRight: 0,
-      rightInRow: 0,
+const initialState: UpdateStatsBody = {
+  learnedWords: 0,
+  optional: {
+    shortStats: {
+      games: {
+        audiocall: [],
+        sprint: [],
+      },
     },
   },
-  learnedWords: 0,
-  totalRightPercent: 0,
 };
 
 const statsSlice = createSlice({
   name: 'stats',
   initialState,
   reducers: {
-    loadStats: (state, { payload }: PayloadAction<StatsState>) => {
+    loadStats: (state, { payload }: PayloadAction<UpdateStatsBody>) => {
       Object.assign(state, payload);
     },
   },
