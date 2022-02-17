@@ -26,7 +26,7 @@ export const WordCardsContainer = styled.div<{ scrollColor: string }>`
   padding: 10px 0 0 10px;
 
   &::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
   }
 
   &::-webkit-scrollbar-track {
