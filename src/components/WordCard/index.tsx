@@ -101,18 +101,18 @@ const WordCard = ({
                 Не сложное
               </StyledButton>
             )}
+            <StyledCheckbox>
+              <input
+                type="checkbox"
+                name="learned"
+                checked={isLearnedWord}
+                onChange={handleSetLearned}
+              />
+              <span></span>
+              <div className="tooltip">Изучено?</div>
+            </StyledCheckbox>
           </div>
         )}
-        <StyledCheckbox>
-          <input
-            type="checkbox"
-            name="learned"
-            checked={isLearnedWord}
-            onChange={handleSetLearned}
-          />
-          <span></span>
-          <div className="tooltip">Изучено?</div>
-        </StyledCheckbox>
         {isPlayed && (
           <div className="stats">
             <p>Отвечено верно: {isPlayed.rightTimes}</p>
