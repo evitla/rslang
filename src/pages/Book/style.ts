@@ -4,6 +4,19 @@ import { StyledButton } from '../../styles/components';
 export const StyledBook = styled.div<{ allLearned: boolean }>`
   background-color: ${({ allLearned, theme }) =>
     allLearned ? 'green' : theme.colors.bg};
+
+  .pagination {
+    display: flex;
+    column-gap: 0.5rem;
+
+    li {
+      cursor: pointer;
+
+      &.selected {
+        text-decoration: underline;
+      }
+    }
+  }
 `;
 
 export const Chapter = styled(StyledButton)<{ color: string; active: boolean }>`
