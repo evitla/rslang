@@ -8,7 +8,6 @@ const LoadingCard = ({ count }: { count: number }) => (
         speed={2}
         width="100%"
         height={300}
-        viewBox="0 0 100% 300"
         backgroundColor="#371e0315"
         foregroundColor="#371e0305"
         style={{
@@ -20,7 +19,7 @@ const LoadingCard = ({ count }: { count: number }) => (
         <rect x="33%" y="24" width="25%" height="70" />
         <rect x="33%" y="114" width="45%" height="40" />
         <rect x="33%" y="174" width="35%" height="40" />
-        <rect x="33%" y="234" width="15%" height="40" />
+        <rect x="33%" y="234" width="120" height="40" />
         <rect x="calc(100% - 64px)" y="24" width="32" height="32" />
       </ContentLoader>
     ))}
