@@ -5,7 +5,8 @@ import { AUTH_TOTAL_GROUPS, TOTAL_GROUPS } from '../../constants';
 import useFetchUserWords from '../../hooks/useFetchUserWords';
 import useFetchWords from '../../hooks/useFetchWords';
 import { TStore } from '../../store';
-import { StyledBook } from './style';
+import { defineColor } from '../../utils';
+import { Chapter, StyledBook } from './style';
 
 const Book = () => {
   const { pageId, groupId } = useParams();
@@ -50,32 +51,32 @@ const Book = () => {
     userWords,
     isDifficultGroup,
     isAuthorized: user !== null,
+    groupId: +groupId,
+    pageId: +pageId,
   };
 
   return (
     <StyledBook allLearned={allLearned}>
-      <h2>Book page</h2>
       {
         // TODO: refactor Page pagination: create component, style
       }
-      <div>
-        <button>
-          <Link to={`/book/${+groupId}/${+pageId - 1}`}>Prev Page</Link>
-        </button>
-        <button>
-          <Link to={`/book/${+groupId}/${+pageId + 1}`}>Next Page</Link>
-        </button>
-      </div>
       {
         // TODO: refactor Group pagination: create component, style
       }
-      <div>
+      <div
+        style={{
+          borderBottom: '1px solid rgba(0, 0, 0, 0.4)',
+          marginBottom: '1rem',
+        }}
+      >
         {Array.from(
           { length: user !== null ? AUTH_TOTAL_GROUPS : TOTAL_GROUPS },
           (_, i) => (
-            <button key={i} style={{ marginRight: '8px', padding: '4px' }}>
-              <Link to={`/book/${i + 1}/1`}>{i + 1}</Link>
-            </button>
+            <Link key={i} to={`/book/${i + 1}/1`}>
+              <Chapter color={defineColor(i, 'B3')} active={i === +groupId - 1}>
+                {i + 1}
+              </Chapter>
+            </Link>
           )
         )}
       </div>
