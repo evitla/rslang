@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { defineColor } from '../../utils';
 
 export const Card = styled.div`
   width: 100%;
@@ -22,6 +23,7 @@ export const ImageContainer = styled.div<{ bgImage: string }>`
 export const CardContent = styled.div<{
   isDifficult: boolean;
   isLearned: boolean;
+  titleColor: string;
 }>`
   width: 70%;
   display: flex;
@@ -31,7 +33,7 @@ export const CardContent = styled.div<{
   padding: 1.5rem 2rem;
   border-radius: 0 16px 16px 0;
   ${({ isDifficult }) =>
-    isDifficult && 'background-color: rgba(255, 0, 0, 0.25)'};
+    isDifficult && `background-color: ${defineColor(6, '73')}`};
 
   .word {
     position: relative;
@@ -48,7 +50,7 @@ export const CardContent = styled.div<{
       left: -12px;
       width: 5px;
       height: 100%;
-      background-color: red;
+      background-color: ${({ titleColor }) => titleColor};
     }
   }
 
@@ -109,6 +111,14 @@ export const CardContent = styled.div<{
     width: fit-content;
     font-size: inherit;
     font-weight: 500;
+  }
+
+  .danger-btn {
+    background: ${() => defineColor(6, '73')};
+  }
+
+  .success-btn {
+    background: ${() => defineColor(2, 'B3')};
   }
 
   .stats {
