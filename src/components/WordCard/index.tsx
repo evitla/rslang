@@ -8,6 +8,8 @@ import useHandleUserWord from '../../hooks/useHandleUserWord';
 import { StyledButton } from '../../styles/components';
 
 import soundIcon from '../../assets/images/sound-icon.svg';
+import noteIcon from '../../assets/images/note-icon.svg';
+import chatIcon from '../../assets/images/chat-icon.png';
 
 const WordCard = ({
   word,
@@ -62,28 +64,44 @@ const WordCard = ({
           </span>
         </div>
         <div className="word-text">
-          <p dangerouslySetInnerHTML={{ __html: word.textMeaning }} />
-          <p
-            className="translation"
-            dangerouslySetInnerHTML={{ __html: word.textMeaningTranslate }}
-          />
+          <img className="note-icon" src={noteIcon} alt="" />
+          <div>
+            <p dangerouslySetInnerHTML={{ __html: word.textMeaning }} />
+            <p
+              className="translation"
+              dangerouslySetInnerHTML={{ __html: word.textMeaningTranslate }}
+            />
+          </div>
         </div>
         <div className="word-text">
-          <p dangerouslySetInnerHTML={{ __html: word.textExample }} />
-          <p
-            className="translation"
-            dangerouslySetInnerHTML={{ __html: word.textExampleTranslate }}
-          />
+          <img className="chat-icon" src={chatIcon} alt="" />
+          <div>
+            <p dangerouslySetInnerHTML={{ __html: word.textExample }} />
+            <p
+              className="translation"
+              dangerouslySetInnerHTML={{ __html: word.textExampleTranslate }}
+            />
+          </div>
         </div>
         {handler !== undefined && (
-          <>
+          <div className="btn-container">
             {!isDifficultWord && (
-              <button onClick={handler.handleSetWordHard}>Сложное</button>
+              <StyledButton
+                className="danger-btn"
+                onClick={handler.handleSetWordHard}
+              >
+                Сложное
+              </StyledButton>
             )}
             {isDifficultGroup && (
-              <button onClick={handler.handleSetWordEasy}>Не сложное</button>
+              <StyledButton
+                className="success-btn"
+                onClick={handler.handleSetWordEasy}
+              >
+                Не сложное
+              </StyledButton>
             )}
-          </>
+          </div>
         )}
         <StyledCheckbox>
           <input
@@ -96,9 +114,10 @@ const WordCard = ({
           <div className="tooltip">Изучено?</div>
         </StyledCheckbox>
         {isPlayed && (
-          <div>
-            <p>Отвечено верно {isPlayed.rightTimes}</p>
-            <p>Отвечено неверно {isPlayed.wrongTimes}</p>
+          <div className="stats">
+            <p>Отвечено верно: {isPlayed.rightTimes}</p>
+            <span></span>
+            <p>Отвечено неверно: {isPlayed.wrongTimes}</p>
           </div>
         )}
       </CardContent>

@@ -11,8 +11,8 @@ export const Card = styled.div`
 `;
 
 export const ImageContainer = styled.div<{ bgImage: string }>`
-  width: 300px;
-  height: 300px;
+  width: 30%;
+  height: inherit;
   border-radius: 16px 0 0 16px;
   background: url(${({ bgImage }) => bgImage}) no-repeat;
   background-size: cover;
@@ -23,11 +23,13 @@ export const CardContent = styled.div<{
   isDifficult: boolean;
   isLearned: boolean;
 }>`
+  width: 70%;
   display: flex;
   height: 100%;
   flex-direction: column;
   justify-content: space-between;
   padding: 1.5rem 2rem;
+  border-radius: 0 16px 16px 0;
   ${({ isDifficult }) =>
     isDifficult && 'background-color: rgba(255, 0, 0, 0.25)'};
 
@@ -51,6 +53,21 @@ export const CardContent = styled.div<{
   }
 
   .word-text {
+    display: flex;
+    align-items: center;
+
+    .note-icon {
+      width: 28px;
+      opacity: 0.8;
+      margin-right: 8px;
+    }
+
+    .chat-icon {
+      width: 24px;
+      opacity: 0.8;
+      margin-right: 12px;
+    }
+
     p + p {
       margin-top: 4px;
     }
@@ -80,6 +97,33 @@ export const CardContent = styled.div<{
     img {
       width: 26px;
       height: 26px;
+    }
+  }
+
+  .btn-container {
+    height: 40px;
+  }
+
+  .danger-btn,
+  .success-btn {
+    width: fit-content;
+    font-size: inherit;
+    font-weight: 500;
+  }
+
+  .stats {
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 0.5rem;
+    position: absolute;
+    right: 2rem;
+    bottom: 1.5rem;
+
+    span {
+      width: 2px;
+      background-color: ${({ theme }) => theme.colors.font};
+      opacity: 0.7;
     }
   }
 `;
