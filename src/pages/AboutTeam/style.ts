@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import avatar1 from '../../assets/images/avatar1.png';
 import avatar2 from '../../assets/images/avatar2.png';
+import avatar3 from '../../assets/images/avatar3.png';
 
 export const AboutTeamWrapper = styled.div`
   display: flex;
@@ -63,8 +64,7 @@ export const AboutTeamWrapper = styled.div`
   }
 
   .card-hxnxikazuchi {
-    background: url('https://i.pinimg.com/originals/ee/85/08/ee850842e68cfcf6e3943c048f45c6d1.jpg')
-      center center no-repeat;
+    background: url(${avatar3}) center center no-repeat;
     background-size: 250px;
   }
 
@@ -99,8 +99,7 @@ export const AboutTeamWrapper = styled.div`
 
   .wrapper-hxnxikazuchi {
     &:hover .card-hxnxikazuchi {
-      background: url('https://i.pinimg.com/originals/ee/85/08/ee850842e68cfcf6e3943c048f45c6d1.jpg')
-        left center no-repeat;
+      background: url(${avatar3}) left center no-repeat;
       background-size: 350px;
 
       h2 {
