@@ -44,12 +44,12 @@ export const AboutTeamWrapper = styled.div`
   .card-evitla {
     background: url('https://i.pinimg.com/736x/8f/a0/51/8fa051251f5ac2d0b756027089fbffde--terry-o-neill-al-pacino.jpg')
       center center no-repeat;
-    background-size: 300px;
+    background-size: 250px;
 
     &:hover {
       background: url('https://i.pinimg.com/736x/8f/a0/51/8fa051251f5ac2d0b756027089fbffde--terry-o-neill-al-pacino.jpg')
         left center no-repeat;
-      background-size: 600px;
+      background-size: 350px;
 
       h2 {
         opacity: 1;
@@ -60,12 +60,12 @@ export const AboutTeamWrapper = styled.div`
   .card-excluz1v {
     background: url('https://i.pinimg.com/originals/28/d2/e6/28d2e684e7859a0dd17fbd0cea00f8a9.jpg')
       center center no-repeat;
-    background-size: 300px;
+    background-size: 250px;
 
     &:hover {
       background: url('https://i.pinimg.com/originals/28/d2/e6/28d2e684e7859a0dd17fbd0cea00f8a9.jpg')
         left center no-repeat;
-      background-size: 600px;
+      background-size: 350px;
 
       h2 {
         opacity: 1;
@@ -76,12 +76,12 @@ export const AboutTeamWrapper = styled.div`
   .card-hxnxikazuchi {
     background: url('https://i.pinimg.com/originals/ee/85/08/ee850842e68cfcf6e3943c048f45c6d1.jpg')
       center center no-repeat;
-    background-size: 300px;
+    background-size: 250px;
 
     &:hover {
       background: url('https://i.pinimg.com/originals/ee/85/08/ee850842e68cfcf6e3943c048f45c6d1.jpg')
         left center no-repeat;
-      background-size: 600px;
+      background-size: 350px;
 
       h2 {
         opacity: 1;
