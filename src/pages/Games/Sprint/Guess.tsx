@@ -6,22 +6,25 @@ import {
   setHistory,
   setRightAnswer,
   setStatus,
+  setWrongAnswer,
 } from '../../../slices/sprint';
 import { TStore } from '../../../store';
 import {
+  createStatsBody,
   fiftyfifty,
   getRandomIntExcludingExistingNumbers,
+  updateUserStats,
   updateWordProgress,
 } from '../../../utils';
 import { QuestionWrapper } from './styles';
 
 export default function Guess() {
-  const { currentWord, words, currentWordIndex, score } = useSelector(
-    (state: TStore) => state.sprintGameReducer
-  );
+  const { currentWord, words, currentWordIndex, score, maxRightInRow } =
+    useSelector((state: TStore) => state.sprintGameReducer);
   const { userId, token } = useSelector(
     (state: TStore) => state.userReducer.user!
   );
+  const stats = useSelector((state: TStore) => state.statsReducer);
   const dispatch = useDispatch();
   const [variant, setvariant] = useState('');
   const [result, setResult] = useState(fiftyfifty());
@@ -45,14 +48,28 @@ export default function Guess() {
     const nextWord = words[index + 1]?.word;
     const nextWordId = words[index + 1]?.id;
     await updateWordProgress(userId, currWordId, token, isCorrect);
+<<<<<<< HEAD
+=======
+    const body = await createStatsBody(stats, userId, currWordId, token, {
+      isRight: isCorrect,
+      rightInRow: maxRightInRow,
+      gameName: 'sprint',
+    });
+    console.log(body);
+    await updateUserStats(userId, token, body);
+>>>>>>> a26eab0 (feat: add update user stats logic)
     if (!nextWord) dispatch(setStatus('ended'));
     dispatch(setCurrentWord({ word: nextWord, id: nextWordId }));
     if (isCorrect) {
       dispatch(setRightAnswer());
+<<<<<<< HEAD
     }
     if (!isCorrect) {
       dispatch(setRightAnswer());
     }
+=======
+    } else dispatch(setWrongAnswer());
+>>>>>>> a26eab0 (feat: add update user stats logic)
     dispatch(setCurrentWordIndex(index + 1));
     dispatch(setHistory({ guessWord: currentWord, result: isCorrect }));
     setResult(fiftyfifty());

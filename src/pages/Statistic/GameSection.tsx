@@ -1,12 +1,12 @@
 import React from 'react';
-import { GamseStats } from '../../types';
+import { GamseStatsWithDate } from '../../types';
 import { extractStatsByDate } from '../../utils';
 import GameInfo from './GameInfo';
 
 type Tprops = {
   gameStats: {
-    sprint?: GamseStats[] | undefined;
-    audiocall?: GamseStats[] | undefined;
+    sprint?: GamseStatsWithDate[] | undefined;
+    audiocall?: GamseStatsWithDate[] | undefined;
   };
 };
 
