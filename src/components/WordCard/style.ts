@@ -11,13 +11,10 @@ export const Card = styled.div`
   position: relative;
 `;
 
-export const ImageContainer = styled.div<{ bgImage: string }>`
+export const StyledImage = styled.img`
   width: 30%;
   height: inherit;
   border-radius: 16px 0 0 16px;
-  background: url(${({ bgImage }) => bgImage}) no-repeat;
-  background-size: cover;
-  background-position: center;
 `;
 
 export const CardContent = styled.div<{
