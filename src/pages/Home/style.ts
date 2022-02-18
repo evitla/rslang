@@ -48,6 +48,7 @@ export const IntroSection = styled.section`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 40px;
   }
 
@@ -60,5 +61,10 @@ export const IntroSection = styled.section`
     font-weight: 600;
     color: #fff;
     background: #8b4513;
+    transition: all 0.3s linear;
+
+    &:hover {
+      transform: scale(0.95);
+    }
   }
 `;
