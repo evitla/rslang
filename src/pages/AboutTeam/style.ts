@@ -52,6 +52,7 @@ export const AboutTeamWrapper = styled.div`
   .card {
     width: 100%;
     max-width: 230px;
+    min-width: 150px;
     height: 250px;
     background: grey;
     transition: background 0.8s;
@@ -110,4 +111,6 @@ export const AboutTeamWrapper = styled.div`
       }
     }
   }
+
+
 `;
