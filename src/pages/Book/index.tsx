@@ -25,7 +25,7 @@ const Book = () => {
     (word) => word.difficulty === 'hard'
   );
 
-  const { words, isLoading, isError, isIdle } = useFetchWords(
+  const { words, isLoading, isError } = useFetchWords(
     +groupId - 1,
     +pageId - 1
   );
@@ -36,6 +36,7 @@ const Book = () => {
     !isDifficultGroup &&
     userWords !== null &&
     words !== undefined &&
+    words.length !== 0 &&
     userWords.length >= words.length &&
     words.every(
       (word) =>
@@ -50,7 +51,7 @@ const Book = () => {
     words: isDifficultGroup ? difficultWordsQuery?.words : words,
     isLoading: isDifficultGroup ? difficultWordsQuery?.isLoading : isLoading,
     isError: isDifficultGroup ? difficultWordsQuery?.isError : isError,
-    isIdle: isDifficultGroup ? difficultWordsQuery?.isIdle : isIdle,
+    isIdle: difficultWordsQuery?.isIdle,
     userWords,
     isDifficultGroup,
     isAuthorized: user !== null,
@@ -59,11 +60,11 @@ const Book = () => {
   };
 
   const handlePageClick = ({ selected }: { selected: number }) => {
-    navigate(`/book/${groupId}/${selected + 1}`);
+    if (selected !== +pageId - 1) navigate(`/book/${groupId}/${selected + 1}`);
   };
 
   return (
-    <StyledBook allLearned={allLearned}>
+    <StyledBook allLearned={allLearned} groupColor={defineColor(+groupId - 1)}>
       <div
         style={{
           borderBottom: '1px solid rgba(0, 0, 0, 0.4)',
@@ -91,7 +92,7 @@ const Book = () => {
           pageRangeDisplayed={5}
           marginPagesDisplayed={1}
           pageCount={30}
-          initialPage={+pageId - 1}
+          forcePage={+pageId - 1}
         />
       )}
       <Outlet context={context} />

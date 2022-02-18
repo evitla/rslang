@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 
-import { Card, CardContent, ImageContainer, StyledCheckbox } from './style';
+import { Card, CardContent, StyledCheckbox, StyledImage } from './style';
 import { defineColor, playAudio } from '../../utils';
 import { TWordCard } from '../../types';
 import { FILES_URL } from '../../constants';
@@ -41,7 +41,7 @@ const WordCard = ({
 
   return (
     <Card>
-      <ImageContainer bgImage={`${FILES_URL}/${word.image}`} />
+      <StyledImage src={`${FILES_URL}/${word.image}`} alt="" />
       <CardContent
         titleColor={defineColor(groupId - 1)}
         isDifficult={isAuthorized && !isDifficultGroup && isDifficultWord}
@@ -115,7 +115,7 @@ const WordCard = ({
             </StyledCheckbox>
           </div>
         )}
-        {isPlayed && (
+        {isAuthorized && isPlayed && (
           <div className="stats">
             <p>Отвечено верно: {isPlayed.rightTimes}</p>
             <span></span>
