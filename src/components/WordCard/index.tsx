@@ -103,7 +103,7 @@ const WordCard = ({
                 Не сложное
               </StyledButton>
             )}
-            <StyledCheckbox>
+            <StyledCheckbox color={defineColor(groupId - 1)}>
               <input
                 type="checkbox"
                 name="learned"
