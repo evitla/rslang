@@ -42,6 +42,7 @@ export const AboutTeamWrapper = styled.div`
 
   .card {
     width: 100%;
+    max-width: 230px;
     height: 250px;
     background: grey;
     transition: background 0.8s;
@@ -73,10 +74,6 @@ export const AboutTeamWrapper = styled.div`
       background: url(${avatar1}) left center no-repeat;
       background-size: 350px;
 
-      h2 {
-        opacity: 1;
-      }
-
       .github-svg {
         opacity: 1;
       }
@@ -88,9 +85,6 @@ export const AboutTeamWrapper = styled.div`
       background: url(${avatar2}) left center no-repeat;
       background-size: 350px;
 
-      h2 {
-        opacity: 1;
-      }
       .github-svg {
         opacity: 1;
       }
@@ -101,10 +95,6 @@ export const AboutTeamWrapper = styled.div`
     &:hover .card-hxnxikazuchi {
       background: url(${avatar3}) left center no-repeat;
       background-size: 350px;
-
-      h2 {
-        opacity: 1;
-      }
 
       .github-svg {
         opacity: 1;
