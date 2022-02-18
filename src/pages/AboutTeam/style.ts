@@ -15,7 +15,11 @@ export const AboutTeamWrapper = styled.div`
     filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(100deg)
       brightness(115%) contrast(106%);
     opacity: 0;
-    transition: all 1s linear;
+    transition: all 0.5s linear;
+
+    &:hover {
+      transform: scale(0.9);
+    }
   }
 
   .card-wrapper {
