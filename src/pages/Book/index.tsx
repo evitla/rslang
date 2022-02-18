@@ -64,7 +64,7 @@ const Book = () => {
   };
 
   return (
-    <StyledBook allLearned={allLearned}>
+    <StyledBook allLearned={allLearned} groupColor={defineColor(+groupId - 1)}>
       <div
         style={{
           borderBottom: '1px solid rgba(0, 0, 0, 0.4)',

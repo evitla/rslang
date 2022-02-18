@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { StyledButton } from '../../styles/components';
 
-export const StyledBook = styled.div<{ allLearned: boolean }>`
-  background-color: ${({ allLearned, theme }) =>
-    allLearned ? 'green' : theme.colors.bg};
+export const StyledBook = styled.div<{
+  allLearned: boolean;
+  groupColor: string;
+}>`
+  background-color: ${({ theme }) => theme.colors.bg};
 
   .pagination {
     display: flex;
@@ -20,7 +22,8 @@ export const StyledBook = styled.div<{ allLearned: boolean }>`
       }
 
       &.selected a {
-        background-color: ${({ theme }) => theme.colors.font + 'B3'};
+        background-color: ${({ theme, allLearned, groupColor }) =>
+          allLearned ? groupColor : theme.colors.font + 'B3'};
         color: ${({ theme }) => theme.colors.bg};
         font-weight: 600;
         text-decoration: underline;
