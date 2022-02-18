@@ -112,5 +112,45 @@ export const AboutTeamWrapper = styled.div`
     }
   }
 
+  @media screen and (max-width: 480px) {
+    font-size: 14px;
+    gap: 15px;
 
+    .card {
+      height: 200px;
+    }
+
+    .wrapper-evitla {
+      &:hover .card-evitla {
+        background: url(${avatar1}) left center no-repeat;
+        background-size: 250px;
+
+        .github-svg {
+          opacity: 1;
+        }
+      }
+    }
+
+    .wrapper-excluz1v {
+      &:hover .card-excluz1v {
+        background: url(${avatar2}) left center no-repeat;
+        background-size: 250px;
+
+        .github-svg {
+          opacity: 1;
+        }
+      }
+    }
+
+    .wrapper-hxnxikazuchi {
+      &:hover .card-hxnxikazuchi {
+        background: url(${avatar3}) left center no-repeat;
+        background-size: 250px;
+
+        .github-svg {
+          opacity: 1;
+        }
+      }
+    }
+  }
 `;
