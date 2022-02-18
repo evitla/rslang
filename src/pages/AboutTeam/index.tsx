@@ -4,10 +4,12 @@ import { AboutTeamWrapper } from './style';
 const AboutTeam = () => {
   return (
     <AboutTeamWrapper>
-      <div className="card-wrapper">
+      <div className="card-wrapper wrapper-evitla">
         <div className="card card-evitla">
           <div className="border">
-            <h2>evitla</h2>
+            <a href="https://github.com/evitla" target="_blank">
+              Github
+            </a>
           </div>
         </div>
         <div className="description">
@@ -20,10 +22,12 @@ const AboutTeam = () => {
           </p>
         </div>
       </div>
-      <div className="card-wrapper">
+      <div className="card-wrapper wrapper-excluz1v">
         <div className="card card-excluz1v">
           <div className="border">
-            <h2>excluz1v</h2>
+            <a href="https://github.com/excluz1v" target="_blank">
+              Github
+            </a>
           </div>
         </div>
         <div className="description">
@@ -36,10 +40,12 @@ const AboutTeam = () => {
           </p>
         </div>
       </div>
-      <div className="card-wrapper">
+      <div className="card-wrapper wrapper-hxnxikazuchi">
         <div className="card card-hxnxikazuchi">
           <div className="border">
-            <h2>hxnxikazuchi</h2>
+            <a href="https://github.com/hxnxikazuchi" target="_blank">
+              Github
+            </a>
           </div>
         </div>
         <div className="description">

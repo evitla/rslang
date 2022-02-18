@@ -8,12 +8,6 @@ export const AboutTeamWrapper = styled.div`
   justify-content: center;
   padding: 10px;
 
-  h2 {
-    color: white;
-    opacity: 0;
-    transition: all 1s;
-  }
-
   .card-wrapper {
     display: flex;
     max-width: 700px;
@@ -21,6 +15,7 @@ export const AboutTeamWrapper = styled.div`
     border-radius: 10px;
     overflow: hidden;
     box-shadow: rgb(0 0 0 / 15%) 0px 0px 10px;
+    transition: background 0.8s;
   }
 
   .description {
@@ -45,8 +40,22 @@ export const AboutTeamWrapper = styled.div`
     background: url('https://i.pinimg.com/736x/8f/a0/51/8fa051251f5ac2d0b756027089fbffde--terry-o-neill-al-pacino.jpg')
       center center no-repeat;
     background-size: 250px;
+  }
 
-    &:hover {
+  .card-excluz1v {
+    background: url('https://i.pinimg.com/originals/28/d2/e6/28d2e684e7859a0dd17fbd0cea00f8a9.jpg')
+      center center no-repeat;
+    background-size: 250px;
+  }
+
+  .card-hxnxikazuchi {
+    background: url('https://i.pinimg.com/originals/ee/85/08/ee850842e68cfcf6e3943c048f45c6d1.jpg')
+      center center no-repeat;
+    background-size: 250px;
+  }
+
+  .wrapper-evitla {
+    &:hover .card-evitla {
       background: url('https://i.pinimg.com/736x/8f/a0/51/8fa051251f5ac2d0b756027089fbffde--terry-o-neill-al-pacino.jpg')
         left center no-repeat;
       background-size: 350px;
@@ -57,12 +66,8 @@ export const AboutTeamWrapper = styled.div`
     }
   }
 
-  .card-excluz1v {
-    background: url('https://i.pinimg.com/originals/28/d2/e6/28d2e684e7859a0dd17fbd0cea00f8a9.jpg')
-      center center no-repeat;
-    background-size: 250px;
-
-    &:hover {
+  .wrapper-excluz1v {
+    &:hover .card-excluz1v {
       background: url('https://i.pinimg.com/originals/28/d2/e6/28d2e684e7859a0dd17fbd0cea00f8a9.jpg')
         left center no-repeat;
       background-size: 350px;
@@ -73,12 +78,8 @@ export const AboutTeamWrapper = styled.div`
     }
   }
 
-  .card-hxnxikazuchi {
-    background: url('https://i.pinimg.com/originals/ee/85/08/ee850842e68cfcf6e3943c048f45c6d1.jpg')
-      center center no-repeat;
-    background-size: 250px;
-
-    &:hover {
+  .wrapper-hxnxikazuchi {
+    &:hover .card-hxnxikazuchi {
       background: url('https://i.pinimg.com/originals/ee/85/08/ee850842e68cfcf6e3943c048f45c6d1.jpg')
         left center no-repeat;
       background-size: 350px;
