@@ -50,10 +50,8 @@ const AboutTeam = () => {
         <div className="description">
           <h2>hxnxikazuchi</h2>
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
-            facilis explicabo incidunt aut dolore expedita eius, repellendus
-            voluptatum qui! Expedita animi exercitationem nisi assumenda earum
-            fuga asperiores vero, veritatis in.
+            Создал игру "Audiocall", таблицу результата игр, стили игр, страницу
+            "О команде", описание возможностей и преимуществ приложения
           </p>
         </div>
       </div>

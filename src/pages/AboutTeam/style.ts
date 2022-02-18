@@ -15,6 +15,10 @@ export const AboutTeamWrapper = styled.div`
     outline: none;
   }
 
+  h2, h5 {
+    margin-bottom: 5px;
+  }
+
   .github-svg {
     display: block;
     width: 50px;
