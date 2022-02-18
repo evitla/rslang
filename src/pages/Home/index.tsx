@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 import useOpenAuthForm from '../../hooks/useOpenAuthForm';
 import { TStore } from '../../store';
 
