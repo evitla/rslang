@@ -8,6 +8,16 @@ export const AboutTeamWrapper = styled.div`
   justify-content: center;
   padding: 10px;
 
+  .github-svg {
+    display: block;
+    width: 50px;
+    height: 50px;
+    filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(100deg)
+      brightness(115%) contrast(106%);
+    opacity: 0;
+    transition: all 1s linear;
+  }
+
   .card-wrapper {
     display: flex;
     max-width: 700px;
@@ -63,6 +73,10 @@ export const AboutTeamWrapper = styled.div`
       h2 {
         opacity: 1;
       }
+
+      .github-svg {
+        opacity: 1;
+      }
     }
   }
 
@@ -75,6 +89,9 @@ export const AboutTeamWrapper = styled.div`
       h2 {
         opacity: 1;
       }
+      .github-svg {
+        opacity: 1;
+      }
     }
   }
 
@@ -85,6 +102,10 @@ export const AboutTeamWrapper = styled.div`
       background-size: 350px;
 
       h2 {
+        opacity: 1;
+      }
+
+      .github-svg {
         opacity: 1;
       }
     }

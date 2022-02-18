@@ -1,5 +1,6 @@
 import React from 'react';
 import { AboutTeamWrapper } from './style';
+import githubSVG from '../../assets/images/github.svg';
 
 const AboutTeam = () => {
   return (
@@ -8,7 +9,7 @@ const AboutTeam = () => {
         <div className="card card-evitla">
           <div className="border">
             <a href="https://github.com/evitla" target="_blank">
-              Github
+              <img className="github-svg" src={githubSVG} alt="" />
             </a>
           </div>
         </div>
@@ -26,7 +27,7 @@ const AboutTeam = () => {
         <div className="card card-excluz1v">
           <div className="border">
             <a href="https://github.com/excluz1v" target="_blank">
-              Github
+              <img className="github-svg" src={githubSVG} alt="" />
             </a>
           </div>
         </div>
@@ -44,7 +45,7 @@ const AboutTeam = () => {
         <div className="card card-hxnxikazuchi">
           <div className="border">
             <a href="https://github.com/hxnxikazuchi" target="_blank">
-              Github
+              <img className="github-svg" src={githubSVG} alt="" />
             </a>
           </div>
         </div>
