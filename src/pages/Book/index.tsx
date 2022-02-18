@@ -92,7 +92,7 @@ const Book = () => {
           pageRangeDisplayed={5}
           marginPagesDisplayed={1}
           pageCount={30}
-          initialPage={+pageId - 1}
+          forcePage={+pageId - 1}
         />
       )}
       <Outlet context={context} />
