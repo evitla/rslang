@@ -67,7 +67,6 @@ const Book = () => {
       <div
         style={{
           borderBottom: '1px solid rgba(0, 0, 0, 0.4)',
-          marginBottom: '1rem',
         }}
       >
         {Array.from(
@@ -82,16 +81,19 @@ const Book = () => {
         )}
       </div>
 
-      <ReactPaginate
-        className="pagination"
-        breakLabel="..."
-        previousLabel="<"
-        onPageChange={handlePageClick}
-        nextLabel=">"
-        pageRangeDisplayed={3}
-        pageCount={30}
-        initialPage={+pageId - 1}
-      />
+      {!isDifficultGroup && (
+        <ReactPaginate
+          className="pagination"
+          breakLabel="..."
+          previousLabel="<"
+          onPageChange={handlePageClick}
+          nextLabel=">"
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={1}
+          pageCount={30}
+          initialPage={+pageId - 1}
+        />
+      )}
       <Outlet context={context} />
     </StyledBook>
   );

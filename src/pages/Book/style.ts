@@ -7,12 +7,22 @@ export const StyledBook = styled.div<{ allLearned: boolean }>`
 
   .pagination {
     display: flex;
-    column-gap: 0.5rem;
+    margin: 8px auto;
+    width: 40%;
+    justify-content: space-between;
 
     li {
-      cursor: pointer;
+      a {
+        cursor: pointer;
+        background-color: ${({ theme }) => theme.colors.font + '40'};
+        border-radius: 4px;
+        padding: 0.25em 1em;
+      }
 
-      &.selected {
+      &.selected a {
+        background-color: ${({ theme }) => theme.colors.font + 'B3'};
+        color: ${({ theme }) => theme.colors.bg};
+        font-weight: 600;
         text-decoration: underline;
       }
     }
