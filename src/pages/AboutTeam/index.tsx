@@ -1,8 +1,9 @@
 import React from 'react';
+import { AboutTeamWrapper } from './style';
 
 const AboutTeam = () => {
   return (
-    <div className="container">
+    <AboutTeamWrapper>
       <div className="card">
         <div className="border">
           <h2>evitla</h2>
@@ -18,7 +19,7 @@ const AboutTeam = () => {
           <h2>hxnxikazuchi</h2>
         </div>
       </div>
-    </div>
+    </AboutTeamWrapper>
   );
 };
 
