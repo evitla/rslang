@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import avatar1 from '../../assets/images/avatar1.png';
 
 export const AboutTeamWrapper = styled.div`
   display: flex;
@@ -51,8 +52,7 @@ export const AboutTeamWrapper = styled.div`
   }
 
   .card-evitla {
-    background: url('https://i.pinimg.com/736x/8f/a0/51/8fa051251f5ac2d0b756027089fbffde--terry-o-neill-al-pacino.jpg')
-      center center no-repeat;
+    background: url(${avatar1}) center center no-repeat;
     background-size: 250px;
   }
 
@@ -70,8 +70,7 @@ export const AboutTeamWrapper = styled.div`
 
   .wrapper-evitla {
     &:hover .card-evitla {
-      background: url('https://i.pinimg.com/736x/8f/a0/51/8fa051251f5ac2d0b756027089fbffde--terry-o-neill-al-pacino.jpg')
-        left center no-repeat;
+      background: url(${avatar1}) left center no-repeat;
       background-size: 350px;
 
       h2 {
