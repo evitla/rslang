@@ -32,12 +32,14 @@ const Home = () => {
         Изучай английский язык играя в мини-игры и используя удобный электронный
         учебник с аудио и примерами.
       </p>
-      <StyledButton className="gradient-btn" onClick={handleGetStarted}>
-        Начать
-      </StyledButton>
-      <button>
-        <Link to="about-team">О команде</Link>
-      </button>
+      <div className="btn-container">
+        <StyledButton className="gradient-btn" onClick={handleGetStarted}>
+          Начать
+        </StyledButton>
+        <button>
+          <Link to="about-team">О команде</Link>
+        </button>
+      </div>
     </IntroSection>
   );
 };
