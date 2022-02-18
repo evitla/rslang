@@ -34,10 +34,8 @@ const AboutTeam = () => {
         <div className="description">
           <h2>excluz1v</h2>
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
-            facilis explicabo incidunt aut dolore expedita eius, repellendus
-            voluptatum qui! Expedita animi exercitationem nisi assumenda earum
-            fuga asperiores vero, veritatis in.
+            Создал прогресс изучения слов, игру "Sprint", статистику, изученные
+            слова, участвовал в разработке структуры приложения
           </p>
         </div>
       </div>
