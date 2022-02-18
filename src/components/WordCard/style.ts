@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { defineColor } from '../../utils';
 
 export const Card = styled.div`
   width: 100%;
@@ -22,6 +23,7 @@ export const ImageContainer = styled.div<{ bgImage: string }>`
 export const CardContent = styled.div<{
   isDifficult: boolean;
   isLearned: boolean;
+  titleColor: string;
 }>`
   width: 70%;
   display: flex;
@@ -31,7 +33,7 @@ export const CardContent = styled.div<{
   padding: 1.5rem 2rem;
   border-radius: 0 16px 16px 0;
   ${({ isDifficult }) =>
-    isDifficult && 'background-color: rgba(255, 0, 0, 0.25)'};
+    isDifficult && `background-color: ${defineColor(6, '50')}`};
 
   .word {
     position: relative;
@@ -48,7 +50,7 @@ export const CardContent = styled.div<{
       left: -12px;
       width: 5px;
       height: 100%;
-      background-color: red;
+      background-color: ${({ titleColor }) => titleColor};
     }
   }
 
@@ -111,6 +113,14 @@ export const CardContent = styled.div<{
     font-weight: 500;
   }
 
+  .danger-btn {
+    background: ${() => defineColor(6, '73')};
+  }
+
+  .success-btn {
+    background: ${() => defineColor(2, 'B3')};
+  }
+
   .stats {
     width: 30%;
     display: flex;
@@ -128,7 +138,7 @@ export const CardContent = styled.div<{
   }
 `;
 
-export const StyledCheckbox = styled.label`
+export const StyledCheckbox = styled.label<{ color: string }>`
   position: absolute;
   top: 1.5rem;
   right: 2rem;
@@ -141,7 +151,7 @@ export const StyledCheckbox = styled.label`
     top: 0;
     right: 10px;
     opacity: 0;
-    background-color: #52b788;
+    background-color: ${({ color }) => color};
     color: ${({ theme }) => theme.colors.bg};
     padding: 6px 3px;
     border-radius: 4px;
@@ -155,7 +165,7 @@ export const StyledCheckbox = styled.label`
       transform: translateY(-50%);
       border-width: 5px;
       border-style: solid;
-      border-color: transparent transparent transparent #52b788;
+      border-color: transparent transparent transparent ${({ color }) => color};
     }
   }
 
@@ -171,7 +181,7 @@ export const StyledCheckbox = styled.label`
     opacity: 0;
 
     &:checked ~ span {
-      background-color: #52b788;
+      background-color: ${({ color }) => color};
       border: none;
 
       &::after {
@@ -198,13 +208,13 @@ export const StyledCheckbox = styled.label`
       top: 4px;
       width: 12px;
       height: 20px;
-      border: solid white;
+      border: solid ${({ theme }) => theme.colors.bg};
       border-width: 0 4px 4px 0;
       transform: rotate(45deg);
     }
   }
 
   &:hover input ~ span {
-    background-color: #52b788;
+    background-color: ${({ color }) => color};
   }
 `;

@@ -12,7 +12,7 @@ export const StyledButton = styled.button<{ groupNum: number }>`
   border-radius: 3px;
   cursor: pointer;
   color: #fff;
-  background: ${(props) => defineColor(props.groupNum)};
+  background: ${(props) => defineColor(props.groupNum, 'CC')};
   transition: all 0.3s linear;
 
   &:hover {

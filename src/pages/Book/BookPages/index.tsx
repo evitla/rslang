@@ -4,6 +4,8 @@ import WordCard from '../../../components/WordCard';
 import LoadingCard from '../../../components/WordCard/LoadingCard';
 import { LOADING_BLOCKS_COUNT } from '../../../constants';
 import { TBookPageContext, TUserWord, TWord } from '../../../types';
+import { defineColor } from '../../../utils';
+import { WordCardsContainer } from '../style';
 
 const BookPages = () => {
   const {
@@ -14,6 +16,7 @@ const BookPages = () => {
     isIdle,
     isDifficultGroup,
     isAuthorized,
+    groupId,
   }: TBookPageContext = useOutletContext();
 
   function detectIsPlayed(arr: TUserWord[], word: TWord) {
@@ -24,16 +27,7 @@ const BookPages = () => {
 
   return (
     <>
-      {
-        // TODO: refactor word cards: style, and maybe create separate component
-      }
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '32px 48px',
-        }}
-      >
+      <WordCardsContainer scrollColor={defineColor(groupId - 1, 'CC')}>
         {isLoading || isIdle ? (
           <LoadingCard count={LOADING_BLOCKS_COUNT} />
         ) : isError ? (
@@ -44,6 +38,7 @@ const BookPages = () => {
               <WordCard
                 key={word.id}
                 word={word}
+                groupId={groupId}
                 isAuthorized={isAuthorized}
                 isDifficultGroup={isDifficultGroup}
                 isDifficult={
@@ -65,7 +60,7 @@ const BookPages = () => {
             ))}
           </>
         )}
-      </div>
+      </WordCardsContainer>
     </>
   );
 };

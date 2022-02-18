@@ -1,16 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
 import { AUTH_TOTAL_GROUPS, TOTAL_GROUPS } from '../../constants';
 import useFetchUserWords from '../../hooks/useFetchUserWords';
 import useFetchWords from '../../hooks/useFetchWords';
 import { TStore } from '../../store';
-import { StyledBook } from './style';
+import { defineColor } from '../../utils';
+import { Chapter, StyledBook } from './style';
 
 const Book = () => {
   const { pageId, groupId } = useParams();
   if (pageId === undefined) throw new Error('Page not found');
   if (groupId === undefined) throw new Error('Group not found');
+
+  const navigate = useNavigate();
 
   const { user } = useSelector((state: TStore) => state.userReducer);
   const { userWords } = useSelector((state: TStore) => state.wordReducer);
@@ -50,35 +54,46 @@ const Book = () => {
     userWords,
     isDifficultGroup,
     isAuthorized: user !== null,
+    groupId: +groupId,
+    pageId: +pageId,
+  };
+
+  const handlePageClick = ({ selected }: { selected: number }) => {
+    navigate(`/book/${groupId}/${selected + 1}`);
   };
 
   return (
     <StyledBook allLearned={allLearned}>
-      <h2>Book page</h2>
-      {
-        // TODO: refactor Page pagination: create component, style
-      }
-      <div>
-        <button>
-          <Link to={`/book/${+groupId}/${+pageId - 1}`}>Prev Page</Link>
-        </button>
-        <button>
-          <Link to={`/book/${+groupId}/${+pageId + 1}`}>Next Page</Link>
-        </button>
-      </div>
-      {
-        // TODO: refactor Group pagination: create component, style
-      }
-      <div>
+      <div
+        style={{
+          borderBottom: '1px solid rgba(0, 0, 0, 0.4)',
+        }}
+      >
         {Array.from(
           { length: user !== null ? AUTH_TOTAL_GROUPS : TOTAL_GROUPS },
           (_, i) => (
-            <button key={i} style={{ marginRight: '8px', padding: '4px' }}>
-              <Link to={`/book/${i + 1}/1`}>{i + 1}</Link>
-            </button>
+            <Link key={i} to={`/book/${i + 1}/1`}>
+              <Chapter color={defineColor(i, 'B3')} active={i === +groupId - 1}>
+                {i + 1}
+              </Chapter>
+            </Link>
           )
         )}
       </div>
+
+      {!isDifficultGroup && (
+        <ReactPaginate
+          className="pagination"
+          breakLabel="..."
+          previousLabel="<"
+          onPageChange={handlePageClick}
+          nextLabel=">"
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={1}
+          pageCount={30}
+          initialPage={+pageId - 1}
+        />
+      )}
       <Outlet context={context} />
     </StyledBook>
   );

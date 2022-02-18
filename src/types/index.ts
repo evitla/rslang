@@ -100,10 +100,13 @@ export type TBookPageContext = {
   isIdle: boolean;
   isDifficultGroup: boolean;
   isAuthorized: boolean;
+  groupId: number;
+  pageId: number;
 };
 
 export type TWordCard = {
   word: TWord;
+  groupId: number;
   isAuthorized: boolean;
   isDifficultGroup: boolean;
   isDifficult: boolean;

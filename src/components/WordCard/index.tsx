@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 
 import { Card, CardContent, ImageContainer, StyledCheckbox } from './style';
-import { playAudio } from '../../utils';
+import { defineColor, playAudio } from '../../utils';
 import { TWordCard } from '../../types';
 import { FILES_URL } from '../../constants';
 import useHandleUserWord from '../../hooks/useHandleUserWord';
@@ -13,6 +13,7 @@ import chatIcon from '../../assets/images/chat-icon.png';
 
 const WordCard = ({
   word,
+  groupId,
   isAuthorized,
   isDifficultGroup,
   isDifficult,
@@ -42,6 +43,7 @@ const WordCard = ({
     <Card>
       <ImageContainer bgImage={`${FILES_URL}/${word.image}`} />
       <CardContent
+        titleColor={defineColor(groupId - 1)}
         isDifficult={isAuthorized && !isDifficultGroup && isDifficultWord}
         isLearned={isAuthorized && isLearnedWord}
       >
@@ -101,7 +103,7 @@ const WordCard = ({
                 Не сложное
               </StyledButton>
             )}
-            <StyledCheckbox>
+            <StyledCheckbox color={defineColor(groupId - 1)}>
               <input
                 type="checkbox"
                 name="learned"
