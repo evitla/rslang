@@ -25,7 +25,7 @@ const Book = () => {
     (word) => word.difficulty === 'hard'
   );
 
-  const { words, isLoading, isError, isIdle } = useFetchWords(
+  const { words, isLoading, isError } = useFetchWords(
     +groupId - 1,
     +pageId - 1
   );
@@ -36,6 +36,7 @@ const Book = () => {
     !isDifficultGroup &&
     userWords !== null &&
     words !== undefined &&
+    words.length !== 0 &&
     userWords.length >= words.length &&
     words.every(
       (word) =>
@@ -50,7 +51,7 @@ const Book = () => {
     words: isDifficultGroup ? difficultWordsQuery?.words : words,
     isLoading: isDifficultGroup ? difficultWordsQuery?.isLoading : isLoading,
     isError: isDifficultGroup ? difficultWordsQuery?.isError : isError,
-    isIdle: isDifficultGroup ? difficultWordsQuery?.isIdle : isIdle,
+    isIdle: difficultWordsQuery?.isIdle,
     userWords,
     isDifficultGroup,
     isAuthorized: user !== null,
