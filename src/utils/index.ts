@@ -12,6 +12,7 @@ import {
   GamseStatsType,
   GamseStatsWithDate,
   GetOneWordRes,
+  GetUserStatsResponse,
   PlayedOptions,
   ShortStatsGameType,
   TAuth,
@@ -19,7 +20,6 @@ import {
   TUserWord,
   UpdateStatsBody,
 } from '../types';
-import { stat } from 'fs';
 
 export const getAll = async <T>(
   url: string,
@@ -246,8 +246,10 @@ export const getUserStats = async (userId: string, token: string) => {
     const auth = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    const response = await axios.get<UpdateStatsBody>(URL, auth);
-    return response.data;
+    const response = await axios.get<GetUserStatsResponse>(URL, auth);
+    const responseCopy = lodash.cloneDeep(response.data);
+
+    return lodash.omit(responseCopy, 'id');
   } catch (error) {
     return {
       learnedWords: 0,
@@ -268,7 +270,7 @@ function setTwoDigitNumDate(date: string) {
   return date;
 }
 
-function createDateAsKey() {
+export function createDateAsKey() {
   let currentDate = new Date(Date.now()).getDate().toLocaleString();
   let currentMouth = (new Date(Date.now()).getMonth() + 1).toLocaleString();
   currentDate = setTwoDigitNumDate(currentDate);
@@ -303,17 +305,7 @@ function increasePlayedStat(stateCopy: UpdateStatsBody, currentDayKey: string) {
 function addAnswerToStats(stats: GamseStatsType, isRight: boolean) {
   const copy = { ...stats };
   copy.tries += 1;
-  const totalRightAnswers = Math.round(copy.rightPercent * copy.tries);
-
-  if (isRight) {
-    const newPercent = Math.round((totalRightAnswers + 1) / copy.tries);
-
-    copy.rightPercent = newPercent;
-  } else {
-    const newPercent = Math.round(totalRightAnswers / copy.tries);
-    console.log(newPercent);
-    copy.rightPercent = newPercent;
-  }
+  if (isRight) copy.rightCount += 1;
   return copy;
 }
 
@@ -364,7 +356,7 @@ export async function createStatsBody(
       curDateStats[currentDayKey] = {
         newWords: 1,
         rightInRow: 0,
-        rightPercent: game.isRight ? 100 : 0,
+        rightCount: game.isRight ? 1 : 0,
         tries: 0,
       };
     }
@@ -373,7 +365,6 @@ export async function createStatsBody(
       game.isRight
     );
     curGameStats = [
-      ...curGameStats,
       {
         [currentDayKey]: curDateStats[currentDayKey],
       },
@@ -392,7 +383,9 @@ export const updateUserStats = async (
     headers: { Authorization: `Bearer ${token}` },
   };
   const response = await axios.put<UpdateStatsBody>(URL, body, auth);
-  return response.data;
+  const responseCopy = lodash.cloneDeep(response.data);
+
+  return lodash.omit(responseCopy, 'id');
 };
 
 export function extractStatsByDate(gameStats: ShortStatsGameType) {
@@ -414,8 +407,9 @@ export function extractStatsByDate(gameStats: ShortStatsGameType) {
     gamesValue?.map((el) => {
       lodash.forOwn(el, (gameInfo, gameDate) => {
         if (gameDate === dayWithMonth) {
-          if (game === 'sprint') result[game].push(gameInfo);
-          if (game === 'audiocall') result[game].push(gameInfo);
+          el[gameDate] = gameInfo;
+          // if (game === 'sprint') result[game].push(gameInfo);
+          // if (game === 'audiocall') result[game].push(gameInfo);
         }
       });
     });
