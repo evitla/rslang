@@ -1,8 +1,8 @@
 import React from 'react';
-import { GamseStats } from '../../types';
+import { GamseStatsWithDate } from '../../types';
 
 type Tprops = {
-  stats: GamseStats | undefined;
+  stats: GamseStatsWithDate | undefined;
   gameName: string;
 };
 

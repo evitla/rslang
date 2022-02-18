@@ -62,6 +62,7 @@ export type TsprintState = {
   currentWordIndex: number;
   history: Thistory[];
   currentWordId: string;
+  maxRightInRow: number;
 };
 
 export type ScorePropsType = Pick<
@@ -139,18 +140,20 @@ export type AudioCallState = {
   gameOver: boolean;
   qurrentQuestion: TWord | null;
 };
+export type GamseStatsType = {
+  newWords: number;
+  rightPercent: number;
+  rightInRow: number;
+  tries: number;
+};
 
-export type GamseStats = {
-  [key: string]: {
-    newWords: number;
-    rightPercent: number;
-    rightInRow: number;
-  };
+export type GamseStatsWithDate = {
+  [key: string]: GamseStatsType;
 };
 
 export type ShortStatsGameType = {
-  sprint?: GamseStats[];
-  audiocall?: GamseStats[];
+  sprint?: GamseStatsWithDate[];
+  audiocall?: GamseStatsWithDate[];
 };
 export type UpdateStatsBody = {
   learnedWords: number;
