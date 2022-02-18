@@ -15,7 +15,8 @@ export const AboutTeamWrapper = styled.div`
     outline: none;
   }
 
-  h2, h5 {
+  h2,
+  h5 {
     margin-bottom: 5px;
   }
 
@@ -80,7 +81,7 @@ export const AboutTeamWrapper = styled.div`
   .wrapper-evitla {
     &:hover .card-evitla {
       background: url(${avatar1}) left center no-repeat;
-      background-size: 350px;
+      background-size: 400px;
 
       .github-svg {
         opacity: 1;
@@ -91,7 +92,7 @@ export const AboutTeamWrapper = styled.div`
   .wrapper-excluz1v {
     &:hover .card-excluz1v {
       background: url(${avatar2}) left center no-repeat;
-      background-size: 350px;
+      background-size: 400px;
 
       .github-svg {
         opacity: 1;
@@ -102,7 +103,7 @@ export const AboutTeamWrapper = styled.div`
   .wrapper-hxnxikazuchi {
     &:hover .card-hxnxikazuchi {
       background: url(${avatar3}) left center no-repeat;
-      background-size: 350px;
+      background-size: 400px;
 
       .github-svg {
         opacity: 1;
