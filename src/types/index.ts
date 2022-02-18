@@ -142,7 +142,7 @@ export type AudioCallState = {
 };
 export type GamseStatsType = {
   newWords: number;
-  rightPercent: number;
+  rightCount: number;
   rightInRow: number;
   tries: number;
 };
@@ -165,4 +165,7 @@ export type UpdateStatsBody = {
       };
     };
   };
+};
+export type GetUserStatsResponse = UpdateStatsBody & {
+  id: string;
 };
