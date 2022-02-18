@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 import useOpenAuthForm from '../../hooks/useOpenAuthForm';
 import { TStore } from '../../store';
 
@@ -22,6 +21,10 @@ const Home = () => {
     }
   };
 
+  const handleAboutTeam = () => {
+    navigate('/about-team');
+  };
+
   return (
     <IntroSection>
       <img src={bgSVG} alt="" />
@@ -36,8 +39,8 @@ const Home = () => {
         <StyledButton className="gradient-btn" onClick={handleGetStarted}>
           Начать
         </StyledButton>
-        <button className="about-team-btn">
-          <Link to="about-team">О команде</Link>
+        <button className="about-team-btn" onClick={handleAboutTeam}>
+          О команде
         </button>
       </div>
     </IntroSection>
