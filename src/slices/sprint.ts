@@ -46,10 +46,7 @@ const sprintGameSlice = createSlice({
       }
     },
     setWrongAnswer: (state) => {
-<<<<<<< HEAD
-=======
       state.maxRightInRow = 0;
->>>>>>> a26eab0 (feat: add update user stats logic)
       state.rightInRow = 0;
     },
     setCurrentWordIndex: (state, { payload }: PayloadAction<number>) => {

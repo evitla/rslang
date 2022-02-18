@@ -122,7 +122,7 @@ export function fiftyfifty() {
 }
 
 function changeWordDifficult(word: GetOneExistedWordRes) {
-  const updatedWord = { ...word };
+  const updatedWord = lodash.cloneDeep(word);
   const rightInRow = updatedWord.optional.isPlayed.rightInRow;
   const { difficulty } = updatedWord;
   if (difficulty === 'easy' && rightInRow === EASY_TO_LEARNED_COUNT) {
@@ -142,11 +142,9 @@ function toggleWordLearned(word: GetOneExistedWordRes, answer: boolean) {
   const isPlayed: PlayedOptions = lodash.get(updatedWord, 'optional.isPlayed');
   if (!answer) {
     isPlayed.rightInRow = 0;
-    isPlayed.wrongTimes += 1;
     updatedWord.optional.learned = false;
   } else {
     isPlayed.rightTimes += 1;
-    isPlayed.rightInRow += 1;
   }
   return updatedWord;
 }
@@ -169,6 +167,7 @@ export const updateWordProgress = async (
   token: string,
   right: boolean
 ) => {
+  console.log(right);
   const URL = `${USERS_URL}/${userId}/words/${currWordId}`;
   const auth = {
     headers: { Authorization: `Bearer ${token}` },
@@ -189,21 +188,28 @@ export const updateWordProgress = async (
       'optional.isPlayed',
       defaultOptions
     );
+    if (right) {
+      options.rightTimes += 1;
+      options.rightInRow += 1;
+    } else {
+      options.wrongTimes += 1;
+      response.optional.learned = false;
+    }
+
     let updatedWord: GetOneExistedWordRes = {
       ...response,
       optional: { ...response.optional, isPlayed: options },
     };
 
+    console.log(updatedWord);
     updatedWord = toggleWordLearned(updatedWord, right);
     updatedWord = changeWordDifficult(updatedWord);
-    if (right) options.rightTimes += 1;
-    else {
-      options.wrongTimes += 1;
-      response.optional.learned = right;
-    }
-    response.optional.isPlayed = options;
-    const { difficulty, optional } = response;
-    await update(URL, { difficulty, optional }, auth);
+
+    updatedWord.optional.isPlayed = options;
+    console.log(updatedWord);
+    const { difficulty, optional } = updatedWord;
+    const result = await update(URL, { difficulty, optional }, auth);
+    return result;
   } catch (error) {
     const err = error as AxiosError;
     if (err.response?.status === 404) {
@@ -218,7 +224,8 @@ export const updateWordProgress = async (
           },
         },
       };
-      await create(URL, body, auth);
+      const result = await create(URL, body, auth);
+      return result;
     }
   }
 };
@@ -321,7 +328,6 @@ export async function createStatsBody(
   }
 ) {
   const response: GetOneWordRes = await getOneUserWord(userId, wordId, token);
-
   const isLearned = checkWordIsLearned(response);
   const isPlayed = checkWordIsPlayed(response);
   let stateCopy = lodash.cloneDeep(state);

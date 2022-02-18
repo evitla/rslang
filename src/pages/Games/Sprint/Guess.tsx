@@ -29,7 +29,7 @@ export default function Guess() {
   const dispatch = useDispatch();
   const [variant, setvariant] = useState('');
 
-  const result = fiftyfifty();
+  const [result, setResult] = useState(fiftyfifty());
 
   useEffect(() => {
     let translate = '';
