@@ -60,7 +60,7 @@ const Book = () => {
   };
 
   const handlePageClick = ({ selected }: { selected: number }) => {
-    navigate(`/book/${groupId}/${selected + 1}`);
+    if (selected !== +pageId - 1) navigate(`/book/${groupId}/${selected + 1}`);
   };
 
   return (
