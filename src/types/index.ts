@@ -152,8 +152,8 @@ export type GamseStatsWithDate = {
 };
 
 export type ShortStatsGameType = {
-  sprint?: GamseStatsWithDate[];
-  audiocall?: GamseStatsWithDate[];
+  sprint: GamseStatsWithDate[];
+  audiocall: GamseStatsWithDate[];
 };
 export type UpdateStatsBody = {
   learnedWords: number;

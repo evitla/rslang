@@ -262,7 +262,7 @@ export const isValidPageAndGroup = (
 
 export const getUserStats = async (userId: string, token: string) => {
   try {
-    const URL = `${USERS_URL}/${userId}/statistics}`;
+    const URL = `${USERS_URL}/${userId}/statistics`;
     const auth = {
       headers: { Authorization: `Bearer ${token}` },
     };
@@ -416,21 +416,29 @@ export const updateUserStats = async (
 };
 
 export function extractStatsByDate(gameStats: ShortStatsGameType) {
-  const copy = { ...gameStats };
+  const copy = lodash.cloneDeep(gameStats);
   let currentDate = new Date(Date.now()).getDate().toLocaleString();
   let currentMouth = (new Date(Date.now()).getMonth() + 1).toLocaleString();
   currentDate = setTwoDigitNumDate(currentDate);
   currentMouth = setTwoDigitNumDate(currentMouth);
   const dayWithMonth = createDateAsKey();
-  const result: ShortStatsGameType = {};
+  const result: {
+    audiocall: GamseStatsType[];
+    sprint: GamseStatsType[];
+  } = {
+    audiocall: [],
+    sprint: [],
+  };
 
   lodash.forOwn(copy, (gamesValue, game) => {
     gamesValue?.map((el) => {
       lodash.forOwn(el, (gameInfo, gameDate) => {
-        if (gameDate === dayWithMonth) lodash.set(result, game, gameInfo);
+        if (gameDate === dayWithMonth) {
+          if (game === 'sprint') result[game].push(gameInfo);
+          if (game === 'audiocall') result[game].push(gameInfo);
+        }
       });
     });
   });
-
   return result;
 }
