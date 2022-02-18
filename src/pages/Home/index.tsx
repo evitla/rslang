@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import useOpenAuthForm from '../../hooks/useOpenAuthForm';
 import { TStore } from '../../store';
 
@@ -34,6 +35,9 @@ const Home = () => {
       <StyledButton className="gradient-btn" onClick={handleGetStarted}>
         Начать
       </StyledButton>
+      <button>
+        <Link to="about-team">О команде</Link>
+      </button>
     </IntroSection>
   );
 };
