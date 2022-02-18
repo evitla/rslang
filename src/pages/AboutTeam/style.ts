@@ -11,6 +11,10 @@ export const AboutTeamWrapper = styled.div`
   justify-content: center;
   padding: 10px;
 
+  a {
+    outline: none;
+  }
+
   .github-svg {
     display: block;
     width: 50px;
