@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import avatar1 from '../../assets/images/avatar1.png';
+import avatar2 from '../../assets/images/avatar2.png';
 
 export const AboutTeamWrapper = styled.div`
   display: flex;
@@ -57,8 +58,7 @@ export const AboutTeamWrapper = styled.div`
   }
 
   .card-excluz1v {
-    background: url('https://i.pinimg.com/originals/28/d2/e6/28d2e684e7859a0dd17fbd0cea00f8a9.jpg')
-      center center no-repeat;
+    background: url(${avatar2}) center center no-repeat;
     background-size: 250px;
   }
 
@@ -85,8 +85,7 @@ export const AboutTeamWrapper = styled.div`
 
   .wrapper-excluz1v {
     &:hover .card-excluz1v {
-      background: url('https://i.pinimg.com/originals/28/d2/e6/28d2e684e7859a0dd17fbd0cea00f8a9.jpg')
-        left center no-repeat;
+      background: url(${avatar2}) left center no-repeat;
       background-size: 350px;
 
       h2 {
