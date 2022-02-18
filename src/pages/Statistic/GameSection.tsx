@@ -5,16 +5,18 @@ import GameInfo from './GameInfo';
 
 type Tprops = {
   gameStats: {
-    sprint?: GamseStatsWithDate[] | undefined;
-    audiocall?: GamseStatsWithDate[] | undefined;
+    sprint: GamseStatsWithDate[];
+    audiocall: GamseStatsWithDate[];
   };
 };
 
 export default function GameSection(props: Tprops) {
   const { gameStats } = props;
-  const currentgameStats = extractStatsByDate(gameStats);
-  const { sprint, audiocall } = currentgameStats;
+  const todaygameStats = extractStatsByDate(gameStats);
+  const { sprint, audiocall } = todaygameStats;
+
   const todaySprintStats = sprint ? sprint[0] : undefined;
+
   const todayAudiocallStats = audiocall ? audiocall[0] : undefined;
   return (
     <div>
