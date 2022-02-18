@@ -78,6 +78,7 @@ export type TUserWord = {
 export type PlayedOptions = {
   rightTimes: number;
   wrongTimes: number;
+  rightInRow: number;
 };
 
 export type UserWordOptions = {
@@ -90,6 +91,16 @@ export type GetOneWordRes = {
   id: string;
   wordId: string;
   optional: UserWordOptions;
+};
+
+export type GetOneExistedWordRes = {
+  difficulty: 'easy' | 'hard';
+  id: string;
+  wordId: string;
+  optional: {
+    learned: boolean;
+    isPlayed: PlayedOptions;
+  };
 };
 
 export type TBookPageContext = {
@@ -112,6 +123,7 @@ export type TWordCard = {
   isDifficult: boolean;
   isLearned: boolean;
   isPlayed?: PlayedOptions;
+  isSaved: boolean;
 };
 export type GameStatType = {
   newWords: number;
