@@ -6,6 +6,11 @@ const Button = styled.button`
   cursor: pointer;
   padding: 0.75em 1.75em;
   background: transparent;
+  transition: all 0.3s linear;
+
+  &:hover {
+    transform: scale(0.95);
+  }
 
   &.gradient-btn {
     background: ${({ theme }) => theme.colors.gradient};
