@@ -13,15 +13,26 @@ export const AboutTeamWrapper = styled.div`
     transition: all 1s;
   }
 
-  .card {
-    height: 379px;
-    width: 300px;
-    background: grey;
+  .card-wrapper {
+    display: flex;
+    max-width: 700px;
+    background-color: #fff;
     border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgb(0 0 0 / 15%) 0px 0px 10px;
+  }
+
+  .description {
+    color: #000000;
+  }
+
+  .card {
+    width: 100%;
+    height: 250px;
+    background: grey;
     transition: background 0.8s;
     overflow: hidden;
     background: black;
-    box-shadow: 0 70px 63px -60px #000000;
     display: flex;
     justify-content: center;
     align-items: center;
