@@ -15,11 +15,11 @@ const AboutTeam = () => {
         </div>
         <div className="description">
           <h2>evitla</h2>
+          <h5>Team leader</h5>
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
-            facilis explicabo incidunt aut dolore expedita eius, repellendus
-            voluptatum qui! Expedita animi exercitationem nisi assumenda earum
-            fuga asperiores vero, veritatis in.
+            Написал общую структуру приложения, разработал дизайн приложения,
+            создал карточки слов, форму авторизации, электронный учебник,
+            написал стили
           </p>
         </div>
       </div>
