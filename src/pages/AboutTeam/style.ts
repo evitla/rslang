@@ -6,6 +6,7 @@ export const AboutTeamWrapper = styled.div`
   gap: 30px;
   align-items: center;
   justify-content: center;
+  padding: 10px;
 
   h2 {
     color: white;
@@ -24,6 +25,7 @@ export const AboutTeamWrapper = styled.div`
 
   .description {
     color: #000000;
+    padding: 10px;
   }
 
   .card {
