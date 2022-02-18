@@ -36,7 +36,7 @@ const Home = () => {
         <StyledButton className="gradient-btn" onClick={handleGetStarted}>
           Начать
         </StyledButton>
-        <button>
+        <button className="about-team-btn">
           <Link to="about-team">О команде</Link>
         </button>
       </div>

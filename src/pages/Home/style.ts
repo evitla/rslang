@@ -43,4 +43,22 @@ export const IntroSection = styled.section`
   button {
     font-size: 1.25rem;
   }
+
+  .btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .about-team-btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.75em 1.75em;
+    border-radius: 32px;
+    font-weight: 600;
+    color: #fff;
+    background: #8b4513;
+  }
 `;
