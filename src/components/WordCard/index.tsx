@@ -115,7 +115,7 @@ const WordCard = ({
             </StyledCheckbox>
           </div>
         )}
-        {isPlayed && (
+        {isAuthorized && isPlayed && (
           <div className="stats">
             <p>Отвечено верно: {isPlayed.rightTimes}</p>
             <span></span>
