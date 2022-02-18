@@ -50,7 +50,7 @@ const AboutTeam = () => {
           </div>
         </div>
         <div className="description">
-          <h2>excluz1v</h2>
+          <h2>hxnxikazuchi</h2>
           <p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias
             facilis explicabo incidunt aut dolore expedita eius, repellendus
