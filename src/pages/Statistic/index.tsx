@@ -24,7 +24,12 @@ export default function Statistic() {
     <div>
       Статистика за день
       {games && <GameSection gameStats={games} />}
-      <TotalSection learnedWords={statsState.learnedWords} />
+      {games && (
+        <TotalSection
+          learnedWords={statsState.learnedWords}
+          gameStats={games}
+        />
+      )}
     </div>
   );
 }
