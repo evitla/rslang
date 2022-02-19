@@ -8,6 +8,7 @@ export const StyledForm = styled.form`
   background-color: white;
   padding: 50px;
   width: 350px;
+  border-radius: 20px;
 
   input {
     margin: 6px;
