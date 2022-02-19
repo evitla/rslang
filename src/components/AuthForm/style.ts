@@ -32,6 +32,11 @@ export const StyledForm = styled.form`
     &:not(:placeholder-shown) ~ .cut {
       transform: translateY(8px);
     }
+
+    &:focus ~ .placeholder,
+    &:not(:placeholder-shown) ~ .placeholder {
+      transform: translateY(-30px) translateX(10px) scale(0.75);
+    }
   }
 
   .cut {
