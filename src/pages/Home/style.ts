@@ -66,4 +66,14 @@ export const IntroSection = styled.section`
       transform: scale(0.95);
     }
   }
+
+  @media screen and (max-width: 530px) {
+    h2 {
+      font-size: 2rem;
+    }
+
+    button {
+      font-size: 16px;
+    }
+  }
 `;
