@@ -39,6 +39,12 @@ export const QuestionWrapper = styled.div`
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    &:focus-visible {
+      outline: auto;
+      box-shadow: 0 0 2px 2px #51a7e8;
+      border: 1px solid black;
+      color: lime;
+    }
   }
 
   .button:hover {
