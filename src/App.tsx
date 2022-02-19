@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { SetIsAuthFormOpenContext } from './hooks/useOpenAuthForm';
+import useThemeToggler from './hooks/useThemeToggler';
 import {
   Audiocall,
   AboutTeam,
@@ -18,18 +19,19 @@ import {
 import Statistic from './pages/Statistic';
 
 import GlobalStyles from './styles/global';
-import { baseTheme } from './styles/theme';
+import { lightTheme, darkTheme } from './styles/theme';
 import { Wrapper } from './styles/wrapper';
 
 const App = () => {
   const [isAuthFormOpen, setIsAuthFormOpen] = useState(false);
+  const { theme, themeToggler } = useThemeToggler();
 
   return (
-    <ThemeProvider theme={baseTheme}>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <SetIsAuthFormOpenContext.Provider
         value={{ isAuthFormOpen, setIsAuthFormOpen }}
       >
-        <Header />
+        <Header theme={theme} themeToggler={themeToggler} />
         <main>
           <Wrapper>
             <Routes>
