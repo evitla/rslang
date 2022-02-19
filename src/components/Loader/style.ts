@@ -17,6 +17,17 @@ export const StyledLoading = styled.div`
     left: 15%;
     transform-origin: 50%;
     animation: circle 0.5s alternate infinite ease;
+
+    &:nth-child(2) {
+      left: 45%;
+      animation-delay: 0.2s;
+    }
+
+    &:nth-child(3) {
+      left: auto;
+      right: 15%;
+      animation-delay: 0.3s;
+    }
   }
 
   @keyframes circle {
