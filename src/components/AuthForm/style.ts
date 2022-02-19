@@ -16,11 +16,11 @@ export const StyledForm = styled.form`
     width: 100%;
   }
   .input {
-    background-color: #303245;
+    background-color: #fff;
     border-radius: 12px;
-    border: 0;
+    border: 2px solid black;
     box-sizing: border-box;
-    color: #eee;
+    color: #000;
     font-size: 18px;
     height: 100%;
     outline: 0;
@@ -33,7 +33,7 @@ export const StyledForm = styled.form`
     }
 
     &:focus ~ .placeholder,
-    &t:not(:placeholder-shown) ~ .placeholder {
+    &:not(:placeholder-shown) ~ .placeholder {
       transform: translateY(-30px) translateX(10px) scale(0.75);
     }
 
@@ -42,24 +42,20 @@ export const StyledForm = styled.form`
     }
 
     &:focus ~ .placeholder {
-      color: #dc2f55;
+      color: #000;
     }
   }
 
   .cut {
-    background-color: #15172b;
+    background-color: #fff;
     border-radius: 10px;
     height: 20px;
     left: 20px;
     position: absolute;
-    top: -20px;
+    top: -22px;
     transform: translateY(0);
     transition: transform 200ms;
     width: 55px;
-  }
-
-  .cut-short {
-    width: 50px;
   }
 
   .placeholder {
