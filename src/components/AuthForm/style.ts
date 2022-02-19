@@ -10,10 +10,23 @@ export const StyledForm = styled.form`
   width: 350px;
   border-radius: 20px;
 
-  input {
-    margin: 6px;
-    padding: 6px;
-    border: 1px solid black;
+  .input-container {
+    height: 50px;
+    position: relative;
+    width: 100%;
+  }
+
+  .input {
+    background-color: #303245;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    font-size: 18px;
+    height: 100%;
+    outline: 0;
+    padding: 4px 20px 0;
+    width: 100%;
   }
 `;
 

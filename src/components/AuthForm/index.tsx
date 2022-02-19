@@ -27,8 +27,10 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
     <ModalWindow>
       <StyledForm ref={authRef} onSubmit={onSubmit}>
         {isRegistrationForm && (
-          <div>
+          <div className="input-container">
             <input
+              id="name"
+              className="input"
               type="text"
               placeholder="Name"
               {...register('name', {
@@ -42,6 +44,10 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
                 },
               })}
             />
+            <div className="cut"></div>
+            <label htmlFor="name" className="placeholder">
+              Name
+            </label>
             {errors.name && <p>{errors.name.message}</p>}
           </div>
         )}
