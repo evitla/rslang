@@ -2,21 +2,32 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import { AUTH_TOTAL_GROUPS, TOTAL_GROUPS } from '../../constants';
+import {
+  AUTH_TOTAL_GROUPS,
+  PAGES_AT_GROUP,
+  PAGE_RANGE_DISPLAYED,
+  TOTAL_GROUPS,
+} from '../../constants';
 import useFetchUserWords from '../../hooks/useFetchUserWords';
 import useFetchWords from '../../hooks/useFetchWords';
 import { TStore } from '../../store';
-import { defineColor } from '../../utils';
+import { defineColor, isValidPageAndGroup } from '../../utils';
 import { Chapter, StyledBook } from './style';
+import { ErrorPage } from '..';
 
 const Book = () => {
   const { pageId, groupId } = useParams();
-  if (pageId === undefined) throw new Error('Page not found');
-  if (groupId === undefined) throw new Error('Group not found');
 
   const navigate = useNavigate();
 
+  const [page, group] = [Number(pageId), Number(groupId)];
+
   const { user } = useSelector((state: TStore) => state.userReducer);
+
+  if (isValidPageAndGroup(page, group, user !== null)) {
+    return <ErrorPage />;
+  }
+
   const { userWords } = useSelector((state: TStore) => state.wordReducer);
 
   const difficultWordsQuery = useFetchUserWords(
@@ -25,12 +36,9 @@ const Book = () => {
     (word) => word.difficulty === 'hard'
   );
 
-  const { words, isLoading, isError } = useFetchWords(
-    +groupId - 1,
-    +pageId - 1
-  );
+  const { words, isLoading, isError } = useFetchWords(group - 1, page - 1);
 
-  const isDifficultGroup = +groupId === AUTH_TOTAL_GROUPS;
+  const isDifficultGroup = group === AUTH_TOTAL_GROUPS;
 
   const allLearned =
     !isDifficultGroup &&
@@ -55,16 +63,16 @@ const Book = () => {
     userWords,
     isDifficultGroup,
     isAuthorized: user !== null,
-    groupId: +groupId,
-    pageId: +pageId,
+    groupId: group,
+    pageId: page,
   };
 
   const handlePageClick = ({ selected }: { selected: number }) => {
-    if (selected !== +pageId - 1) navigate(`/book/${groupId}/${selected + 1}`);
+    if (selected !== page - 1) navigate(`/book/${groupId}/${selected + 1}`);
   };
 
   return (
-    <StyledBook allLearned={allLearned} groupColor={defineColor(+groupId - 1)}>
+    <StyledBook allLearned={allLearned} groupColor={defineColor(group - 1)}>
       <div
         style={{
           borderBottom: '1px solid rgba(0, 0, 0, 0.4)',
@@ -74,7 +82,7 @@ const Book = () => {
           { length: user !== null ? AUTH_TOTAL_GROUPS : TOTAL_GROUPS },
           (_, i) => (
             <Link key={i} to={`/book/${i + 1}/1`}>
-              <Chapter color={defineColor(i, 'B3')} active={i === +groupId - 1}>
+              <Chapter color={defineColor(i, 'B3')} active={i === group - 1}>
                 {i + 1}
               </Chapter>
             </Link>
@@ -89,10 +97,10 @@ const Book = () => {
           previousLabel="<"
           onPageChange={handlePageClick}
           nextLabel=">"
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={PAGE_RANGE_DISPLAYED}
           marginPagesDisplayed={1}
-          pageCount={30}
-          forcePage={+pageId - 1}
+          pageCount={PAGES_AT_GROUP}
+          forcePage={page - 1}
         />
       )}
       <Outlet context={context} />

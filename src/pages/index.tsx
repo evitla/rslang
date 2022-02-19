@@ -6,3 +6,4 @@ export { default as Games } from './Games';
 export { default as Audiocall } from './Games/Audiocall';
 export { default as Sprint } from './Games/Sprint';
 export { default as AboutTeam } from './AboutTeam';
+export { default as ErrorPage } from './Error';
