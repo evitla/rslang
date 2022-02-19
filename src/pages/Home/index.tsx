@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import useOpenAuthForm from '../../hooks/useOpenAuthForm';
 import { TStore } from '../../store';
-import Loader from '../../components/Loader';
 
 import { IntroSection } from './style';
 import { StyledButton } from '../../styles/components';
@@ -28,7 +27,6 @@ const Home = () => {
 
   return (
     <IntroSection>
-      <Loader />
       <img src={bgSVG} alt="" />
       <h2>Развивай</h2>
       <h2 className="gradient-title">Навыки Английского</h2>
