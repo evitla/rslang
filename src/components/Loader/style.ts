@@ -18,4 +18,21 @@ export const StyledLoading = styled.div`
     transform-origin: 50%;
     animation: circle 0.5s alternate infinite ease;
   }
+
+  @keyframes circle {
+    0% {
+      top: 60px;
+      height: 5px;
+      border-radius: 50px 50px 25px 25px;
+      transform: scaleX(1.7);
+    }
+    40% {
+      height: 20px;
+      border-radius: 50%;
+      transform: scaleX(1);
+    }
+    100% {
+      top: 0%;
+    }
+  }
 `;
