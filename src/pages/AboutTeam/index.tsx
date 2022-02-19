@@ -33,6 +33,7 @@ const AboutTeam = () => {
         </div>
         <div className="description">
           <h2>excluz1v</h2>
+          <h5>Developer</h5>
           <p>
             Создал прогресс изучения слов, игру "Sprint", статистику, изученные
             слова, участвовал в разработке структуры приложения
@@ -49,6 +50,7 @@ const AboutTeam = () => {
         </div>
         <div className="description">
           <h2>hxnxikazuchi</h2>
+          <h5>Developer</h5>
           <p>
             Создал игру "Audiocall", таблицу результата игр, стили игр, страницу
             "О команде", описание возможностей и преимуществ приложения
