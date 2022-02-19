@@ -36,6 +36,15 @@ export const StyledFooter = styled.footer`
         }
       }
     }
+
+    .logo {
+      filter: invert(100%);
+      transition: all 0.2s linear;
+
+      &:hover {
+        filter: invert(70%);
+      }
+    }
   }
 
   @media screen and (max-width: 585px) {

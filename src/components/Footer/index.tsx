@@ -52,7 +52,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={rssSVG} alt="" />
+                  <img className="logo" src={rssSVG} alt="" />
                 </a>
               </li>
             </ul>
