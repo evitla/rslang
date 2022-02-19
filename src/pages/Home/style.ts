@@ -4,8 +4,6 @@ export const IntroSection = styled.section`
   padding: 100px 0 50px;
   position: relative;
   overflow: hidden;
-  box-shadow: inset 0px 100px 100px -50px ${({ theme }) => theme.colors.bg},
-    inset 0px -100px 100px -50px ${({ theme }) => theme.colors.bg};
   text-align: center;
   height: calc(100vh - 163px);
 
@@ -13,13 +11,13 @@ export const IntroSection = styled.section`
     position: absolute;
     left: 0;
     top: 0%;
-    width: 100%;
-    opacity: 0.3;
+    opacity: ${({ theme }) => (theme.name === 'light' ? 0.3 : 0.15)};
     z-index: -100;
   }
 
   h2 {
     font-size: 4rem;
+    font-weight: 800;
   }
 
   h2 + h2 {
