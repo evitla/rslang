@@ -17,6 +17,17 @@ export const StyledHeader = styled.header<{ isMenuOpen: boolean }>`
   .right-side {
     display: flex;
     column-gap: 2rem;
+    align-items: center;
+  }
+
+  .theme-btn {
+    padding: 0;
+    width: 32px;
+    height: 32px;
+
+    img {
+      width: 100%;
+    }
   }
 
   .user {
@@ -48,7 +59,8 @@ export const StyledHeader = styled.header<{ isMenuOpen: boolean }>`
   }
 
   .burger-line {
-    background: ${({ theme }) => theme.colors.font};
+    background: ${({ theme, isMenuOpen }) =>
+      isMenuOpen ? '#371e03' : theme.colors.font};
     width: 2rem;
     height: 2px;
     transition: all 0.3s ease;
@@ -99,6 +111,7 @@ export const StyledUList = styled.ul`
   gap: 2rem;
   height: 100%;
   flex-direction: column;
+  color: #371e03;
 
   @media screen and (min-width: 1024px) {
     height: auto;
@@ -106,6 +119,7 @@ export const StyledUList = styled.ul`
     align-items: center;
     justify-content: space-between;
     padding: 0;
+    color: inherit;
   }
 `;
 
@@ -119,7 +133,11 @@ export const StyledListItem = styled.li<{ active: boolean }>`
     left: 0;
     height: 2px;
     width: ${({ active }) => (active ? '100%' : '0')};
-    background-color: ${({ theme }) => theme.colors.font};
+    background-color: #371e03;
     transition: width 0.25s;
+
+    @media screen and (min-width: 1024px) {
+      background-color: ${({ theme }) => theme.colors.font};
+    }
   }
 `;
