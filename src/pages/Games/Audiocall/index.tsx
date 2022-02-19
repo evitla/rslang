@@ -18,6 +18,7 @@ import {
   setUserAnswers,
   startNewGame,
 } from '../../../slices/audiocall';
+import Loader from '../../../components/Loader';
 
 const Audiocall = () => {
   const { questions, number, userAnswers, score, gameOver, qurrentQuestion } =
@@ -101,7 +102,11 @@ const Audiocall = () => {
       {isPlay && (
         <GameBg>
           <GamePlay>
-            {loading && <p className="loading">Loading Questions...</p>}
+            {loading && (
+              <p className="loading">
+                <Loader />
+              </p>
+            )}
             {!gameOver && !loading && <p className="score">Score: {score} </p>}
             {!loading && !gameOver && (
               <AudiocallQuestion
