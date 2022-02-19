@@ -59,9 +59,12 @@ export const StyledForm = styled.form`
     width: 55px;
   }
 
+  .cut-long {
+    width: 80px;
+  }
+
   .placeholder {
     color: #65657b;
-    font-family: sans-serif;
     left: 20px;
     line-height: 14px;
     pointer-events: none;

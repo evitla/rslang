@@ -91,7 +91,7 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
               },
             })}
           />
-          <div className="cut"></div>
+          <div className="cut cut-long"></div>
           <label htmlFor="Password" className="placeholder">
             Password
           </label>
