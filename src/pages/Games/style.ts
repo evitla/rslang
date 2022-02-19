@@ -2,10 +2,21 @@ import styled from 'styled-components';
 
 export const GameWrapper = styled.div`
   padding: 20px;
-  img {
+  position: relative;
+  height: calc(100vh - 163px);
+
+  .card__image {
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  .bg-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: ${({ theme }) => (theme.name === 'light' ? 0.3 : 0.15)};
+    z-index: -100;
   }
 
   h2 {

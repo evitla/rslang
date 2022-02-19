@@ -5,12 +5,15 @@ import audiocallSVG from '../../assets/images/audiocall.svg';
 import sprintSVG from '../../assets/images/sprint.svg';
 import { useLocation } from 'react-router';
 
+import bgSVG from '../../assets/images/bg.svg';
+
 const Games = () => {
   const { pathname } = useLocation();
   return (
     <>
       {!pathname.includes('audiocall') && !pathname.includes('sprint') && (
         <GameWrapper>
+          <img className="bg-image" src={bgSVG} alt="" />
           <h2>Games</h2>
 
           <div className="card-wrapper">
