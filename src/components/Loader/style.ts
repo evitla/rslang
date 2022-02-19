@@ -54,7 +54,7 @@ export const StyledLoading = styled.div`
       animation-delay: 0.3s;
     }
   }
-
+  
   @keyframes circle {
     0% {
       top: 60px;
