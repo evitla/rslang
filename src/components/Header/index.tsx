@@ -13,8 +13,16 @@ import useOpenAuthForm from '../../hooks/useOpenAuthForm';
 import useClickOutside from '../../hooks/useClickOutside';
 
 import userIcon from '../../assets/images/user-icon.svg';
+import sun from '../../assets/images/sun.svg';
+import moon from '../../assets/images/moon.svg';
 
-const Header = () => {
+const Header = ({
+  theme,
+  themeToggler,
+}: {
+  theme: 'light' | 'dark';
+  themeToggler: () => void;
+}) => {
   const { user } = useSelector((state: TStore) => state.userReducer);
   const { isAuthFormOpen, setIsAuthFormOpen } = useOpenAuthForm();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,6 +55,9 @@ const Header = () => {
             </StyledUList>
           </StyledNav>
           <div className="right-side">
+            <StyledButton className="theme-btn" onClick={themeToggler}>
+              <img src={theme === 'light' ? moon : sun} alt="" />
+            </StyledButton>
             {user !== null ? (
               <Link to="user" className="user">
                 <img src={userIcon} alt="" />

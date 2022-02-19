@@ -73,11 +73,7 @@ const Book = () => {
 
   return (
     <StyledBook allLearned={allLearned} groupColor={defineColor(group - 1)}>
-      <div
-        style={{
-          borderBottom: '1px solid rgba(0, 0, 0, 0.4)',
-        }}
-      >
+      <div className="chapters">
         {Array.from(
           { length: user !== null ? AUTH_TOTAL_GROUPS : TOTAL_GROUPS },
           (_, i) => (

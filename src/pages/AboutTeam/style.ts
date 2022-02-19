@@ -37,10 +37,13 @@ export const AboutTeamWrapper = styled.div`
   .card-wrapper {
     display: flex;
     max-width: 700px;
-    background-color: #fff;
+    background-color: ${({ theme }) =>
+      theme.name === 'light' ? '#edc9a5' : '#895a2c'};
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: rgb(0 0 0 / 15%) 0px 0px 10px;
+    box-shadow: ${({ theme }) =>
+        theme.name === 'light' ? 'rgb(0 0 0 / 15%)' : 'rgb(255 255 255 / 15%)'}
+      0px 0px 10px;
     transition: background 0.8s;
   }
 

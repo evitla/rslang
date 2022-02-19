@@ -2,10 +2,21 @@ import styled from 'styled-components';
 
 export const GameWrapper = styled.div`
   padding: 20px;
-  img {
+  position: relative;
+  height: calc(100vh - 163px);
+
+  .card__image {
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  .bg-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: ${({ theme }) => (theme.name === 'light' ? 0.3 : 0.15)};
+    z-index: -100;
   }
 
   h2 {
@@ -24,8 +35,9 @@ export const GameWrapper = styled.div`
   .card {
     width: 300px;
     margin: 10px;
-    background-color: white;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+    background-color: ${({ theme }) =>
+      theme.name === 'light' ? '#edc9a5' : '#555760'};
+    box-shadow: 0 5px 10px 0 ${({ theme }) => theme.colors.font + '40'};
     height: 400px;
 
     &:hover {

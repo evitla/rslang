@@ -7,6 +7,10 @@ export const StyledBook = styled.div<{
 }>`
   background-color: ${({ theme }) => theme.colors.bg};
 
+  .chapters {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.font + 'B3'};
+  }
+
   .pagination {
     display: flex;
     margin: 8px auto;
@@ -34,9 +38,11 @@ export const StyledBook = styled.div<{
 
 export const Chapter = styled(StyledButton)<{ color: string; active: boolean }>`
   background: ${({ color }) => color};
-  border: ${({ active }) => (active ? '1px solid rgba(0, 0, 0, 0.4)' : 0)};
+  border: ${({ active, theme }) =>
+    active ? `1px solid ${theme.colors.font}B3` : 0};
   border-bottom: 1px solid
-    ${({ active }) => (active ? 'transparent' : 'rgba(0, 0, 0, 0.4)')};
+    ${({ active, theme }) =>
+      active ? 'transparent' : `${theme.colors.font}B3`};
   margin-bottom: -1px;
   font-size: 1rem;
   font-weight: 500;
@@ -57,7 +63,7 @@ export const WordCardsContainer = styled.div<{ scrollColor: string }>`
 
   &::-webkit-scrollbar-track {
     border-radius: 4px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px ${({ theme }) => theme.colors.font + '50'};
   }
 
   &::-webkit-scrollbar-thumb {

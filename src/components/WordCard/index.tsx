@@ -7,7 +7,7 @@ import { FILES_URL } from '../../constants';
 import useHandleUserWord from '../../hooks/useHandleUserWord';
 import { StyledButton } from '../../styles/components';
 
-import soundIcon from '../../assets/images/sound-icon.svg';
+import soundIcon from '../../assets/images/sound.svg';
 import noteIcon from '../../assets/images/note-icon.svg';
 import chatIcon from '../../assets/images/chat-icon.png';
 
