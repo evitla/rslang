@@ -30,6 +30,10 @@ const GlobalStyles = createGlobalStyle`
   button {
     font-family: inherit;
   }
+
+  #root {
+    min-height: 100vh;
+  }
 `;
 
 export default GlobalStyles;
