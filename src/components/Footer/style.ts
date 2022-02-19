@@ -15,6 +15,34 @@ export const StyledFooter = styled.footer`
 
     ul {
       width: 350px;
+
+      li {
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 0;
+          height: 2px;
+          width: 0%;
+          background-color: steelblue;
+          transition: all 0.3s linear;
+        }
+
+        &:hover::before {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 585px) {
+    ul {
+      justify-content: center;
+    }
+    .hide {
+      display: none;
     }
   }
 `;

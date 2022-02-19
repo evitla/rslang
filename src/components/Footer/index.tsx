@@ -44,8 +44,8 @@ const Footer = () => {
                   </li>
                 </ul>
               </li>
-              <li>2022</li>
-              <li>
+              <li className="hide">2022</li>
+              <li className="hide">
                 <a
                   href="https://rs.school/js/"
                   target="_blank"
