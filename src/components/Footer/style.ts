@@ -47,7 +47,7 @@ export const StyledFooter = styled.footer`
     }
   }
 
-  @media screen and (max-width: 585px) {
+  @media screen and (max-width: 610px) {
     ul {
       justify-content: center;
     }
