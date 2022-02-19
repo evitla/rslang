@@ -9,7 +9,9 @@ export const StyledFooter = styled.footer`
   ul {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
+    gap: 15px;
 
     ul {
       width: 350px;

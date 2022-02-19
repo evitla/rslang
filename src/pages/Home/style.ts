@@ -5,7 +5,7 @@ export const IntroSection = styled.section`
   position: relative;
   overflow: hidden;
   text-align: center;
-  height: calc(100vh - 163px);
+  height: 100%;
 
   img {
     position: absolute;
