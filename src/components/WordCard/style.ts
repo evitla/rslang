@@ -6,7 +6,7 @@ export const Card = styled.div`
   height: 300px;
   display: flex;
   align-items: center;
-  box-shadow: 0 0 10px 3px rgba(55, 30, 3, 0.2);
+  box-shadow: 0 0 5px 3px ${({ theme }) => theme.colors.font + '30'};
   border-radius: 16px;
   position: relative;
 `;
@@ -49,6 +49,11 @@ export const CardContent = styled.div<{
       height: 100%;
       background-color: ${({ titleColor }) => titleColor};
     }
+  }
+
+  img {
+    filter: ${({ theme }) =>
+      theme.name === 'light' ? 'none' : 'brightness(0) invert(0.6)'};
   }
 
   .word-text {
