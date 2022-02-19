@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 
 import useRegistrationForm from '../../hooks/useRegistrationForm';
 import useClickOutside from '../../hooks/useClickOutside';
+import loginSVG from '../../assets/images/registration.svg';
 import {
   EMAIL_VALIDATION,
   MIN_PASSWORD_LENGTH,
@@ -27,29 +28,32 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
     <ModalWindow>
       <StyledForm ref={authRef} onSubmit={onSubmit}>
         {isRegistrationForm && (
-          <div className="input-container">
-            <input
-              id="name"
-              className="input"
-              type="text"
-              placeholder=" "
-              {...register('name', {
-                required: {
-                  value: true,
-                  message: 'Name is required',
-                },
-                pattern: {
-                  value: NAME_VALIDATION,
-                  message: 'Name is not valid',
-                },
-              })}
-            />
-            <div className="cut"></div>
-            <label htmlFor="name" className="placeholder">
-              Name
-            </label>
-            {errors.name && <p>{errors.name.message}</p>}
-          </div>
+          <>
+            <img className="img" src={loginSVG} alt="" />
+            <div className="input-container">
+              <input
+                id="name"
+                className="input"
+                type="text"
+                placeholder=" "
+                {...register('name', {
+                  required: {
+                    value: true,
+                    message: 'Name is required',
+                  },
+                  pattern: {
+                    value: NAME_VALIDATION,
+                    message: 'Name is not valid',
+                  },
+                })}
+              />
+              <div className="cut"></div>
+              <label htmlFor="name" className="placeholder">
+                Name
+              </label>
+              {errors.name && <p>{errors.name.message}</p>}
+            </div>
+          </>
         )}
         <div className="input-container">
           <input

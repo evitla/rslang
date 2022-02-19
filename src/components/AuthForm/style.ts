@@ -10,6 +10,12 @@ export const StyledForm = styled.form`
   width: 350px;
   border-radius: 20px;
 
+  .img {
+    display: block;
+    max-width: 100px;
+    margin: 0 auto;
+  }
+
   .input-container {
     height: 50px;
     position: relative;
@@ -113,7 +119,7 @@ export const StyledForm = styled.form`
     }
   }
 
-  .sign-container{
+  .sign-container {
     display: flex;
     justify-content: center;
     align-items: center;
