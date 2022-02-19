@@ -4,7 +4,16 @@ import { ThemeProvider } from 'styled-components';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { SetIsAuthFormOpenContext } from './hooks/useOpenAuthForm';
-import { Audiocall, Book, BookPages, Games, Home, Sprint, User } from './pages';
+import {
+  Audiocall,
+  AboutTeam,
+  Book,
+  BookPages,
+  Games,
+  Home,
+  Sprint,
+  User,
+} from './pages';
 import Statistic from './pages/Statistic';
 
 import GlobalStyles from './styles/global';
@@ -32,6 +41,7 @@ const App = () => {
                 <Route path="audiocall" element={<Audiocall />} />
                 <Route path="sprint" element={<Sprint />} />
               </Route>
+              <Route path="about-team" element={<AboutTeam />} />
             </Routes>
           </Wrapper>
         </main>

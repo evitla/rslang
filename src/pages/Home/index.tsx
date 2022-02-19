@@ -21,6 +21,10 @@ const Home = () => {
     }
   };
 
+  const handleAboutTeam = () => {
+    navigate('/about-team');
+  };
+
   return (
     <IntroSection>
       <img src={bgSVG} alt="" />
@@ -31,9 +35,14 @@ const Home = () => {
         Изучай английский язык играя в мини-игры и используя удобный электронный
         учебник с аудио и примерами.
       </p>
-      <StyledButton className="gradient-btn" onClick={handleGetStarted}>
-        Начать
-      </StyledButton>
+      <div className="btn-container">
+        <StyledButton className="gradient-btn" onClick={handleGetStarted}>
+          Начать
+        </StyledButton>
+        <button className="about-team-btn" onClick={handleAboutTeam}>
+          О команде
+        </button>
+      </div>
     </IntroSection>
   );
 };
