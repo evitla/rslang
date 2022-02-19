@@ -36,6 +36,18 @@ const GlobalStyles = createGlobalStyle`
     display: flex;
     flex-direction: column;
   }
+
+  header {
+    flex-grow: 0;
+  }
+
+  main {
+    flex-grow: 1;
+  }
+
+  footer {
+    flex-grow: 0;
+  }
 `;
 
 export default GlobalStyles;
