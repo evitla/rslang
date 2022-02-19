@@ -21,7 +21,7 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Dinmukhamed Sailaubek
+                      evitla
                     </a>
                   </li>
                   <li>
@@ -30,7 +30,16 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Ruslan Kupzhassarov
+                      hxnxikazuchi
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/excluz1v"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      excluz1v
                     </a>
                   </li>
                 </ul>
