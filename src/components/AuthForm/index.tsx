@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 
 import useRegistrationForm from '../../hooks/useRegistrationForm';
 import useClickOutside from '../../hooks/useClickOutside';
+import loginSVG from '../../assets/images/registration.svg';
 import {
   EMAIL_VALIDATION,
   MIN_PASSWORD_LENGTH,
@@ -26,29 +27,41 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
   return (
     <ModalWindow>
       <StyledForm ref={authRef} onSubmit={onSubmit}>
+        <img className="img" src={loginSVG} alt="" />
+
         {isRegistrationForm && (
-          <div>
-            <input
-              type="text"
-              placeholder="Name"
-              {...register('name', {
-                required: {
-                  value: true,
-                  message: 'Name is required',
-                },
-                pattern: {
-                  value: NAME_VALIDATION,
-                  message: 'Name is not valid',
-                },
-              })}
-            />
-            {errors.name && <p>{errors.name.message}</p>}
-          </div>
+          <>
+            <div className="input-container">
+              <input
+                id="name"
+                className="input"
+                type="text"
+                placeholder=" "
+                {...register('name', {
+                  required: {
+                    value: true,
+                    message: 'Name is required',
+                  },
+                  pattern: {
+                    value: NAME_VALIDATION,
+                    message: 'Name is not valid',
+                  },
+                })}
+              />
+              <div className="cut"></div>
+              <label htmlFor="name" className="placeholder">
+                Name
+              </label>
+              {errors.name && <p>{errors.name.message}</p>}
+            </div>
+          </>
         )}
-        <div>
+        <div className="input-container">
           <input
+            id="Email"
+            className="input"
             type="text"
-            placeholder="Email"
+            placeholder=" "
             {...register('email', {
               required: {
                 value: true,
@@ -60,12 +73,18 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
               },
             })}
           />
+          <div className="cut"></div>
+          <label htmlFor="Email" className="placeholder">
+            Email
+          </label>
           {errors.email && <p>{errors.email.message}</p>}
         </div>
-        <div>
+        <div className="input-container">
           <input
+            id="Password"
+            className="input"
             type="password"
-            placeholder="Password"
+            placeholder=" "
             {...register('password', {
               required: {
                 value: true,
@@ -77,20 +96,27 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
               },
             })}
           />
+          <div className="cut cut-long"></div>
+          <label htmlFor="Password" className="placeholder">
+            Password
+          </label>
           {errors.password && <p>{errors.password.message}</p>}
         </div>
         <input
           type="submit"
+          className="register"
           value={isRegistrationForm ? 'Зарегистрироваться' : 'Войти'}
         />
         {isRegistrationForm ? (
-          <div>
+          <div className="hasAcc">
             <span>Есть аккаунт?</span>
-            <button onClick={handleIsRegistrationForm}>Войти</button>
+            <button className="log-in" onClick={handleIsRegistrationForm}>
+              Войти
+            </button>
           </div>
         ) : (
-          <div>
-            <button onClick={handleIsRegistrationForm}>
+          <div className="sign-container">
+            <button className="sign-in" onClick={handleIsRegistrationForm}>
               Зарегистрироваться
             </button>
           </div>
