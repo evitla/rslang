@@ -27,6 +27,35 @@ export const StyledForm = styled.form`
     outline: 0;
     padding: 4px 20px 0;
     width: 100%;
+
+    &:focus ~ .cut,
+    &:not(:placeholder-shown) ~ .cut {
+      transform: translateY(8px);
+    }
+  }
+
+  .cut {
+    background-color: #15172b;
+    border-radius: 10px;
+    height: 20px;
+    left: 20px;
+    position: absolute;
+    top: -20px;
+    transform: translateY(0);
+    transition: transform 200ms;
+    width: 76px;
+  }
+
+  .placeholder {
+    color: #65657b;
+    font-family: sans-serif;
+    left: 20px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms;
+    top: 20px;
   }
 `;
 
