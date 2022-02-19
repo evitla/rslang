@@ -9,6 +9,7 @@ import {
   AboutTeam,
   Book,
   BookPages,
+  ErrorPage,
   Games,
   Home,
   Sprint,
@@ -42,6 +43,7 @@ const App = () => {
                 <Route path="sprint" element={<Sprint />} />
               </Route>
               <Route path="about-team" element={<AboutTeam />} />
+              <Route path="*" element={<ErrorPage />} />
             </Routes>
           </Wrapper>
         </main>
