@@ -30,6 +30,20 @@ export const StyledLoading = styled.div`
     }
   }
 
+  .shadow {
+    width: 20px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 62px;
+    transform-origin: 50%;
+    z-index: -1;
+    left: 15%;
+    filter: blur(1px);
+    animation: shadow 0.5s alternate infinite ease;
+  }
+
   @keyframes circle {
     0% {
       top: 60px;
