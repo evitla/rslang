@@ -15,7 +15,6 @@ export const StyledForm = styled.form`
     position: relative;
     width: 100%;
   }
-
   .input {
     background-color: #303245;
     border-radius: 12px;
@@ -34,8 +33,16 @@ export const StyledForm = styled.form`
     }
 
     &:focus ~ .placeholder,
-    &:not(:placeholder-shown) ~ .placeholder {
+    &t:not(:placeholder-shown) ~ .placeholder {
       transform: translateY(-30px) translateX(10px) scale(0.75);
+    }
+
+    &:not(:placeholder-shown) ~ .placeholder {
+      color: #808097;
+    }
+
+    &:focus ~ .placeholder {
+      color: #dc2f55;
     }
   }
 
@@ -48,7 +55,11 @@ export const StyledForm = styled.form`
     top: -20px;
     transform: translateY(0);
     transition: transform 200ms;
-    width: 76px;
+    width: 55px;
+  }
+
+  .cut-short {
+    width: 50px;
   }
 
   .placeholder {

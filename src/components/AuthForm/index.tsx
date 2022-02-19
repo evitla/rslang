@@ -32,7 +32,7 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
               id="name"
               className="input"
               type="text"
-              placeholder="Name"
+              placeholder=" "
               {...register('name', {
                 required: {
                   value: true,
