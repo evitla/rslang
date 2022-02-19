@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 export const IntroSection = styled.section`
   padding: 100px 0 50px;
-  position: relative;
-  overflow: hidden;
   text-align: center;
   height: 100%;
 
@@ -13,6 +11,7 @@ export const IntroSection = styled.section`
     top: 0%;
     opacity: ${({ theme }) => (theme.name === 'light' ? 0.3 : 0.15)};
     z-index: -100;
+    height: 100%;
   }
 
   h2 {
