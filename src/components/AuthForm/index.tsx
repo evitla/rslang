@@ -51,10 +51,12 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
             {errors.name && <p>{errors.name.message}</p>}
           </div>
         )}
-        <div>
+        <div className="input-container">
           <input
+            id="Email"
+            className="input"
             type="text"
-            placeholder="Email"
+            placeholder=" "
             {...register('email', {
               required: {
                 value: true,
@@ -66,12 +68,18 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
               },
             })}
           />
+          <div className="cut"></div>
+          <label htmlFor="Email" className="placeholder">
+            Email
+          </label>
           {errors.email && <p>{errors.email.message}</p>}
         </div>
-        <div>
+        <div className="input-container">
           <input
+            id="Password"
+            className="input"
             type="password"
-            placeholder="Password"
+            placeholder=" "
             {...register('password', {
               required: {
                 value: true,
@@ -83,6 +91,10 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
               },
             })}
           />
+          <div className="cut"></div>
+          <label htmlFor="Password" className="placeholder">
+            Password
+          </label>
           {errors.password && <p>{errors.password.message}</p>}
         </div>
         <input
