@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledFooter = styled.footer`
   padding: 10px 15px;
   margin-top: auto;
-  height: 60px;
+  height: 50px;
   display: flex;
   align-items: center;
   border-top: 1px solid #eee;
