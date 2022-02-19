@@ -1,8 +1,12 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import {
+  AUTH_TOTAL_GROUPS,
   EASY_TO_LEARNED_COUNT,
   HARD_TO_LEARNED_COUNT,
   PAGES_AT_GROUP,
+  START_GROUP,
+  START_PAGE,
+  TOTAL_GROUPS,
   USERS_URL,
 } from '../constants';
 import * as lodash from 'lodash';
@@ -217,4 +221,19 @@ export const defineColor = (groupId: number, opacity = '') => {
     default:
       return `#f94144${opacity}`;
   }
+};
+
+export const isValidPageAndGroup = (
+  page: number,
+  group: number,
+  isAuth: boolean
+) => {
+  return (
+    Number.isNaN(page) ||
+    Number.isNaN(group) ||
+    page < START_PAGE ||
+    page > PAGES_AT_GROUP ||
+    group < START_GROUP ||
+    group > (isAuth ? AUTH_TOTAL_GROUPS : TOTAL_GROUPS)
+  );
 };
