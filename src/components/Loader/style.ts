@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledLoading = styled.div`
-  width: 200px;
+  width: 125px;
   height: 60px;
   position: absolute;
   left: 50%;
