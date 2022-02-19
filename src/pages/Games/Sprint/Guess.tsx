@@ -25,7 +25,6 @@ export default function Guess() {
   const { userId, token } = useSelector(
     (state: TStore) => state.userReducer.user!
   );
-  const stats = useSelector((state: TStore) => state.statsReducer);
   const dispatch = useDispatch();
   const [variant, setvariant] = useState('');
 
@@ -52,7 +51,7 @@ export default function Guess() {
     const nextWord = words[index + 1]?.word;
     const nextWordId = words[index + 1]?.id;
     await updateWordProgress(userId, currWordId, token, isCorrect);
-    const body = await createStatsBody(stats, userId, currWordId, token, {
+    const body = await createStatsBody(userId, currWordId, token, {
       isRight: isCorrect,
       rightInRow: maxRightInRow,
       gameName: 'sprint',
