@@ -36,7 +36,7 @@ export const GameWrapper = styled.div`
     width: 300px;
     margin: 10px;
     background-color: ${({ theme }) =>
-      theme.name === 'light' ? '#edc9a5' : '#6e5d4c'};
+      theme.name === 'light' ? '#edc9a5' : '#555760'};
     box-shadow: 0 5px 10px 0 ${({ theme }) => theme.colors.font + '40'};
     height: 400px;
 

@@ -19,7 +19,7 @@ export const darkTheme: ITheme = {
 
   name: 'dark',
   colors: {
-    bg: '#1e1914',
+    bg: '#191A19',
     font: '#fff3e6',
     secondaryFont: '#c5c5c5',
     gradient: 'linear-gradient(to right, #ffaf58, #ff4141)',
