@@ -42,6 +42,17 @@ export const StyledLoading = styled.div`
     left: 15%;
     filter: blur(1px);
     animation: shadow 0.5s alternate infinite ease;
+
+    &:nth-child(4) {
+      left: 45%;
+      animation-delay: 0.2s;
+    }
+
+    &:nth-child(5) {
+      left: auto;
+      right: 15%;
+      animation-delay: 0.3s;
+    }
   }
 
   @keyframes circle {
