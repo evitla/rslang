@@ -7,6 +7,7 @@ export const IntroSection = styled.section`
   box-shadow: inset 0px 100px 100px -50px ${({ theme }) => theme.colors.bg},
     inset 0px -100px 100px -50px ${({ theme }) => theme.colors.bg};
   text-align: center;
+  height: calc(100vh - 163px);
 
   img {
     position: absolute;
@@ -18,7 +19,7 @@ export const IntroSection = styled.section`
   }
 
   h2 {
-    font-size: 3.25rem;
+    font-size: 4rem;
   }
 
   h2 + h2 {
@@ -36,8 +37,8 @@ export const IntroSection = styled.section`
     color: ${({ theme }) => theme.colors.secondaryFont};
     font-size: 1.15rem;
     line-height: 1.75rem;
-    width: 65%;
-    margin: 1.5rem auto 2rem;
+    width: 50%;
+    margin: 1.5rem auto 2.5rem;
   }
 
   button {
