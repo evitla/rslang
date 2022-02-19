@@ -60,4 +60,18 @@ export const StyledLoading = styled.div`
       top: 0%;
     }
   }
+
+  @keyframes shadow {
+    0% {
+      transform: scaleX(1.5);
+    }
+    40% {
+      transform: scaleX(1);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scaleX(0.2);
+      opacity: 0.4;
+    }
+  }
 `;
