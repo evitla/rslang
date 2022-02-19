@@ -451,8 +451,6 @@ export function extractStatsByDate(gameStats: ShortStatsGameType) {
       lodash.forOwn(el, (gameInfo, gameDate) => {
         if (gameDate === dayWithMonth) {
           el[gameDate] = gameInfo;
-          // if (game === 'sprint') result[game].push(gameInfo);
-          // if (game === 'audiocall') result[game].push(gameInfo);
         }
       });
     });
