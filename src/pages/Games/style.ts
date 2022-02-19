@@ -24,8 +24,9 @@ export const GameWrapper = styled.div`
   .card {
     width: 300px;
     margin: 10px;
-    background-color: white;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+    background-color: ${({ theme }) =>
+      theme.name === 'light' ? '#edc9a5' : '#6e5d4c'};
+    box-shadow: 0 5px 10px 0 ${({ theme }) => theme.colors.font + '40'};
     height: 400px;
 
     &:hover {
