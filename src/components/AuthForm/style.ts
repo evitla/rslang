@@ -14,7 +14,7 @@ export const StyledForm = styled.form`
     height: 50px;
     position: relative;
     width: 100%;
-    margin-top: 25px;
+    margin-top: 45px;
   }
   .input {
     background-color: #fff;
@@ -72,6 +72,16 @@ export const StyledForm = styled.form`
     transform-origin: 0 50%;
     transition: transform 200ms, color 200ms;
     top: 20px;
+  }
+
+  .register{
+    margin-top: 25px;
+  }
+
+  .hasAcc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 
