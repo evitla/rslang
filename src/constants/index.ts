@@ -11,6 +11,7 @@ export const TOTAL_GROUPS = 6;
 export const AUTH_TOTAL_GROUPS = TOTAL_GROUPS + 1;
 export const LOADING_BLOCKS_COUNT = 6;
 export const PAGES_AT_GROUP = 30;
+export const PAGE_RANGE_DISPLAYED = 5;
 export const ROUND_TIME = 60;
 export const POINTS = 20;
 export const BONUS_POINTS = 20;
