@@ -171,7 +171,6 @@ export const updateWordProgress = async (
   token: string,
   right: boolean
 ) => {
-  console.log(right);
   const URL = `${USERS_URL}/${userId}/words/${currWordId}`;
   const auth = {
     headers: { Authorization: `Bearer ${token}` },
@@ -205,12 +204,10 @@ export const updateWordProgress = async (
       optional: { ...response.optional, isPlayed: options },
     };
 
-    console.log(updatedWord);
     updatedWord = toggleWordLearned(updatedWord, right);
     updatedWord = changeWordDifficult(updatedWord);
 
     updatedWord.optional.isPlayed = options;
-    console.log(updatedWord);
     const { difficulty, optional } = updatedWord;
     const result = await update(URL, { difficulty, optional }, auth);
     return result;
@@ -337,7 +334,6 @@ function addAnswerToStats(stats: GamseStatsType, isRight: boolean) {
 }
 
 export async function createStatsBody(
-  state: UpdateStatsBody,
   userId: string,
   wordId: string,
   token: string,
@@ -347,23 +343,44 @@ export async function createStatsBody(
     gameName: 'sprint' | 'audiocall';
   }
 ) {
+  const state: UpdateStatsBody = await getUserStats(userId, token);
   const response: GetOneWordRes = await getOneUserWord(userId, wordId, token);
   const isLearned = checkWordIsLearned(response);
   const isPlayed = checkWordIsPlayed(response);
   let stateCopy = lodash.cloneDeep(state);
   const currentDayKey = createDateAsKey();
 
-  if (!isLearned) {
+  if (isLearned) {
     stateCopy.learnedWords += 1;
   }
-  if (!isPlayed)
-    lodash.set(
+
+  if (!isPlayed && !game) {
+    const currentDatePlayedWords = lodash.get(
       stateCopy,
       ['optional', 'shortStats', 'words', currentDayKey],
       1
     );
+    lodash.set(
+      stateCopy,
+      ['optional', 'shortStats', 'words', currentDayKey],
+      currentDatePlayedWords + 1
+    );
+  }
+  if (!isPlayed && game && game.isRight) {
+    const currentDatePlayedWords = lodash.get(
+      stateCopy,
+      ['optional', 'shortStats', 'words', currentDayKey],
+      1
+    );
+    lodash.set(
+      stateCopy,
+      ['optional', 'shortStats', 'words', currentDayKey],
+      currentDatePlayedWords + 1
+    );
+  }
 
   stateCopy = increasePlayedStat(stateCopy, currentDayKey);
+
   if (game) {
     const pathToGames = ['optional', 'shortStats', 'games'];
     let curGameStats: GamseStatsWithDate[] = lodash.get(
