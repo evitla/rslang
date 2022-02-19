@@ -3,6 +3,7 @@ import { useLocation } from 'react-router';
 
 import { StyledFooter } from './style';
 import { Wrapper } from '../../styles/wrapper';
+import rssSVG from '../../assets/images/rss.png';
 
 const Footer = () => {
   const { pathname } = useLocation();
@@ -51,7 +52,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  RS School
+                  <img src={rssSVG} alt="" />
                 </a>
               </li>
             </ul>

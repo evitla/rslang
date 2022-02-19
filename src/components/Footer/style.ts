@@ -6,6 +6,7 @@ export const StyledFooter = styled.footer`
   height: 60px;
   display: flex;
   align-items: center;
+  border-top: 1px solid #eee;
   ul {
     display: flex;
     justify-content: space-between;
