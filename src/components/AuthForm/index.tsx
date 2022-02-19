@@ -27,9 +27,10 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
   return (
     <ModalWindow>
       <StyledForm ref={authRef} onSubmit={onSubmit}>
+        <img className="img" src={loginSVG} alt="" />
+
         {isRegistrationForm && (
           <>
-            <img className="img" src={loginSVG} alt="" />
             <div className="input-container">
               <input
                 id="name"
