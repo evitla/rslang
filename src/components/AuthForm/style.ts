@@ -74,13 +74,48 @@ export const StyledForm = styled.form`
     top: 20px;
   }
 
-  .register{
-    margin-top: 25px;
+  .register {
+    width: 100%;
+    margin: 35px 0;
+    padding: 5px 10px;
+    font-weight: 600;
+    border: 2px solid black;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.3s linear;
+
+    &:hover {
+      background: black;
+      color: #fff;
+    }
   }
 
   .hasAcc {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .log-in,
+  .sign-in {
+    border: 2px solid black;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    background: none;
+    transition: all 0.3s linear;
+    font-weight: 600;
+
+    &:hover {
+      background: #00ced1;
+      color: #fff;
+    }
+  }
+
+  .sign-container{
+    display: flex;
+    justify-content: center;
     align-items: center;
   }
 `;

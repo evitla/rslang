@@ -105,11 +105,13 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
         {isRegistrationForm ? (
           <div className="hasAcc">
             <span>Есть аккаунт?</span>
-            <button onClick={handleIsRegistrationForm}>Войти</button>
+            <button className="log-in" onClick={handleIsRegistrationForm}>
+              Войти
+            </button>
           </div>
         ) : (
-          <div>
-            <button onClick={handleIsRegistrationForm}>
+          <div className="sign-container">
+            <button className="sign-in" onClick={handleIsRegistrationForm}>
               Зарегистрироваться
             </button>
           </div>
