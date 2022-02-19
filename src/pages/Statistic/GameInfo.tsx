@@ -14,7 +14,7 @@ export default function GameInfo(props: Tprops) {
   return (
     <div>
       <p>{gameName}</p>
-      <p>Количество изученных слов: {stats ? stats.newWords : '0'}</p>
+      <p>Количество новых слов: {stats ? stats.newWords : '0'}</p>
       <p>Процент правильных ответов: {percent}</p>
       <p>Лучшая серия: {stats ? stats.rightInRow : '0'}</p>
     </div>
