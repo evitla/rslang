@@ -22,6 +22,7 @@ export default function Statistic() {
   }, []);
   return (
     <div>
+      Статистика за день
       {games && <GameSection gameStats={games} />}
       <TotalSection learnedWords={statsState.learnedWords} />
     </div>

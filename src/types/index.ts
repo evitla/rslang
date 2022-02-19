@@ -139,6 +139,7 @@ export type AudioCallState = {
   score: number;
   gameOver: boolean;
   qurrentQuestion: TWord | null;
+  maxRightInRow: number;
 };
 export type GamseStatsType = {
   newWords: number;

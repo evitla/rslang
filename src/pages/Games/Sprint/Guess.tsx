@@ -56,7 +56,6 @@ export default function Guess() {
       rightInRow: maxRightInRow,
       gameName: 'sprint',
     });
-
     const newStats = await updateUserStats(userId, token, body);
     dispatch(loadStats(newStats));
     if (!nextWord) dispatch(setStatus('ended'));
