@@ -21,22 +21,25 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
   const btnRefs = useRef<HTMLButtonElement[]>([]);
 
   const keyDownHandler = (e: KeyboardEvent) => {
-    if (e.code === 'Digit1') {
+    if ((e as KeyboardEvent).code === 'Digit1') {
       btnRefs.current[0].focus();
     }
-    if (e.code === 'Digit2') {
+    if ((e as KeyboardEvent).code === 'Digit2') {
       btnRefs.current[1].focus();
     }
-    if (e.code === 'Digit3') {
+    if ((e as KeyboardEvent).code === 'Digit3') {
       btnRefs.current[2].focus();
     }
-    if (e.code === 'Digit4') {
+    if ((e as KeyboardEvent).code === 'Digit4') {
       btnRefs.current[3].focus();
     }
   };
 
+  useEffect(() => {
+    window.addEventListener('keydown', keyDownHandler);
+  });
   return (
-    <QuestionWrapper>
+    <QuestionWrapper className="wrapper">
       <h3 className="question-num">
         Question: {questionNum} / {totalQuestions}
       </h3>
@@ -49,7 +52,7 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
       >
         <img className="img" src={soundSVG} alt="" />
       </button>
-      <div className="answers-wrapper" onKeyDown={keyDownHandler} role="button">
+      <div className="answers-wrapper">
         {answers.map((answer, index) => (
           <div key={answer.id}>
             <button
