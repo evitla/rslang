@@ -1,46 +1,14 @@
-# Getting Started with Create React App
+# RS Lang
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**RS Lang** – приложение для изучения иностранных слов, включающее электронный учебник с базой слов для изучения, мини-игры для их повторения, страницу статистики для отслеживания индивидуального прогресса.
 
-## Available Scripts
+Данное приложение было создано в рамках обучения в [The Rolling Scopes School](https://rs.school/) командой ~~студентов~~ фронтенд разработчиков.
 
-In the project directory, you can run:
+## Использованные технологии
 
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React + Typescript
+- [Redux Toolkit](https://redux-toolkit.js.org/) – библиотека предназначенная для создания, изменения, хранения и передачи стейтов.
+- [Styled Components](https://styled-components.com/) использовался для стилизации `React` компонентов.
+- [React Query](https://react-query.tanstack.com/) использовался для обработки API запросов.
+- [React Hook Form](https://react-hook-form.com/) использовался для создания формы.
+- [React Content Loader](https://skeletonreact.com/) использовался для создания анимированных скелетонов, заменяющих загружаемую компоненту.
