@@ -10,9 +10,12 @@ const useRegistrationForm = (setIsOpen: (isOpen: boolean) => void) => {
   const navigate = useNavigate();
 
   const [isRegistrationForm, setIsRegistrationForm] = useState(true);
+  const [hideErrorMessage, setHideErrorMessage] = useState(false);
 
-  const handleIsRegistrationForm = () =>
+  const handleIsRegistrationForm = () => {
     setIsRegistrationForm(!isRegistrationForm);
+    setHideErrorMessage(true);
+  };
 
   const form = useForm<TUser>();
 
@@ -22,6 +25,7 @@ const useRegistrationForm = (setIsOpen: (isOpen: boolean) => void) => {
   const loginUser = useLogin();
 
   const onSubmit = async (user: TUser) => {
+    setHideErrorMessage(false);
     navigate('/');
 
     if (isRegistrationForm) {
@@ -34,6 +38,7 @@ const useRegistrationForm = (setIsOpen: (isOpen: boolean) => void) => {
 
   return {
     isRegistrationForm,
+    hideErrorMessage,
     handleIsRegistrationForm,
     onSubmit: handleSubmit(onSubmit),
     addUser,
