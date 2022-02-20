@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FILES_URL } from '../../constants/index';
 import { AudiocallProps } from '../../types/index';
 import { playAudio } from '../../utils';
@@ -19,6 +19,16 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
     })();
   }, [questionAudio]);
 
+  const keyDownHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.code === 'ArrowLeft') {
+      console.log('Arrow LEFT');
+    }
+
+    if (e.code === 'ArrowRight') {
+      console.log('Arrow Right');
+    }
+  };
+
   return (
     <QuestionWrapper>
       <h3 className="question-num">
@@ -33,7 +43,12 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
       >
         <img className="img" src={soundSVG} alt="" />
       </button>
-      <div className="answers-wrapper">
+      <div
+        className="answers-wrapper"
+        tabIndex={0}
+        onKeyDown={keyDownHandler}
+        role={}
+      >
         {answers.map((answer) => (
           <div key={answer.id}>
             <button
