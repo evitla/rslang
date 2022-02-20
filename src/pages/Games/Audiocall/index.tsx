@@ -41,7 +41,9 @@ const Audiocall = () => {
   } = useSelector((state: TStore) => state.audioGameReducer);
   const userId = useSelector((state: TStore) => state.userReducer.user?.userId);
   const token = useSelector((state: TStore) => state.userReducer.user?.token);
-
+  const { group, page } = useSelector(
+    (state: TStore) => state.audiogameBookReducer
+  );
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [isPlay, setPlay] = useState(false);
