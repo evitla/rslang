@@ -4,7 +4,7 @@ import { GamePreview, GameBg, GamePlay } from './style';
 import AudiocallButton from '../../../components/AudiocallButton';
 import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
-import { fetchQuestion } from './api';
+import { fetchQuestion, fetchFromBook } from './api';
 import { AudioCallState, TWord } from '../../../types';
 import {
   createStatsBody,
@@ -54,7 +54,7 @@ const Audiocall = () => {
     setPlay(true);
     const newQuestions =
       group !== null && page !== null
-        ? await fetchQuestion(group, page)
+        ? await fetchFromBook(group - 1, page - 1)
         : await fetchQuestion(groupID);
     const defaultState: AudioCallState = {
       questions: newQuestions,
@@ -65,8 +65,6 @@ const Audiocall = () => {
       gameOver: false,
       maxRightInRow: 0,
     };
-    dispatch(setCurGroup(null));
-    dispatch(setCurPage(null));
     dispatch(startNewGame(defaultState));
     setLoading(false);
   };
@@ -74,6 +72,8 @@ const Audiocall = () => {
   const nextQuestion = () => {
     const nextQ = number + 1;
     if (nextQ === TOTAL_QUESTIONS) {
+      dispatch(setCurGroup(null));
+      dispatch(setCurPage(null));
       dispatch(setGameOver(true));
     } else {
       dispatch(setNumber(nextQ));
