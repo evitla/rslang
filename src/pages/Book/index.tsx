@@ -14,6 +14,8 @@ import { TStore } from '../../store';
 import { defineColor, isValidPageAndGroup } from '../../utils';
 import { Chapter, StyledBook } from './style';
 import { ErrorPage } from '..';
+import { setCurGroup, setCurPage } from '../../slices/audiocallBook';
+import { useLocation } from 'react-router';
 
 const Book = () => {
   const { pageId, groupId } = useParams();
@@ -71,6 +73,15 @@ const Book = () => {
     if (selected !== page - 1) navigate(`/book/${groupId}/${selected + 1}`);
   };
 
+  const { pathname } = useLocation();
+
+  const handleAudioBook = () => {
+    const groupAudio = pathname.split('/')[2];
+    const pageAudio = pathname.split('/')[3];
+    setCurGroup(+groupAudio);
+    setCurPage(+pageAudio);
+  };
+
   return (
     <StyledBook allLearned={allLearned} groupColor={defineColor(group - 1)}>
       <div className="chapters">
@@ -99,7 +110,7 @@ const Book = () => {
           forcePage={page - 1}
         />
       )}
-      <button onClick={() => navigate('/games/audiocall')}>Audiocall</button>
+      <button onClick={handleAudioBook}>Audiocall</button>
       <Outlet context={context} />
     </StyledBook>
   );
