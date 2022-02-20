@@ -13,12 +13,16 @@ import * as lodash from 'lodash';
 
 import {
   GetOneExistedWordRes,
+  GamseStatsType,
+  GamseStatsWithDate,
   GetOneWordRes,
+  GetUserStatsResponse,
   PlayedOptions,
-  StatsState,
+  ShortStatsGameType,
   TAuth,
   TUser,
   TUserWord,
+  UpdateStatsBody,
 } from '../types';
 
 export const getAll = async <T>(
@@ -120,13 +124,9 @@ export function fiftyfifty() {
   const result = Math.random();
   return result > 0.5;
 }
-export const getUserStats = async (url: string, id = '') => {
-  const response = await axios.get<StatsState>(`${url}${id}/statistics`);
-  return response.data;
-};
 
 function changeWordDifficult(word: GetOneExistedWordRes) {
-  const updatedWord = { ...word };
+  const updatedWord = lodash.cloneDeep(word);
   const rightInRow = updatedWord.optional.isPlayed.rightInRow;
   const { difficulty } = updatedWord;
   if (difficulty === 'easy' && rightInRow === EASY_TO_LEARNED_COUNT) {
@@ -146,15 +146,25 @@ function toggleWordLearned(word: GetOneExistedWordRes, answer: boolean) {
   const isPlayed: PlayedOptions = lodash.get(updatedWord, 'optional.isPlayed');
   if (!answer) {
     isPlayed.rightInRow = 0;
-    isPlayed.wrongTimes += 1;
     updatedWord.optional.learned = false;
   } else {
     isPlayed.rightTimes += 1;
-    isPlayed.rightInRow += 1;
   }
   return updatedWord;
 }
 
+async function getOneUserWord(
+  userId: string,
+  currWordId: string,
+  token: string
+) {
+  const URL = `${USERS_URL}/${userId}/words/${currWordId}`;
+  const auth = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const response: GetOneWordRes = await getOne(URL, auth);
+  return response;
+}
 export const updateWordProgress = async (
   userId: string,
   currWordId: string,
@@ -171,12 +181,24 @@ export const updateWordProgress = async (
     rightInRow: 0,
   };
   try {
-    const response: GetOneWordRes = await getOne(URL, auth);
+    const response: GetOneWordRes = await getOneUserWord(
+      userId,
+      currWordId,
+      token
+    );
     const options: PlayedOptions = lodash.get(
       response,
       'optional.isPlayed',
       defaultOptions
     );
+    if (right) {
+      options.rightTimes += 1;
+      options.rightInRow += 1;
+    } else {
+      options.wrongTimes += 1;
+      response.optional.learned = false;
+    }
+
     let updatedWord: GetOneExistedWordRes = {
       ...response,
       optional: { ...response.optional, isPlayed: options },
@@ -184,15 +206,18 @@ export const updateWordProgress = async (
 
     updatedWord = toggleWordLearned(updatedWord, right);
     updatedWord = changeWordDifficult(updatedWord);
+
+    updatedWord.optional.isPlayed = options;
     const { difficulty, optional } = updatedWord;
-    await update(URL, { difficulty, optional }, auth);
+    const result = await update(URL, { difficulty, optional }, auth);
+    return result;
   } catch (error) {
     const err = error as AxiosError;
     if (err.response?.status === 404) {
       const body: TUserWord = {
         difficulty: 'easy',
         optional: {
-          learned: false,
+          learned: right,
           isPlayed: {
             rightTimes: right ? 1 : 0,
             wrongTimes: right ? 0 : 1,
@@ -200,7 +225,8 @@ export const updateWordProgress = async (
           },
         },
       };
-      await create(URL, body, auth);
+      const result = await create(URL, body, auth);
+      return result;
     }
   }
 };
@@ -237,3 +263,197 @@ export const isValidPageAndGroup = (
     group > (isAuth ? AUTH_TOTAL_GROUPS : TOTAL_GROUPS)
   );
 };
+
+export const getUserStats = async (userId: string, token: string) => {
+  try {
+    const URL = `${USERS_URL}/${userId}/statistics`;
+    const auth = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const response = await axios.get<GetUserStatsResponse>(URL, auth);
+    const responseCopy = lodash.cloneDeep(response.data);
+
+    return lodash.omit(responseCopy, 'id');
+  } catch (error) {
+    return {
+      learnedWords: 0,
+      optional: {
+        shortStats: {
+          games: {
+            audiocall: [],
+            sprint: [],
+          },
+        },
+      },
+    };
+  }
+};
+
+function setTwoDigitNumDate(date: string) {
+  if (date.length === 1) return '0' + date;
+  return date;
+}
+
+export function createDateAsKey() {
+  let currentDate = new Date(Date.now()).getDate().toLocaleString();
+  let currentMouth = (new Date(Date.now()).getMonth() + 1).toLocaleString();
+  currentDate = setTwoDigitNumDate(currentDate);
+  currentMouth = setTwoDigitNumDate(currentMouth);
+  return `${currentDate}.${currentMouth}`;
+}
+
+function checkWordIsLearned(wordInfo: GetOneWordRes) {
+  try {
+    return wordInfo.optional.learned;
+  } catch (error) {
+    return false;
+  }
+}
+function checkWordIsPlayed(wordInfo: GetOneWordRes) {
+  try {
+    const isPlayed = wordInfo.optional.isPlayed!;
+    if (isPlayed?.rightTimes > 0 || isPlayed?.wrongTimes > 0) return true;
+    return false;
+  } catch (error) {
+    return false;
+  }
+}
+function increasePlayedStat(stateCopy: UpdateStatsBody, currentDayKey: string) {
+  const pathToWords = ['optional', 'shortStats', 'words', currentDayKey];
+  const playedWordsCount: number = lodash.get(stateCopy, pathToWords, 0);
+
+  lodash.set(stateCopy, pathToWords, playedWordsCount + 1);
+  return stateCopy;
+}
+
+function addAnswerToStats(stats: GamseStatsType, isRight: boolean) {
+  const copy = { ...stats };
+  copy.tries += 1;
+  if (isRight) copy.rightCount += 1;
+  return copy;
+}
+
+export async function createStatsBody(
+  userId: string,
+  wordId: string,
+  token: string,
+  game?: {
+    isRight: boolean;
+    rightInRow: number;
+    gameName: 'sprint' | 'audiocall';
+  }
+) {
+  const state: UpdateStatsBody = await getUserStats(userId, token);
+  const response: GetOneWordRes = await getOneUserWord(userId, wordId, token);
+  const isLearned = checkWordIsLearned(response);
+  const isPlayed = checkWordIsPlayed(response);
+  let stateCopy = lodash.cloneDeep(state);
+  const currentDayKey = createDateAsKey();
+
+  if (isLearned) {
+    stateCopy.learnedWords += 1;
+  }
+
+  if (!isPlayed && !game) {
+    const currentDatePlayedWords = lodash.get(
+      stateCopy,
+      ['optional', 'shortStats', 'words', currentDayKey],
+      1
+    );
+    lodash.set(
+      stateCopy,
+      ['optional', 'shortStats', 'words', currentDayKey],
+      currentDatePlayedWords + 1
+    );
+  }
+  if (!isPlayed && game && game.isRight) {
+    const currentDatePlayedWords = lodash.get(
+      stateCopy,
+      ['optional', 'shortStats', 'words', currentDayKey],
+      1
+    );
+    lodash.set(
+      stateCopy,
+      ['optional', 'shortStats', 'words', currentDayKey],
+      currentDatePlayedWords + 1
+    );
+  }
+
+  stateCopy = increasePlayedStat(stateCopy, currentDayKey);
+
+  if (game) {
+    const pathToGames = ['optional', 'shortStats', 'games'];
+    let curGameStats: GamseStatsWithDate[] = lodash.get(
+      stateCopy,
+      [...pathToGames, game.gameName],
+      0
+    );
+    const dateIsExist = curGameStats.find((date) => {
+      return lodash.has(date, currentDayKey);
+    });
+    let curDateStats: GamseStatsWithDate;
+    if (dateIsExist) {
+      curDateStats = dateIsExist;
+    } else {
+      curDateStats = {};
+      curDateStats[currentDayKey] = {
+        newWords: 1,
+        rightInRow: 0,
+        rightCount: game.isRight ? 1 : 0,
+        tries: 0,
+      };
+    }
+    curDateStats[currentDayKey] = addAnswerToStats(
+      curDateStats[currentDayKey],
+      game.isRight
+    );
+    curGameStats = [
+      {
+        [currentDayKey]: curDateStats[currentDayKey],
+      },
+    ];
+    stateCopy.optional.shortStats.games![game.gameName] = curGameStats;
+  }
+  return stateCopy;
+}
+export const updateUserStats = async (
+  userId: string,
+  token: string,
+  body: UpdateStatsBody
+) => {
+  const URL = `${USERS_URL}/${userId}/statistics`;
+  const auth = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const response = await axios.put<UpdateStatsBody>(URL, body, auth);
+  const responseCopy = lodash.cloneDeep(response.data);
+
+  return lodash.omit(responseCopy, 'id');
+};
+
+export function extractStatsByDate(gameStats: ShortStatsGameType) {
+  const copy = lodash.cloneDeep(gameStats);
+  let currentDate = new Date(Date.now()).getDate().toLocaleString();
+  let currentMouth = (new Date(Date.now()).getMonth() + 1).toLocaleString();
+  currentDate = setTwoDigitNumDate(currentDate);
+  currentMouth = setTwoDigitNumDate(currentMouth);
+  const dayWithMonth = createDateAsKey();
+  const result: {
+    audiocall: GamseStatsType[];
+    sprint: GamseStatsType[];
+  } = {
+    audiocall: [],
+    sprint: [],
+  };
+
+  lodash.forOwn(copy, (gamesValue, game) => {
+    gamesValue?.map((el) => {
+      lodash.forOwn(el, (gameInfo, gameDate) => {
+        if (gameDate === dayWithMonth) {
+          el[gameDate] = gameInfo;
+        }
+      });
+    });
+  });
+  return result;
+}

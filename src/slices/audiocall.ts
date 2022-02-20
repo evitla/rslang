@@ -8,6 +8,7 @@ const initialState: AudioCallState = {
   score: 0,
   gameOver: true,
   qurrentQuestion: null,
+  maxRightInRow: 0,
 };
 
 const audioGameSlice = createSlice({
@@ -32,6 +33,12 @@ const audioGameSlice = createSlice({
     setGameOver: (state, { payload }: PayloadAction<boolean>) => {
       state.gameOver = payload;
     },
+    setRightAnswer: (state) => {
+      state.maxRightInRow += 1;
+    },
+    setWrongAnswer: (state) => {
+      state.maxRightInRow = 0;
+    },
     setCurQuestion: (state, { payload }: PayloadAction<TWord>) => {
       state.qurrentQuestion = payload;
     },
@@ -48,4 +55,6 @@ export const {
   setGameOver,
   setCurQuestion,
   startNewGame,
+  setRightAnswer,
+  setWrongAnswer,
 } = audioGameSlice.actions;

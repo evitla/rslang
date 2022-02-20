@@ -6,7 +6,12 @@ import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
 import { fetchQuestion } from './api';
 import { AudioCallState, TWord } from '../../../types';
-import { getRandomNumber, updateWordProgress } from '../../../utils';
+import {
+  createStatsBody,
+  getRandomNumber,
+  updateUserStats,
+  updateWordProgress,
+} from '../../../utils';
 import GameResult from '../../../components/GameResult';
 import { TStore } from '../../../store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,15 +19,25 @@ import {
   setCurQuestion,
   setGameOver,
   setNumber,
+  setRightAnswer,
   setScore,
   setUserAnswers,
+  setWrongAnswer,
   startNewGame,
 } from '../../../slices/audiocall';
 import Loader from '../../../components/Loader';
+import { loadStats } from '../../../slices/stats';
 
 const Audiocall = () => {
-  const { questions, number, userAnswers, score, gameOver, qurrentQuestion } =
-    useSelector((state: TStore) => state.audioGameReducer);
+  const {
+    questions,
+    number,
+    userAnswers,
+    score,
+    gameOver,
+    qurrentQuestion,
+    maxRightInRow,
+  } = useSelector((state: TStore) => state.audioGameReducer);
   const { userId, token } = useSelector(
     (state: TStore) => state.userReducer.user!
   );
@@ -42,6 +57,7 @@ const Audiocall = () => {
       userAnswers: [],
       number: 0,
       gameOver: false,
+      maxRightInRow: 0,
     };
     dispatch(startNewGame(defaultState));
     setLoading(false);
@@ -62,7 +78,17 @@ const Audiocall = () => {
       const correct = (qurrentQuestion as TWord).wordTranslate === answer;
       const word = qurrentQuestion!.id;
       await updateWordProgress(userId, word, token, correct);
-      if (correct) dispatch(setScore(score + 1));
+      const body = await createStatsBody(userId, word, token, {
+        isRight: correct,
+        rightInRow: maxRightInRow,
+        gameName: 'audiocall',
+      });
+      const newStats = await updateUserStats(userId, token, body);
+      dispatch(loadStats(newStats));
+      if (correct) {
+        dispatch(setRightAnswer());
+        dispatch(setScore(score + 1));
+      } else dispatch(setWrongAnswer());
       const answerObj = {
         questionAudio: (qurrentQuestion as TWord).audio,
         question: (qurrentQuestion as TWord).word,
@@ -71,6 +97,7 @@ const Audiocall = () => {
         isCorrect: correct,
         correctAnswer: (qurrentQuestion as TWord).wordTranslate,
       };
+
       const newUserAnswers = [...userAnswers, answerObj];
       dispatch(setUserAnswers(newUserAnswers));
       if (number + 1 !== TOTAL_QUESTIONS) {
