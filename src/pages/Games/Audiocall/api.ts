@@ -48,7 +48,7 @@ export const fetchFromBook = async (group: number, page: number) => {
         answers.push(wrong);
       }
     }
-    newWords.push(answers);
+    newWords.push(shuffleArray(answers));
   }
   return newWords;
 };
