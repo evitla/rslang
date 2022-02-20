@@ -59,7 +59,10 @@ const Audiocall = () => {
         : await fetchQuestion(groupID);
     const defaultState: AudioCallState = {
       questions: newQuestions,
-      qurrentQuestion: newQuestions[number][getRandomIntInclusive(0, 3)],
+      qurrentQuestion:
+        newQuestions[number][
+          group !== null && page !== null ? 0 : getRandomIntInclusive(0, 3)
+        ],
       score: 0,
       userAnswers: [],
       number: 0,
@@ -130,6 +133,10 @@ const Audiocall = () => {
   useEffect(() => {
     if (page !== null && group !== null) {
       startGame(group);
+    }
+    if (!isPlay) {
+      dispatch(setCurGroup(null));
+      dispatch(setCurPage(null));
     }
   }, []);
   return (
