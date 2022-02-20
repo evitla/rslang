@@ -3,6 +3,7 @@ import { useLocation } from 'react-router';
 
 import { StyledFooter } from './style';
 import { Wrapper } from '../../styles/wrapper';
+import rssSVG from '../../assets/images/rss.png';
 
 const Footer = () => {
   const { pathname } = useLocation();
@@ -21,7 +22,7 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Dinmukhamed Sailaubek
+                      evitla
                     </a>
                   </li>
                   <li>
@@ -30,19 +31,28 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Ruslan Kupzhassarov
+                      hxnxikazuchi
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/excluz1v"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      excluz1v
                     </a>
                   </li>
                 </ul>
               </li>
-              <li>2022</li>
-              <li>
+              <li className="hide">2022</li>
+              <li className="hide">
                 <a
                   href="https://rs.school/js/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  RS School
+                  <img className="logo" src={rssSVG} alt="" />
                 </a>
               </li>
             </ul>

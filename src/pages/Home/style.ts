@@ -2,10 +2,8 @@ import styled from 'styled-components';
 
 export const IntroSection = styled.section`
   padding: 100px 0 50px;
-  position: relative;
-  overflow: hidden;
   text-align: center;
-  height: calc(100vh - 163px);
+  height: 100%;
 
   img {
     position: absolute;
@@ -13,6 +11,7 @@ export const IntroSection = styled.section`
     top: 0%;
     opacity: ${({ theme }) => (theme.name === 'light' ? 0.3 : 0.15)};
     z-index: -100;
+    height: 100%;
   }
 
   h2 {
@@ -64,6 +63,16 @@ export const IntroSection = styled.section`
 
     &:hover {
       transform: scale(0.95);
+    }
+  }
+
+  @media screen and (max-width: 530px) {
+    h2 {
+      font-size: 2rem;
+    }
+
+    button {
+      font-size: 16px;
     }
   }
 `;

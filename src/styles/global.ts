@@ -30,6 +30,24 @@ const GlobalStyles = createGlobalStyle`
   button {
     font-family: inherit;
   }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    flex-grow: 0;
+  }
+
+  main {
+    flex-grow: 1;
+  }
+
+  footer {
+    flex-grow: 0;
+  }
 `;
 
 export default GlobalStyles;
