@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 import { TUser } from '../types';
 import useLogin from './useLogin';
 import useCreateUser from './useCreateUser';
 
 const useRegistrationForm = (setIsOpen: (isOpen: boolean) => void) => {
+  const navigate = useNavigate();
+
   const [isRegistrationForm, setIsRegistrationForm] = useState(true);
 
   const handleIsRegistrationForm = () =>
@@ -19,6 +22,8 @@ const useRegistrationForm = (setIsOpen: (isOpen: boolean) => void) => {
   const loginUser = useLogin();
 
   const onSubmit = async (user: TUser) => {
+    navigate('/');
+
     if (isRegistrationForm) {
       await addUser.mutateAsync(user);
     }
