@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FILES_URL } from '../../constants/index';
 import { AudiocallProps } from '../../types/index';
 import { playAudio } from '../../utils';
@@ -18,9 +18,28 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
       await playAudio(`${FILES_URL}/${questionAudio.audio}`);
     })();
   }, [questionAudio]);
+  const btnRefs = useRef<HTMLButtonElement[]>([]);
 
+  const keyDownHandler = (e: KeyboardEvent) => {
+    if ((e as KeyboardEvent).code === 'Digit1') {
+      btnRefs.current[0].focus();
+    }
+    if ((e as KeyboardEvent).code === 'Digit2') {
+      btnRefs.current[1].focus();
+    }
+    if ((e as KeyboardEvent).code === 'Digit3') {
+      btnRefs.current[2].focus();
+    }
+    if ((e as KeyboardEvent).code === 'Digit4') {
+      btnRefs.current[3].focus();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', keyDownHandler);
+  });
   return (
-    <QuestionWrapper>
+    <QuestionWrapper className="wrapper">
       <h3 className="question-num">
         Question: {questionNum} / {totalQuestions}
       </h3>
@@ -34,12 +53,13 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
         <img className="img" src={soundSVG} alt="" />
       </button>
       <div className="answers-wrapper">
-        {answers.map((answer) => (
+        {answers.map((answer, index) => (
           <div key={answer.id}>
             <button
               disabled={!!userAnswer}
               value={answer.wordTranslate}
               onClick={callback}
+              ref={(el) => (btnRefs.current[index] = el as HTMLButtonElement)}
               className="button"
             >
               <span

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCurrentWord,
@@ -30,6 +30,19 @@ export default function Guess() {
 
   const [result, setResult] = useState(fiftyfifty());
 
+  const leftRef = useRef<HTMLButtonElement>(null);
+  const rightRef = useRef<HTMLButtonElement>(null);
+  const arrowHandler = (e: KeyboardEvent) => {
+    if ((e as KeyboardEvent).code === 'ArrowLeft') {
+      leftRef.current?.focus();
+    }
+    if ((e as KeyboardEvent).code === 'ArrowRight') {
+      rightRef.current?.focus();
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('keydown', arrowHandler);
+  });
   useEffect(() => {
     let translate = '';
     if (result) {
@@ -76,6 +89,7 @@ export default function Guess() {
           onClick={() => buttonHandler(false, currentWordIndex)}
           type="button"
           className="wrong"
+          ref={leftRef}
         >
           Не Верно
         </button>
@@ -83,6 +97,7 @@ export default function Guess() {
           onClick={() => buttonHandler(true, currentWordIndex)}
           type="button"
           className="right"
+          ref={rightRef}
         >
           {' '}
           Верно

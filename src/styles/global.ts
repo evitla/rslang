@@ -29,6 +29,11 @@ const GlobalStyles = createGlobalStyle`
 
   button {
     font-family: inherit;
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 2px 2px #51a7e8;
+      border: 1px solid black;
+    }
   }
 
   #root {
