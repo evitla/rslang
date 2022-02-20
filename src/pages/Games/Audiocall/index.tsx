@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { GamePreview, GameBg, GamePlay } from './style';
 import AudiocallButton from '../../../components/AudiocallButton';
@@ -51,7 +51,10 @@ const Audiocall = () => {
   const startGame = async (groupID: number) => {
     setLoading(true);
     setPlay(true);
-    const newQuestions = await fetchQuestion(groupID);
+    const newQuestions =
+      group !== null && page !== null
+        ? await fetchQuestion(group, page)
+        : await fetchQuestion(groupID);
     const defaultState: AudioCallState = {
       questions: newQuestions,
       qurrentQuestion: newQuestions[number][getRandomNumber(0, 3)],
@@ -119,9 +122,16 @@ const Audiocall = () => {
       nextQuestion();
     }
   };
+
+  useEffect(() => {
+    if (page !== null && group !== null) {
+      console.log('rerender');
+      startGame(group);
+    }
+  }, []);
   return (
     <>
-      {!isPlay && (
+      {!isPlay && group === null && page === null && (
         <GamePreview>
           <h2>Выберите сложность</h2>
           <div className="btns-wrapper">
