@@ -1,21 +1,18 @@
-import { shuffleArray, getRandomNumber, hasDuplicates } from '../../../utils';
+import {
+  shuffleArray,
+  getRandomNumber,
+  hasDuplicates,
+  getRandomIntExcludingExistingNumbers,
+} from '../../../utils';
 import { TWord } from '../../../types';
 import { WORDS_URL, TOTAL_QUESTIONS, TOTAL_ANSWERS } from '../../../constants';
-import { getRandomIntExcludingExistingNumbers } from '../../../utils';
 
-export const fetchQuestion = async (group: number, page?: number) => {
+export const fetchQuestion = async (group: number) => {
   const newWords: TWord[][] = [];
-  console.log('page', page);
-  console.log('group', group);
 
   for (let i = 0; i < TOTAL_QUESTIONS; i++) {
-    const queries = `?group=${group}&page=${
-      page !== undefined ? page : getRandomNumber(0, 29)
-    }`;
-    console.log('group', queries);
+    const queries = `?group=${group}&page=${getRandomNumber(0, 29)}`;
     const data = await (await fetch(WORDS_URL + queries)).json();
-    console.log('data', data);
-
     const answers: TWord[] = [];
     for (let j = 0; j < TOTAL_ANSWERS; j++) {
       const answer = {
