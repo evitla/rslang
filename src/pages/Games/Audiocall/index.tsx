@@ -28,6 +28,7 @@ import {
 import Loader from '../../../components/Loader';
 import { loadStats } from '../../../slices/stats';
 import { onUpdateUserWord } from '../../../slices/word';
+import { setCurGroup, setCurPage } from '../../../slices/audiocallBook';
 
 const Audiocall = () => {
   const {
@@ -64,6 +65,8 @@ const Audiocall = () => {
       gameOver: false,
       maxRightInRow: 0,
     };
+    dispatch(setCurGroup(null));
+    dispatch(setCurPage(null));
     dispatch(startNewGame(defaultState));
     setLoading(false);
   };

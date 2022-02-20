@@ -4,16 +4,18 @@ import { WORDS_URL, TOTAL_QUESTIONS, TOTAL_ANSWERS } from '../../../constants';
 
 export const fetchQuestion = async (group: number, page?: number) => {
   const newWords: TWord[][] = [];
-  console.log('group', group);
-  console.log('page', page);
+
   for (let i = 0; i < TOTAL_QUESTIONS; i++) {
     const queries = `?group=${group}&page=${
       page !== undefined ? page : getRandomNumber(0, 29)
     }`;
     const data = await (await fetch(WORDS_URL + queries)).json();
+    console.log('data', data);
     const answers: TWord[] = [];
     for (let j = 0; j < TOTAL_ANSWERS; j++) {
-      const answer = { ...data[getRandomNumber(0, 19)] };
+      const answer = {
+        ...data[getRandomNumber(0, 19)],
+      };
       if (hasDuplicates(answers, JSON.stringify(answer))) {
         j--;
       } else {

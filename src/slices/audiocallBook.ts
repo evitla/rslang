@@ -10,10 +10,10 @@ const audioGameBookSlice = createSlice({
   name: 'audiocallBook',
   initialState,
   reducers: {
-    setCurGroup: (state, { payload }: PayloadAction<number>) => {
+    setCurGroup: (state, { payload }: PayloadAction<number | null>) => {
       state.group = payload;
     },
-    setCurPage: (state, { payload }: PayloadAction<number>) => {
+    setCurPage: (state, { payload }: PayloadAction<number | null>) => {
       state.page = payload;
     },
   },
