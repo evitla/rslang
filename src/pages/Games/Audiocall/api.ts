@@ -10,7 +10,6 @@ export const fetchQuestion = async (group: number, page?: number) => {
       page !== undefined ? page : getRandomNumber(0, 29)
     }`;
     const data = await (await fetch(WORDS_URL + queries)).json();
-    console.log('data', data);
     const answers: TWord[] = [];
     for (let j = 0; j < TOTAL_ANSWERS; j++) {
       const answer = {

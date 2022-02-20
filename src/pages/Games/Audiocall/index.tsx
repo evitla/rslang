@@ -128,7 +128,6 @@ const Audiocall = () => {
 
   useEffect(() => {
     if (page !== null && group !== null) {
-      console.log('rerender');
       startGame(group);
     }
   }, []);
