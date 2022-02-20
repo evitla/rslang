@@ -41,6 +41,9 @@ export default function Guess() {
     }
   };
   useEffect(() => {
+    window.addEventListener('keydown', arrowHandler);
+  });
+  useEffect(() => {
     let translate = '';
     if (result) {
       translate = words[currentWordIndex].wordTranslate;
