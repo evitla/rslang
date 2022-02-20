@@ -1,33 +1,40 @@
 import styled from 'styled-components';
 
-export const StyledForm = styled.form`
+export const StyledForm = styled.form<{ isHidden: boolean }>`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 50px;
-  width: 350px;
+  background-color: ${({ theme }) => theme.colors.bg};
+  padding: 40px;
+  width: 400px;
   border-radius: 20px;
 
-  .img {
-    display: block;
-    max-width: 100px;
+  .img-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
     margin: 0 auto;
+  }
+
+  .img {
+    display: ${({ isHidden }) => (isHidden ? 'none' : 'block')};
+    filter: ${({ theme }) =>
+      theme.name === 'light' ? 'none' : 'brightness(0) invert(0.6)'};
   }
 
   .input-container {
     height: 50px;
     position: relative;
     width: 100%;
-    margin-top: 45px;
+    margin: 25px 0 15px;
   }
   .input {
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.colors.bg};
     border-radius: 12px;
-    border: 2px solid black;
+    border: 2px solid ${({ theme }) => theme.colors.font};
     box-sizing: border-box;
-    color: #000;
+    color: ${({ theme }) => theme.colors.font};
     font-size: 18px;
     height: 100%;
     outline: 0;
@@ -49,12 +56,12 @@ export const StyledForm = styled.form`
     }
 
     &:focus ~ .placeholder {
-      color: #000;
+      color: ${({ theme }) => theme.colors.font};
     }
   }
 
   .cut {
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.colors.bg};
     border-radius: 10px;
     height: 20px;
     left: 20px;
@@ -82,40 +89,50 @@ export const StyledForm = styled.form`
 
   .register {
     width: 100%;
-    margin: 35px 0;
-    padding: 5px 10px;
+    margin: 40px 0 25px;
+    padding: 10px 20px;
     font-weight: 600;
-    border: 2px solid black;
+    border: 2px solid ${({ theme }) => theme.colors.font};
+    color: inherit;
     outline: none;
     background: none;
     cursor: pointer;
     transition: all 0.3s linear;
+    font-size: 1rem;
+    font-family: inherit;
+    border-radius: 8px;
 
     &:hover {
-      background: black;
-      color: #fff;
+      background: ${({ theme }) => theme.colors.font};
+      color: ${({ theme }) => theme.colors.bg};
     }
   }
 
   .hasAcc {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    column-gap: 1rem;
     align-items: center;
+
+    .log-in {
+      width: 50%;
+    }
   }
 
   .log-in,
   .sign-in {
-    border: 2px solid black;
+    border: 2px solid ${({ theme }) => theme.colors.font};
+    color: ${({ theme }) => theme.colors.font};
     border-radius: 8px;
     outline: none;
     cursor: pointer;
     background: none;
     transition: all 0.3s linear;
     font-weight: 600;
+    width: 100%;
 
     &:hover {
-      background: #00ced1;
-      color: #fff;
+      background: ${({ theme }) => theme.colors.gradient};
     }
   }
 
@@ -123,6 +140,27 @@ export const StyledForm = styled.form`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .error-msg {
+    color: #f94144;
+    font-size: 0.9em;
+    padding-top: 16px;
+  }
+
+  .validation-error-msg {
+    color: #f94144cc;
+    position: absolute;
+    display: grid;
+    place-items: center;
+    top: 50%;
+    left: calc(100% + 10px);
+    height: 50px;
+    padding: 5px;
+    transform: translateY(-50%);
+    width: fit-content;
+    background-color: ${({ theme }) => theme.colors.bg};
+    border-radius: 12px;
   }
 `;
 

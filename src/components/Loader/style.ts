@@ -13,7 +13,7 @@ export const StyledLoading = styled.div`
     height: 20px;
     position: absolute;
     border-radius: 50%;
-    background-color: #000;
+    background-color: ${({ theme }) => theme.colors.font};
     left: 15%;
     transform-origin: 50%;
     animation: circle 0.5s alternate infinite ease;
@@ -34,7 +34,7 @@ export const StyledLoading = styled.div`
     width: 20px;
     height: 4px;
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: ${({ theme }) => theme.colors.font + '50'};
     position: absolute;
     top: 62px;
     transform-origin: 50%;

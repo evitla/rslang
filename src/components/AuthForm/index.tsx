@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import useRegistrationForm from '../../hooks/useRegistrationForm';
 import useClickOutside from '../../hooks/useClickOutside';
@@ -17,6 +17,7 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
 
   const {
     isRegistrationForm,
+    hideErrorMessage,
     addUser,
     loginUser,
     handleIsRegistrationForm,
@@ -27,8 +28,15 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
 
   return (
     <ModalWindow>
-      <StyledForm ref={authRef} onSubmit={onSubmit}>
-        <img className="img" src={loginSVG} alt="" />
+      <StyledForm
+        ref={authRef}
+        onSubmit={onSubmit}
+        isHidden={addUser.isLoading || loginUser.isLoading}
+      >
+        <div className="img-container">
+          <img className="img" src={loginSVG} alt="" />
+          {(addUser.isLoading || loginUser.isLoading) && <Loader />}
+        </div>
 
         {isRegistrationForm && (
           <>
@@ -41,11 +49,11 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
                 {...register('name', {
                   required: {
                     value: true,
-                    message: 'Name is required',
+                    message: 'Обязательное поле',
                   },
                   pattern: {
                     value: NAME_VALIDATION,
-                    message: 'Name is not valid',
+                    message: 'Невалидное имя',
                   },
                 })}
               />
@@ -53,7 +61,9 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
               <label htmlFor="name" className="placeholder">
                 Name
               </label>
-              {errors.name && <p>{errors.name.message}</p>}
+              {errors.name && (
+                <p className="validation-error-msg">{errors.name.message}</p>
+              )}
             </div>
           </>
         )}
@@ -66,11 +76,11 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
             {...register('email', {
               required: {
                 value: true,
-                message: 'Email is required',
+                message: 'Обязательное поле',
               },
               pattern: {
                 value: EMAIL_VALIDATION,
-                message: 'Email is not valid',
+                message: 'Невалидная почта',
               },
             })}
           />
@@ -78,7 +88,9 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
           <label htmlFor="Email" className="placeholder">
             Email
           </label>
-          {errors.email && <p>{errors.email.message}</p>}
+          {errors.email && (
+            <p className="validation-error-msg">{errors.email.message}</p>
+          )}
         </div>
         <div className="input-container">
           <input
@@ -89,11 +101,11 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
             {...register('password', {
               required: {
                 value: true,
-                message: 'Password is required',
+                message: 'Обязательное поле',
               },
               minLength: {
                 value: MIN_PASSWORD_LENGTH,
-                message: 'Password must have at least 8 characters',
+                message: 'Пароль должен состоять как минимум из 8 символов',
               },
             })}
           />
@@ -101,7 +113,18 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
           <label htmlFor="Password" className="placeholder">
             Password
           </label>
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.password && (
+            <p className="validation-error-msg">{errors.password.message}</p>
+          )}
+          {addUser.isError && isRegistrationForm && !hideErrorMessage && (
+            <span className="error-msg">
+              Кажется Вы уже зарегистрированы у нас. Войдите с помощью своей
+              почты
+            </span>
+          )}
+          {loginUser.isError && !isRegistrationForm && !hideErrorMessage && (
+            <span className="error-msg">Почта и пароль не совпадают</span>
+          )}
         </div>
         <input
           type="submit"
@@ -122,10 +145,6 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
             </button>
           </div>
         )}
-        {addUser.isLoading && <Loader />}
-        {addUser.isError && <span>add user Error</span>}
-        {loginUser.isLoading && <Loader />}
-        {loginUser.isError && <span>login user Error</span>}
       </StyledForm>
     </ModalWindow>
   );
