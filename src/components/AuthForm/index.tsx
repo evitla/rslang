@@ -28,8 +28,15 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
 
   return (
     <ModalWindow>
-      <StyledForm ref={authRef} onSubmit={onSubmit}>
-        <img className="img" src={loginSVG} alt="" />
+      <StyledForm
+        ref={authRef}
+        onSubmit={onSubmit}
+        isHidden={addUser.isLoading || loginUser.isLoading}
+      >
+        <div className="img-container">
+          <img className="img" src={loginSVG} alt="" />
+          {(addUser.isLoading || loginUser.isLoading) && <Loader />}
+        </div>
 
         {isRegistrationForm && (
           <>
@@ -110,7 +117,6 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
             <p className="validation-error-msg">{errors.password.message}</p>
           )}
         </div>
-        {(addUser.isLoading || loginUser.isLoading) && <Loader />}
         {addUser.isError && isRegistrationForm && !hideErrorMessage && (
           <span className="error-msg">
             Кажется Вы уже зарегистрированы у нас. Войдите с помощью своей почты

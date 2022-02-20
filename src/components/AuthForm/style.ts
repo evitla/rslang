@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledForm = styled.form`
+export const StyledForm = styled.form<{ isHidden: boolean }>`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -10,10 +10,15 @@ export const StyledForm = styled.form`
   width: 400px;
   border-radius: 20px;
 
-  .img {
-    display: block;
-    max-width: 80px;
+  .img-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
     margin: 0 auto;
+  }
+
+  .img {
+    display: ${({ isHidden }) => (isHidden ? 'none' : 'block')};
     filter: ${({ theme }) =>
       theme.name === 'light' ? 'none' : 'brightness(0) invert(0.6)'};
   }
