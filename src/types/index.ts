@@ -171,6 +171,6 @@ export type GetUserStatsResponse = UpdateStatsBody & {
 };
 
 export type TAudiocallBook = {
-  group: number;
-  page: number;
+  group: number | null;
+  page: number | null;
 };
