@@ -99,6 +99,7 @@ const Book = () => {
           forcePage={page - 1}
         />
       )}
+      <button onClick={() => navigate('/games/audiocall')}>Audiocall</button>
       <Outlet context={context} />
     </StyledBook>
   );
