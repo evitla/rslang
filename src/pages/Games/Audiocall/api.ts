@@ -34,15 +34,14 @@ export const fetchQuestion = async (group: number, page?: number) => {
 
 export const fetchFromBook = async (group: number, page: number) => {
   const newWords: TWord[][] = [];
-  console.log('page', page);
-  console.log('group', group);
+
   const queries = `?group=${group}&page=${page}`;
   const data = await (await fetch(WORDS_URL + queries)).json();
   for (let i = 0; i < TOTAL_QUESTIONS; i++) {
     const answers: TWord[] = [];
     const variant = { ...data[i] };
     answers.push(variant);
-    for (let j = 0; j < TOTAL_ANSWERS; j++) {
+    for (let j = 0; j < TOTAL_ANSWERS - 1; j++) {
       const wrong = {
         ...data[getRandomIntExcludingExistingNumbers(0, 19, i)],
       };
@@ -52,7 +51,7 @@ export const fetchFromBook = async (group: number, page: number) => {
         answers.push(wrong);
       }
     }
-    newWords.push(shuffleArray(answers));
+    newWords.push(answers);
   }
   return newWords;
 };

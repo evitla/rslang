@@ -11,6 +11,7 @@ import {
   getRandomNumber,
   updateUserStats,
   updateWordProgress,
+  getRandomIntInclusive,
 } from '../../../utils';
 import GameResult from '../../../components/GameResult';
 import { TStore } from '../../../store';
@@ -58,7 +59,7 @@ const Audiocall = () => {
         : await fetchQuestion(groupID);
     const defaultState: AudioCallState = {
       questions: newQuestions,
-      qurrentQuestion: newQuestions[number][getRandomNumber(0, 3)],
+      qurrentQuestion: newQuestions[number][getRandomIntInclusive(0, 3)],
       score: 0,
       userAnswers: [],
       number: 0,
