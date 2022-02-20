@@ -16,6 +16,7 @@ import { Chapter, StyledBook } from './style';
 import { ErrorPage } from '..';
 import { setCurGroup, setCurPage } from '../../slices/audiocallBook';
 import { useLocation } from 'react-router';
+import { ScoreButtonStyle } from '../Games/Sprint/styles';
 
 const Book = () => {
   const { pageId, groupId } = useParams();
@@ -111,7 +112,9 @@ const Book = () => {
           forcePage={page - 1}
         />
       )}
-      <button onClick={handleAudioBook}>Audiocall</button>
+      <ScoreButtonStyle>
+        <button onClick={handleAudioBook}>Audiocall</button>
+      </ScoreButtonStyle>
       <Outlet context={context} />
     </StyledBook>
   );

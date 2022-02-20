@@ -34,6 +34,10 @@ export const StyledBook = styled.div<{
       }
     }
   }
+
+  .play-audio {
+    
+  }
 `;
 
 export const Chapter = styled(StyledButton)<{ color: string; active: boolean }>`
