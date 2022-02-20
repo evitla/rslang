@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import {
@@ -74,12 +74,13 @@ const Book = () => {
   };
 
   const { pathname } = useLocation();
-
+  const dispatch = useDispatch();
   const handleAudioBook = () => {
     const groupAudio = pathname.split('/')[2];
     const pageAudio = pathname.split('/')[3];
-    setCurGroup(+groupAudio);
-    setCurPage(+pageAudio);
+    dispatch(setCurGroup(+groupAudio));
+    dispatch(setCurPage(+pageAudio));
+    navigate('/games/audiocall');
   };
 
   return (
