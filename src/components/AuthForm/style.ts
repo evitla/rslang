@@ -5,7 +5,7 @@ export const StyledForm = styled.form`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.bg};
   padding: 50px;
   width: 350px;
   border-radius: 20px;
@@ -14,6 +14,8 @@ export const StyledForm = styled.form`
     display: block;
     max-width: 100px;
     margin: 0 auto;
+    filter: ${({ theme }) =>
+      theme.name === 'light' ? 'none' : 'brightness(0) invert(0.6)'};
   }
 
   .input-container {
@@ -23,11 +25,11 @@ export const StyledForm = styled.form`
     margin-top: 45px;
   }
   .input {
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.colors.bg};
     border-radius: 12px;
-    border: 2px solid black;
+    border: 2px solid ${({ theme }) => theme.colors.font};
     box-sizing: border-box;
-    color: #000;
+    color: ${({ theme }) => theme.colors.font};
     font-size: 18px;
     height: 100%;
     outline: 0;
@@ -49,12 +51,12 @@ export const StyledForm = styled.form`
     }
 
     &:focus ~ .placeholder {
-      color: #000;
+      color: ${({ theme }) => theme.colors.font};
     }
   }
 
   .cut {
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.colors.bg};
     border-radius: 10px;
     height: 20px;
     left: 20px;
@@ -83,17 +85,21 @@ export const StyledForm = styled.form`
   .register {
     width: 100%;
     margin: 35px 0;
-    padding: 5px 10px;
+    padding: 10px 20px;
     font-weight: 600;
-    border: 2px solid black;
+    border: 2px solid ${({ theme }) => theme.colors.font};
+    color: inherit;
     outline: none;
     background: none;
     cursor: pointer;
     transition: all 0.3s linear;
+    font-size: 1rem;
+    font-family: inherit;
+    border-radius: 8px;
 
     &:hover {
-      background: black;
-      color: #fff;
+      background: ${({ theme }) => theme.colors.font};
+      color: ${({ theme }) => theme.colors.bg};
     }
   }
 
@@ -105,7 +111,8 @@ export const StyledForm = styled.form`
 
   .log-in,
   .sign-in {
-    border: 2px solid black;
+    border: 2px solid ${({ theme }) => theme.colors.font};
+    color: ${({ theme }) => theme.colors.font};
     border-radius: 8px;
     outline: none;
     cursor: pointer;
@@ -114,8 +121,7 @@ export const StyledForm = styled.form`
     font-weight: 600;
 
     &:hover {
-      background: #00ced1;
-      color: #fff;
+      background: ${({ theme }) => theme.colors.gradient};
     }
   }
 
