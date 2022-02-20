@@ -32,6 +32,14 @@ export default function Guess() {
 
   const leftRef = useRef<HTMLButtonElement>(null);
   const rightRef = useRef<HTMLButtonElement>(null);
+  const arrowHandler = (e: KeyboardEvent) => {
+    if ((e as KeyboardEvent).code === 'ArrowLeft') {
+      leftRef.current?.focus();
+    }
+    if ((e as KeyboardEvent).code === 'ArrowRight') {
+      rightRef.current?.focus();
+    }
+  };
   useEffect(() => {
     let translate = '';
     if (result) {
@@ -78,6 +86,7 @@ export default function Guess() {
           onClick={() => buttonHandler(false, currentWordIndex)}
           type="button"
           className="wrong"
+          ref={leftRef}
         >
           Не Верно
         </button>
@@ -85,6 +94,7 @@ export default function Guess() {
           onClick={() => buttonHandler(true, currentWordIndex)}
           type="button"
           className="right"
+          ref={rightRef}
         >
           {' '}
           Верно
