@@ -30,6 +30,8 @@ export default function Guess() {
 
   const [result, setResult] = useState(fiftyfifty());
 
+  const leftRef = useRef<HTMLButtonElement>(null);
+  const rightRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     let translate = '';
     if (result) {
