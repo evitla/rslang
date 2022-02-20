@@ -9,6 +9,7 @@ import {
   NAME_VALIDATION,
 } from '../../constants';
 import { ModalWindow, StyledForm } from './style';
+import Loader from '../Loader';
 
 const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
   const authRef = useRef<HTMLFormElement>(null);
@@ -121,9 +122,9 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
             </button>
           </div>
         )}
-        {addUser.isLoading && <span>add user Loading</span>}
+        {addUser.isLoading && <Loader />}
         {addUser.isError && <span>add user Error</span>}
-        {loginUser.isLoading && <span>login user Loading</span>}
+        {loginUser.isLoading && <Loader />}
         {loginUser.isError && <span>login user Error</span>}
       </StyledForm>
     </ModalWindow>
