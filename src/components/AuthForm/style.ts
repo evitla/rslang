@@ -89,7 +89,7 @@ export const StyledForm = styled.form<{ isHidden: boolean }>`
 
   .register {
     width: 100%;
-    margin: 25px 0;
+    margin: 40px 0 25px;
     padding: 10px 20px;
     font-weight: 600;
     border: 2px solid ${({ theme }) => theme.colors.font};

@@ -116,15 +116,16 @@ const AuthForm = ({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) => {
           {errors.password && (
             <p className="validation-error-msg">{errors.password.message}</p>
           )}
+          {addUser.isError && isRegistrationForm && !hideErrorMessage && (
+            <span className="error-msg">
+              Кажется Вы уже зарегистрированы у нас. Войдите с помощью своей
+              почты
+            </span>
+          )}
+          {loginUser.isError && !isRegistrationForm && !hideErrorMessage && (
+            <span className="error-msg">Почта и пароль не совпадают</span>
+          )}
         </div>
-        {addUser.isError && isRegistrationForm && !hideErrorMessage && (
-          <span className="error-msg">
-            Кажется Вы уже зарегистрированы у нас. Войдите с помощью своей почты
-          </span>
-        )}
-        {loginUser.isError && !isRegistrationForm && !hideErrorMessage && (
-          <span className="error-msg">Почта и пароль не совпадают</span>
-        )}
         <input
           type="submit"
           className="register"
