@@ -6,13 +6,13 @@ export const StyledForm = styled.form`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: ${({ theme }) => theme.colors.bg};
-  padding: 50px;
-  width: 350px;
+  padding: 40px;
+  width: 400px;
   border-radius: 20px;
 
   .img {
     display: block;
-    max-width: 100px;
+    max-width: 80px;
     margin: 0 auto;
     filter: ${({ theme }) =>
       theme.name === 'light' ? 'none' : 'brightness(0) invert(0.6)'};
@@ -22,7 +22,7 @@ export const StyledForm = styled.form`
     height: 50px;
     position: relative;
     width: 100%;
-    margin-top: 45px;
+    margin: 25px 0 15px;
   }
   .input {
     background-color: ${({ theme }) => theme.colors.bg};
@@ -84,7 +84,7 @@ export const StyledForm = styled.form`
 
   .register {
     width: 100%;
-    margin: 35px 0;
+    margin: 25px 0;
     padding: 10px 20px;
     font-weight: 600;
     border: 2px solid ${({ theme }) => theme.colors.font};
@@ -105,8 +105,13 @@ export const StyledForm = styled.form`
 
   .hasAcc {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    column-gap: 1rem;
     align-items: center;
+
+    .log-in {
+      width: 50%;
+    }
   }
 
   .log-in,
@@ -119,6 +124,7 @@ export const StyledForm = styled.form`
     background: none;
     transition: all 0.3s linear;
     font-weight: 600;
+    width: 100%;
 
     &:hover {
       background: ${({ theme }) => theme.colors.gradient};
@@ -129,6 +135,27 @@ export const StyledForm = styled.form`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .error-msg {
+    color: #f94144;
+    font-size: 0.9em;
+    padding-top: 16px;
+  }
+
+  .validation-error-msg {
+    color: #f94144cc;
+    position: absolute;
+    display: grid;
+    place-items: center;
+    top: 50%;
+    left: calc(100% + 10px);
+    height: 50px;
+    padding: 5px;
+    transform: translateY(-50%);
+    width: fit-content;
+    background-color: ${({ theme }) => theme.colors.bg};
+    border-radius: 12px;
   }
 `;
 
