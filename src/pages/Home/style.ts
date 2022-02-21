@@ -4,7 +4,6 @@ export const IntroSection = styled.section`
   padding-top: 100px;
   text-align: center;
   height: 100%;
-  min-height: 100vh;
 
   img {
     position: absolute;
