@@ -129,11 +129,19 @@ function changeWordDifficult(word: GetOneExistedWordRes) {
   const updatedWord = lodash.cloneDeep(word);
   const rightInRow = updatedWord.optional.isPlayed.rightInRow;
   const { difficulty } = updatedWord;
-  if (difficulty === 'easy' && rightInRow === EASY_TO_LEARNED_COUNT) {
+  if (
+    difficulty === 'easy' &&
+    rightInRow > 0 &&
+    (rightInRow % EASY_TO_LEARNED_COUNT === 0)
+  ) {
     updatedWord.optional.learned = true;
   }
 
-  if (difficulty === 'hard' && rightInRow === HARD_TO_LEARNED_COUNT) {
+  if (
+    difficulty === 'hard' &&
+    rightInRow > 0 &&
+    rightInRow % HARD_TO_LEARNED_COUNT === 0
+  ) {
     updatedWord.optional.learned = true;
     updatedWord.difficulty = 'easy';
   }
@@ -147,8 +155,6 @@ function toggleWordLearned(word: GetOneExistedWordRes, answer: boolean) {
   if (!answer) {
     isPlayed.rightInRow = 0;
     updatedWord.optional.learned = false;
-  } else {
-    isPlayed.rightTimes += 1;
   }
   return updatedWord;
 }
@@ -217,7 +223,7 @@ export const updateWordProgress = async (
       const body: TUserWord = {
         difficulty: 'easy',
         optional: {
-          learned: right,
+          learned: false,
           isPlayed: {
             rightTimes: right ? 1 : 0,
             wrongTimes: right ? 0 : 1,
