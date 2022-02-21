@@ -64,7 +64,12 @@ export default function Guess() {
     const currWordId = words[index]?.id;
     const nextWord = words[index + 1]?.word;
     const nextWordId = words[index + 1]?.id;
-    const updatedWord = await updateWordProgress(userId, currWordId, token, isCorrect);
+    const updatedWord = await updateWordProgress(
+      userId,
+      currWordId,
+      token,
+      isCorrect
+    );
     if (updatedWord !== undefined) {
       dispatch(onUpdateUserWord(updatedWord));
     }

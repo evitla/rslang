@@ -1,9 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Outlet } from 'react-router';
+import Statistic from '../Statistic';
 import { ErrorPage } from '..';
 import useLogout from '../../hooks/useLogout';
 import { TStore } from '../../store';
+import { StyledButton } from '../../styles/components';
+import { StyledUserPage } from './style';
 
 const User = () => {
   const { user } = useSelector((state: TStore) => state.userReducer);
@@ -15,18 +17,12 @@ const User = () => {
   const { handleLogout } = useLogout();
 
   return (
-    <div>
-      <button onClick={handleLogout}>Выйти из аккаунта</button>
-      {
-        // TODO: 3 components
-      }
-      <ol>
-        <li>Прогресс изучения слов</li>
-        <li>Изученные слова</li>
-        <li>Статистика</li>
-      </ol>
-      <Outlet />
-    </div>
+    <StyledUserPage>
+      <Statistic />
+      <StyledButton className="gradient-btn" onClick={handleLogout}>
+        Выйти из аккаунта
+      </StyledButton>
+    </StyledUserPage>
   );
 };
 

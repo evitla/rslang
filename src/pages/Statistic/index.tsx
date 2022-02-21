@@ -4,6 +4,7 @@ import { loadStats } from '../../slices/stats';
 import { TStore } from '../../store';
 import { getUserStats } from '../../utils';
 import GameSection from './GameSection';
+import { StyledStatistic } from './style';
 import TotalSection from './TotalSection';
 
 export default function Statistic() {
@@ -21,15 +22,17 @@ export default function Statistic() {
     })();
   }, []);
   return (
-    <div>
-      Статистика за день
+    <StyledStatistic>
+      <h2>Статистика за день</h2>
+      <h3>По играм</h3>
       {games && <GameSection gameStats={games} />}
+      <h3>По словам</h3>
       {games && (
         <TotalSection
           learnedWords={statsState.learnedWords}
           gameStats={games}
         />
       )}
-    </div>
+    </StyledStatistic>
   );
 }

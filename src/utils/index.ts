@@ -132,7 +132,7 @@ function changeWordDifficult(word: GetOneExistedWordRes) {
   if (
     difficulty === 'easy' &&
     rightInRow > 0 &&
-    (rightInRow % EASY_TO_LEARNED_COUNT === 0)
+    rightInRow % EASY_TO_LEARNED_COUNT === 0
   ) {
     updatedWord.optional.learned = true;
   }
