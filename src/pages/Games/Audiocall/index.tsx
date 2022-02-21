@@ -27,6 +27,7 @@ import {
 } from '../../../slices/audiocall';
 import Loader from '../../../components/Loader';
 import { loadStats } from '../../../slices/stats';
+import { onUpdateUserWord } from '../../../slices/word';
 
 const Audiocall = () => {
   const {
@@ -77,7 +78,10 @@ const Audiocall = () => {
       const answer = e.currentTarget.value;
       const correct = (qurrentQuestion as TWord).wordTranslate === answer;
       const word = qurrentQuestion!.id;
-      await updateWordProgress(userId, word, token, correct);
+      const updatedWord = await updateWordProgress(userId, word, token, correct);
+      if (updatedWord !== undefined) {
+        dispatch(onUpdateUserWord(updatedWord));
+      }
       const body = await createStatsBody(userId, word, token, {
         isRight: correct,
         rightInRow: maxRightInRow,

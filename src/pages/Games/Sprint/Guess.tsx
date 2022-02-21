@@ -9,6 +9,7 @@ import {
   setWrongAnswer,
 } from '../../../slices/sprint';
 import { loadStats } from '../../../slices/stats';
+import { onUpdateUserWord } from '../../../slices/word';
 import { TStore } from '../../../store';
 import {
   createStatsBody,
@@ -63,7 +64,10 @@ export default function Guess() {
     const currWordId = words[index]?.id;
     const nextWord = words[index + 1]?.word;
     const nextWordId = words[index + 1]?.id;
-    await updateWordProgress(userId, currWordId, token, isCorrect);
+    const updatedWord = await updateWordProgress(userId, currWordId, token, isCorrect);
+    if (updatedWord !== undefined) {
+      dispatch(onUpdateUserWord(updatedWord));
+    }
     const body = await createStatsBody(userId, currWordId, token, {
       isRight: isCorrect,
       rightInRow: maxRightInRow,
