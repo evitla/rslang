@@ -6,6 +6,15 @@ export const StyledHeader = styled.header<{ isMenuOpen: boolean }>`
 
   .logo {
     font-size: 1.5rem;
+    display: flex;
+    gap: 5px;
+    width: 180px;
+    align-items: center;
+  }
+
+  .logo-img {
+    display: block;
+    max-width: 40px;
   }
 
   .navigation {
