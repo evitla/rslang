@@ -78,11 +78,9 @@ export const IntroSection = styled.section`
   }
 `;
 
-export const Advantages = styled.div`
-  text-align: center;
+export const Advantages = styled.section`
   height: 100%;
   min-height: 100vh;
-  padding-top: 100px;
 
   .bgc-image {
     position: absolute;
@@ -90,6 +88,36 @@ export const Advantages = styled.div`
     top: 100%;
     opacity: ${({ theme }) => (theme.name === 'light' ? 0.3 : 0.15)};
     z-index: -100;
-    height: 100%;
+    height: 112%;
+  }
+
+  h2 {
+    font-size: 4rem;
+    font-weight: 800;
+    text-align: right;
+    margin-bottom: 50px;
+  }
+
+  .advantages-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 400px;
+    max-height: 400px;
+    min-height: 200px;
+    padding: 10px 15px;
+    text-align: center;
+    background: #fff;
+    border-radius: 20px;
+    gap: 20px;
   }
 `;
