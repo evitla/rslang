@@ -20,6 +20,12 @@ export const AboutTeamWrapper = styled.div`
     margin-bottom: 5px;
   }
 
+  .about-team-h2 {
+    font-size: 4rem;
+    font-weight: 800;
+    text-align: right;
+  }
+
   .github-svg {
     display: block;
     width: 50px;

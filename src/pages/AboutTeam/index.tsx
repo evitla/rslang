@@ -6,6 +6,7 @@ const AboutTeam = () => {
   return (
     <>
       <AboutTeamWrapper>
+        <h2 className="about-team-h2">О команде</h2>
         <div className="card-wrapper wrapper-evitla">
           <div className="card card-evitla">
             <div className="border">
