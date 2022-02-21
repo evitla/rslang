@@ -1,7 +1,6 @@
 import React from 'react';
 import { AboutTeamWrapper, Advantages } from './style';
 import githubSVG from '../../assets/images/github.svg';
-import bgSVG from '../../assets/images/bg.svg';
 
 const AboutTeam = () => {
   return (
@@ -62,7 +61,6 @@ const AboutTeam = () => {
         </div>
       </AboutTeamWrapper>
       <Advantages>
-        <img className="bgc-image" src={bgSVG} alt="" />
         <h2>Особенности</h2>
         <div className="advantages-container">
           <div className="card">
