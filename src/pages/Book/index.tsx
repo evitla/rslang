@@ -112,9 +112,12 @@ const Book = () => {
           forcePage={page - 1}
         />
       )}
-      <ScoreButtonStyle>
-        <button onClick={handleAudioBook}>Audiocall</button>
-      </ScoreButtonStyle>
+      {pathname.split('/')[2] !== '7' && (
+        <ScoreButtonStyle>
+          <button onClick={handleAudioBook}>Audiocall</button>
+        </ScoreButtonStyle>
+      )}
+
       <Outlet context={context} />
     </StyledBook>
   );
