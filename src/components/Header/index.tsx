@@ -15,6 +15,7 @@ import useClickOutside from '../../hooks/useClickOutside';
 import userIcon from '../../assets/images/user-icon.svg';
 import sun from '../../assets/images/sun.svg';
 import moon from '../../assets/images/moon.svg';
+import logo from '../../assets/images/logo.svg';
 
 const Header = ({
   theme,
@@ -39,7 +40,7 @@ const Header = ({
     <StyledHeader isMenuOpen={isMenuOpen}>
       <FlexWrapper>
         <Link className="logo" to="/">
-          RS Lang Logo
+          RS Lang <img className="logo-img" src={logo} alt="logo" />
         </Link>
         <div className="navigation">
           <StyledNav isMenuOpen={isMenuOpen}>
