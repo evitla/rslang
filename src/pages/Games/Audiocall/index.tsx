@@ -8,7 +8,6 @@ import { fetchQuestion, fetchFromBook } from './api';
 import { AudioCallState, TWord } from '../../../types';
 import {
   createStatsBody,
-  getRandomNumber,
   updateUserStats,
   updateWordProgress,
   getRandomIntInclusive,
@@ -72,9 +71,6 @@ const Audiocall = () => {
     dispatch(startNewGame(defaultState));
     setLoading(false);
   };
-  console.log('qurrentQuestion', qurrentQuestion);
-  console.log('newQuestions', questions);
-  console.log('number', number);
   const nextQuestion = () => {
     const nextQ = number + 1;
     if (nextQ === TOTAL_QUESTIONS) {

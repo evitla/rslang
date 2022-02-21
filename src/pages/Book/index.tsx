@@ -79,7 +79,6 @@ const Book = () => {
   const handleAudioBook = () => {
     const groupAudio = pathname.split('/')[2];
     const pageAudio = pathname.split('/')[3];
-    console.log('USTANAOVLENO');
     dispatch(setCurGroup(+groupAudio));
     dispatch(setCurPage(+pageAudio));
     navigate('/games/audiocall');
