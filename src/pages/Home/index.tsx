@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import useOpenAuthForm from '../../hooks/useOpenAuthForm';
 import { TStore } from '../../store';
 
-import { IntroSection } from './style';
+import { IntroSection, Advantages } from './style';
 import { StyledButton } from '../../styles/components';
 import bgSVG from '../../assets/images/bg.svg';
 
@@ -45,12 +45,13 @@ const Home = () => {
           </button>
         </div>
       </IntroSection>
-      <div className="advantages">
+      <Advantages>
+        <img className="bgc-image" src={bgSVG} alt="" />
         <h2>Особенности</h2>
         <div className="advantages-container">
           <div className="card">Card</div>
         </div>
-      </div>
+      </Advantages>
     </>
   );
 };
