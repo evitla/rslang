@@ -34,10 +34,12 @@ export const fetchFromBook = async (group: number, page: number) => {
 
   const queries = `?group=${group}&page=${page}`;
   const data = await (await fetch(WORDS_URL + queries)).json();
+  console.log('tada', data);
   for (let i = 0; i < TOTAL_QUESTIONS; i++) {
     const answers: TWord[] = [];
-    const variant = { ...data[i] };
-    answers.push(variant);
+    answers.push({ ...data[i] });
+    console.log('answers', answers);
+
     for (let j = 0; j < TOTAL_ANSWERS - 1; j++) {
       const wrong = {
         ...data[getRandomIntExcludingExistingNumbers(0, 19, i)],
@@ -46,5 +48,6 @@ export const fetchFromBook = async (group: number, page: number) => {
     }
     newWords.push(answers);
   }
+  console.log('newWords', newWords);
   return newWords;
 };

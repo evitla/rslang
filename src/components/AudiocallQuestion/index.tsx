@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { FILES_URL } from '../../constants/index';
 import { AudiocallProps } from '../../types/index';
-import { playAudio } from '../../utils';
+import { playAudio, getRandomIntExcludingExistingNumbers } from '../../utils';
 import { QuestionWrapper } from './style';
 import soundSVG from '../../assets/images/sound.svg';
 
@@ -34,7 +34,6 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
       btnRefs.current[3].focus();
     }
   };
-
   useEffect(() => {
     window.addEventListener('keydown', keyDownHandler);
   });
@@ -54,7 +53,9 @@ const AudiocallQuestion: React.FC<AudiocallProps> = ({
       </button>
       <div className="answers-wrapper">
         {answers.map((answer, index) => (
-          <div key={answer.id}>
+          <div
+            key={answer.id + getRandomIntExcludingExistingNumbers(0, 100, 0)}
+          >
             <button
               disabled={!!userAnswer}
               value={answer.wordTranslate}
