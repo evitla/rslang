@@ -38,9 +38,9 @@ const Audiocall = () => {
     qurrentQuestion,
     maxRightInRow,
   } = useSelector((state: TStore) => state.audioGameReducer);
-  const { userId, token } = useSelector(
-    (state: TStore) => state.userReducer.user!
-  );
+
+  const userId = useSelector((state: TStore) => state.userReducer.user?.userId);
+  const token = useSelector((state: TStore) => state.userReducer.user?.token);
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -77,14 +77,16 @@ const Audiocall = () => {
       const answer = e.currentTarget.value;
       const correct = (qurrentQuestion as TWord).wordTranslate === answer;
       const word = qurrentQuestion!.id;
-      await updateWordProgress(userId, word, token, correct);
-      const body = await createStatsBody(userId, word, token, {
-        isRight: correct,
-        rightInRow: maxRightInRow,
-        gameName: 'audiocall',
-      });
-      const newStats = await updateUserStats(userId, token, body);
-      dispatch(loadStats(newStats));
+      if (userId && token) {
+        await updateWordProgress(userId, word, token, correct);
+        const body = await createStatsBody(userId, word, token, {
+          isRight: correct,
+          rightInRow: maxRightInRow,
+          gameName: 'audiocall',
+        });
+        const newStats = await updateUserStats(userId, token, body);
+        dispatch(loadStats(newStats));
+      }
       if (correct) {
         dispatch(setRightAnswer());
         dispatch(setScore(score + 1));
@@ -130,9 +132,9 @@ const Audiocall = () => {
         <GameBg>
           <GamePlay>
             {loading && (
-              <p className="loading">
+              <div className="loading">
                 <Loader />
-              </p>
+              </div>
             )}
             {!gameOver && !loading && <p className="score">Score: {score} </p>}
             {!loading && !gameOver && (
