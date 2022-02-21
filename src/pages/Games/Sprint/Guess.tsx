@@ -64,22 +64,25 @@ export default function Guess() {
     const currWordId = words[index]?.id;
     const nextWord = words[index + 1]?.word;
     const nextWordId = words[index + 1]?.id;
-    const updatedWord = await updateWordProgress(
-      userId,
-      currWordId,
-      token,
-      isCorrect
-    );
-    if (updatedWord !== undefined) {
-      dispatch(onUpdateUserWord(updatedWord));
+
+    if (userId && token) {
+      const updatedWord = await updateWordProgress(
+        userId,
+        currWordId,
+        token,
+        isCorrect
+      );
+      if (updatedWord !== undefined) {
+        dispatch(onUpdateUserWord(updatedWord));
+      }
+      const body = await createStatsBody(userId, currWordId, token, {
+        isRight: isCorrect,
+        rightInRow: maxRightInRow,
+        gameName: 'sprint',
+      });
+      const newStats = await updateUserStats(userId, token, body);
+      dispatch(loadStats(newStats));
     }
-    const body = await createStatsBody(userId, currWordId, token, {
-      isRight: isCorrect,
-      rightInRow: maxRightInRow,
-      gameName: 'sprint',
-    });
-    const newStats = await updateUserStats(userId, token, body);
-    dispatch(loadStats(newStats));
     if (!nextWord) dispatch(setStatus('ended'));
     dispatch(setCurrentWord({ word: nextWord, id: nextWordId }));
     if (isCorrect) {
