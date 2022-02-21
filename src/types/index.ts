@@ -124,7 +124,6 @@ export type TWordCard = {
   isDifficult: boolean;
   isLearned: boolean;
   isPlayed?: PlayedOptions;
-  isSaved: boolean;
 };
 export type GameStatType = {
   newWords: number;

@@ -19,13 +19,11 @@ const WordCard = ({
   isDifficult,
   isLearned,
   isPlayed,
-  isSaved,
 }: TWordCard) => {
   const [isDifficultWord, setIsDifficultWord] = useState(isDifficult);
   const [isLearnedWord, setIsLearnedWord] = useState(isLearned);
   const handler = useHandleUserWord(
     word.id,
-    isSaved,
     setIsDifficultWord,
     setIsLearnedWord
   );

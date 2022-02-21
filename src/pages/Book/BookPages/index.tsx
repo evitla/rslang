@@ -56,14 +56,6 @@ const BookPages = () => {
                 isPlayed={
                   userWords ? detectIsPlayed(userWords, word) : undefined
                 }
-                isSaved={
-                  userWords !== null &&
-                  userWords.find(
-                    (w) =>
-                      w.wordId === word.id &&
-                      w.optional!.hasOwnProperty('learned')
-                  ) !== undefined
-                }
               />
             ))}
           </>
