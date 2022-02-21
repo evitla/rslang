@@ -1,6 +1,7 @@
 import React from 'react';
-import { AboutTeamWrapper } from './style';
+import { AboutTeamWrapper, Advantages } from './style';
 import githubSVG from '../../assets/images/github.svg';
+import bgSVG from '../../assets/images/bg.svg';
 
 const AboutTeam = () => {
   return (

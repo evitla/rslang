@@ -158,7 +158,7 @@ export const AboutTeamWrapper = styled.div`
   }
 `;
 
-export const Advantages = styled.section`
+export const Advantages = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -172,7 +172,7 @@ export const Advantages = styled.section`
     top: 100%;
     opacity: ${({ theme }) => (theme.name === 'light' ? 0.3 : 0.15)};
     z-index: -100;
-    height: 112%;
+    height: 100%;
   }
 
   h2 {

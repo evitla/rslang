@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import useOpenAuthForm from '../../hooks/useOpenAuthForm';
 import { TStore } from '../../store';
 
-import { IntroSection, Advantages } from './style';
+import { IntroSection } from './style';
 import { StyledButton } from '../../styles/components';
 import bgSVG from '../../assets/images/bg.svg';
 
