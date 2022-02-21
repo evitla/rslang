@@ -23,9 +23,9 @@ export default function GameSection(props: Tprops) {
     : undefined;
 
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <GameInfo stats={todaySprintStats} gameName="Спринт" />
-      <GameInfo stats={todayAudiocallStats} gameName="АудиоВызов" />
+      <GameInfo stats={todayAudiocallStats} gameName="Аудиовызов" />
     </div>
   );
 }

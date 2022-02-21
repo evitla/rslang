@@ -2,6 +2,7 @@ import React from 'react';
 import { GamseStatsWithDate } from '../../types';
 import { createDateAsKey } from '../../utils';
 import * as lodash from 'lodash';
+import { StyledGameInfo } from './style';
 
 type Tprops = {
   learnedWords: number;
@@ -42,10 +43,10 @@ export default function TotalSection(props: Tprops) {
   const totalNewWords = sprintLearnedWords + audiocallLearnedWords;
 
   return (
-    <div>
+    <StyledGameInfo>
       <p>количество новых слов за день: {totalNewWords}</p>
       <p>количество изученных слов за день: {learnedWords}</p>
       <p>процент правильных ответов за день: {medianePercent}</p>
-    </div>
+    </StyledGameInfo>
   );
 }
