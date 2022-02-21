@@ -23,13 +23,12 @@ import { QuestionWrapper } from './styles';
 export default function Guess() {
   const { currentWord, words, currentWordIndex, score, maxRightInRow } =
     useSelector((state: TStore) => state.sprintGameReducer);
-  const { userId, token } = useSelector(
-    (state: TStore) => state.userReducer.user!
-  );
+
   const dispatch = useDispatch();
   const [variant, setvariant] = useState('');
-
-  const [result, setResult] = useState(fiftyfifty());
+  const userId = useSelector((state: TStore) => state.userReducer.user?.userId);
+  const token = useSelector((state: TStore) => state.userReducer.user?.token);
+  const [result, setResult] = useState(false);
 
   const leftRef = useRef<HTMLButtonElement>(null);
   const rightRef = useRef<HTMLButtonElement>(null);
@@ -46,6 +45,7 @@ export default function Guess() {
   });
   useEffect(() => {
     let translate = '';
+
     if (result) {
       translate = words[currentWordIndex].wordTranslate;
     } else {
@@ -57,12 +57,18 @@ export default function Guess() {
       translate = words[randomIndex].wordTranslate;
     }
     setvariant(translate);
-  }, [currentWord, words]);
+  }, [currentWord, words, result]);
 
-  async function buttonHandler(userAnswer: boolean, index: number) {
-    const isCorrect = userAnswer === result;
-    const currWordId = words[index]?.id;
+  async function buttonHandler(
+    userAnswer: boolean,
+    index: number,
+    verity: boolean
+  ) {
     const nextWord = words[index + 1]?.word;
+    if (!nextWord) dispatch(setStatus('ended'));
+    const isCorrect = userAnswer === verity;
+    const currWordId = words[index]?.id;
+
     const nextWordId = words[index + 1]?.id;
 
     if (userId && token) {
@@ -83,13 +89,15 @@ export default function Guess() {
       const newStats = await updateUserStats(userId, token, body);
       dispatch(loadStats(newStats));
     }
-    if (!nextWord) dispatch(setStatus('ended'));
-    dispatch(setCurrentWord({ word: nextWord, id: nextWordId }));
+
     if (isCorrect) {
       dispatch(setRightAnswer());
     } else dispatch(setWrongAnswer());
-    dispatch(setCurrentWordIndex(index + 1));
     dispatch(setHistory({ guessWord: currentWord, result: isCorrect }));
+    dispatch(setCurrentWord({ word: nextWord, id: nextWordId }));
+    dispatch(setCurrentWordIndex(index + 1));
+
+    setResult(fiftyfifty());
   }
   return (
     <QuestionWrapper>
@@ -98,7 +106,7 @@ export default function Guess() {
       <p className="answer-word">{variant}</p>
       <div className="btn-wrap">
         <button
-          onClick={() => buttonHandler(false, currentWordIndex)}
+          onClick={() => buttonHandler(false, currentWordIndex, result)}
           type="button"
           className="wrong"
           ref={leftRef}
@@ -106,7 +114,7 @@ export default function Guess() {
           Не Верно
         </button>
         <button
-          onClick={() => buttonHandler(true, currentWordIndex)}
+          onClick={() => buttonHandler(true, currentWordIndex, result)}
           type="button"
           className="right"
           ref={rightRef}
