@@ -36,7 +36,6 @@ export const StyledBook = styled.div<{
   }
 
   .play-audio {
-    
   }
 `;
 
