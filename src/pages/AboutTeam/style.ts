@@ -190,12 +190,13 @@ export const Advantages = styled.div`
     min-height: 200px;
     padding: 10px 15px;
     text-align: center;
-    background: #fff;
+    background-color: ${({ theme }) =>
+      theme.name === 'light' ? '#edc9a5' : '#895a2c'};
     border-radius: 20px;
     gap: 20px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    box-shadow: ${({ theme }) =>
+        theme.name === 'light' ? 'rgb(0 0 0 / 15%)' : 'rgb(255 255 255 / 15%)'}
+      0px 0px 10px;
   }
 
   h3 {
