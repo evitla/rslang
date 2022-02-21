@@ -40,7 +40,7 @@ const Home = () => {
           Начать
         </StyledButton>
         <button className="about-team-btn" onClick={handleAboutTeam}>
-          О команде
+          О проекте
         </button>
       </div>
     </IntroSection>

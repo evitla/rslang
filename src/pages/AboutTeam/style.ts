@@ -20,6 +20,12 @@ export const AboutTeamWrapper = styled.div`
     margin-bottom: 5px;
   }
 
+  .about-team-h2 {
+    font-size: 4rem;
+    font-weight: 800;
+    text-align: right;
+  }
+
   .github-svg {
     display: block;
     width: 50px;
@@ -155,5 +161,53 @@ export const AboutTeamWrapper = styled.div`
         }
       }
     }
+  }
+`;
+
+export const Advantages = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 100px;
+  height: 100%;
+  min-height: 100vh;
+
+  h2 {
+    font-size: 4rem;
+    font-weight: 800;
+    text-align: right;
+  }
+
+  .advantages-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 400px;
+    max-height: 400px;
+    min-height: 200px;
+    padding: 10px 15px;
+    text-align: center;
+    background-color: ${({ theme }) =>
+      theme.name === 'light' ? '#edc9a5' : '#895a2c'};
+    border-radius: 20px;
+    gap: 20px;
+    box-shadow: ${({ theme }) =>
+        theme.name === 'light' ? 'rgb(0 0 0 / 15%)' : 'rgb(255 255 255 / 15%)'}
+      0px 0px 10px;
+  }
+
+  h3 {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
   }
 `;

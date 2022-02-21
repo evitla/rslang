@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledHeader = styled.header<{ isMenuOpen: boolean }>`
-  padding-top: 25px;
+  padding: 25px 0;
   font-weight: 600;
 
   .logo {
