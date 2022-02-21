@@ -78,7 +78,12 @@ const Audiocall = () => {
       const answer = e.currentTarget.value;
       const correct = (qurrentQuestion as TWord).wordTranslate === answer;
       const word = qurrentQuestion!.id;
-      const updatedWord = await updateWordProgress(userId, word, token, correct);
+      const updatedWord = await updateWordProgress(
+        userId,
+        word,
+        token,
+        correct
+      );
       if (updatedWord !== undefined) {
         dispatch(onUpdateUserWord(updatedWord));
       }

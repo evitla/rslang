@@ -19,7 +19,9 @@ const User = () => {
   return (
     <StyledUserPage>
       <Statistic />
-      <StyledButton className="gradient-btn" onClick={handleLogout}>Выйти из аккаунта</StyledButton>
+      <StyledButton className="gradient-btn" onClick={handleLogout}>
+        Выйти из аккаунта
+      </StyledButton>
     </StyledUserPage>
   );
 };
