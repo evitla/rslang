@@ -23,8 +23,9 @@ import { QuestionWrapper } from './styles';
 export default function Guess() {
   const { currentWord, words, currentWordIndex, score, maxRightInRow } =
     useSelector((state: TStore) => state.sprintGameReducer);
-  const userId = useSelector((state: TStore) => state.userReducer.user?.userId);
-  const token = useSelector((state: TStore) => state.userReducer.user?.token);
+  const { userId, token } = useSelector(
+    (state: TStore) => state.userReducer.user!
+  );
   const dispatch = useDispatch();
   const [variant, setvariant] = useState('');
 
@@ -63,17 +64,22 @@ export default function Guess() {
     const currWordId = words[index]?.id;
     const nextWord = words[index + 1]?.word;
     const nextWordId = words[index + 1]?.id;
-    if (userId && token) {
-      await updateWordProgress(userId, currWordId, token, isCorrect);
-      const body = await createStatsBody(userId, currWordId, token, {
-        isRight: isCorrect,
-        rightInRow: maxRightInRow,
-        gameName: 'sprint',
-      });
-      const newStats = await updateUserStats(userId, token, body);
-      dispatch(loadStats(newStats));
+    const updatedWord = await updateWordProgress(
+      userId,
+      currWordId,
+      token,
+      isCorrect
+    );
+    if (updatedWord !== undefined) {
+      dispatch(onUpdateUserWord(updatedWord));
     }
-
+    const body = await createStatsBody(userId, currWordId, token, {
+      isRight: isCorrect,
+      rightInRow: maxRightInRow,
+      gameName: 'sprint',
+    });
+    const newStats = await updateUserStats(userId, token, body);
+    dispatch(loadStats(newStats));
     if (!nextWord) dispatch(setStatus('ended'));
     dispatch(setCurrentWord({ word: nextWord, id: nextWordId }));
     if (isCorrect) {
