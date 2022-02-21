@@ -138,10 +138,6 @@ const Audiocall = () => {
     if (page !== null && group !== null) {
       startGame(group);
     }
-    // if (!isPlay) {
-    //   dispatch(setCurGroup(null));
-    //   dispatch(setCurPage(null));
-    // }
   }, []);
   return (
     <>
