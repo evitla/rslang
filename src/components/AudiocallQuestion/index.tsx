@@ -1,7 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { FILES_URL } from '../../constants/index';
 import { AudiocallProps } from '../../types/index';
-import { playAudio, getRandomIntExcludingExistingNumbers, shuffleArray } from '../../utils';
+import {
+  playAudio,
+  getRandomIntExcludingExistingNumbers,
+  shuffleArray,
+} from '../../utils';
 import { QuestionWrapper } from './style';
 import soundSVG from '../../assets/images/sound.svg';
 
