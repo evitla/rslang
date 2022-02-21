@@ -39,9 +39,9 @@ const Audiocall = () => {
     qurrentQuestion,
     maxRightInRow,
   } = useSelector((state: TStore) => state.audioGameReducer);
-
-  const userId = useSelector((state: TStore) => state.userReducer.user?.userId);
-  const token = useSelector((state: TStore) => state.userReducer.user?.token);
+  const { userId, token } = useSelector(
+    (state: TStore) => state.userReducer.user!
+  );
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -78,16 +78,22 @@ const Audiocall = () => {
       const answer = e.currentTarget.value;
       const correct = (qurrentQuestion as TWord).wordTranslate === answer;
       const word = qurrentQuestion!.id;
-      if (userId && token) {
-        await updateWordProgress(userId, word, token, correct);
-        const body = await createStatsBody(userId, word, token, {
-          isRight: correct,
-          rightInRow: maxRightInRow,
-          gameName: 'audiocall',
-        });
-        const newStats = await updateUserStats(userId, token, body);
-        dispatch(loadStats(newStats));
+      const updatedWord = await updateWordProgress(
+        userId,
+        word,
+        token,
+        correct
+      );
+      if (updatedWord !== undefined) {
+        dispatch(onUpdateUserWord(updatedWord));
       }
+      const body = await createStatsBody(userId, word, token, {
+        isRight: correct,
+        rightInRow: maxRightInRow,
+        gameName: 'audiocall',
+      });
+      const newStats = await updateUserStats(userId, token, body);
+      dispatch(loadStats(newStats));
       if (correct) {
         dispatch(setRightAnswer());
         dispatch(setScore(score + 1));
@@ -132,11 +138,7 @@ const Audiocall = () => {
       {isPlay && (
         <GameBg>
           <GamePlay>
-            {loading && (
-              <div className="loading">
-                <Loader />
-              </div>
-            )}
+            {loading && <Loader />}
             {!gameOver && !loading && <p className="score">Score: {score} </p>}
             {!loading && !gameOver && (
               <AudiocallQuestion
