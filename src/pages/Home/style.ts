@@ -79,6 +79,10 @@ export const IntroSection = styled.section`
 `;
 
 export const Advantages = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 100px;
   height: 100%;
   min-height: 100vh;
 
@@ -95,7 +99,6 @@ export const Advantages = styled.section`
     font-size: 4rem;
     font-weight: 800;
     text-align: right;
-    margin-bottom: 50px;
   }
 
   .advantages-container {
