@@ -44,7 +44,11 @@ export const fetchFromBook = async (group: number, page: number) => {
       const wrong = {
         ...data[getRandomIntExcludingExistingNumbers(0, 19, i)],
       };
-      answers.push(wrong);
+      if (hasDuplicates(answers, JSON.stringify(wrong))) {
+        j--;
+      } else {
+        answers.push(wrong);
+      }
     }
     newWords.push(answers);
   }

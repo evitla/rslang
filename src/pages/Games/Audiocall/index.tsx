@@ -72,7 +72,9 @@ const Audiocall = () => {
     dispatch(startNewGame(defaultState));
     setLoading(false);
   };
-
+  console.log('qurrentQuestion', qurrentQuestion);
+  console.log('newQuestions', questions);
+  console.log('number', number);
   const nextQuestion = () => {
     const nextQ = number + 1;
     if (nextQ === TOTAL_QUESTIONS) {
@@ -124,7 +126,13 @@ const Audiocall = () => {
       const newUserAnswers = [...userAnswers, answerObj];
       dispatch(setUserAnswers(newUserAnswers));
       if (number + 1 !== TOTAL_QUESTIONS) {
-        dispatch(setCurQuestion(questions[number + 1][getRandomNumber(0, 3)]));
+        dispatch(
+          setCurQuestion(
+            questions[number + 1][
+              group !== null && page !== null ? 0 : getRandomIntInclusive(0, 3)
+            ]
+          )
+        );
       }
       nextQuestion();
     }
@@ -134,10 +142,10 @@ const Audiocall = () => {
     if (page !== null && group !== null) {
       startGame(group);
     }
-    if (!isPlay) {
-      dispatch(setCurGroup(null));
-      dispatch(setCurPage(null));
-    }
+    // if (!isPlay) {
+    //   dispatch(setCurGroup(null));
+    //   dispatch(setCurPage(null));
+    // }
   }, []);
   return (
     <>
