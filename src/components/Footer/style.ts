@@ -6,7 +6,13 @@ export const StyledFooter = styled.footer`
   height: 50px;
   display: flex;
   align-items: center;
-  border-top: 1px solid #eee;
+  border-top: 1px solid ${({ theme }) => theme.colors.font + '50'};
+
+  .rsschool {
+    filter: ${({ theme }) =>
+      theme.name === 'light' ? 'none' : 'brightness(0) invert(0.8)'};
+  }
+
   ul {
     display: flex;
     justify-content: space-between;
