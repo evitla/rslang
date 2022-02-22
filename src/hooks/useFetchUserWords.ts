@@ -1,5 +1,6 @@
 import { QueryOptions, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import {
   QUERY_KEY_USERS,
   QUERY_KEY_WORDS,
@@ -10,6 +11,7 @@ import { onSaveUserWords } from '../slices/word';
 import { TStore } from '../store';
 import { TUserWord, TWord } from '../types';
 import { getAll, getOne } from '../utils';
+import useOpenAuthForm from './useOpenAuthForm';
 
 const useFetchUserWords = (
   userId = '',
@@ -20,6 +22,8 @@ const useFetchUserWords = (
   if (!userId || !token) return;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { setIsAuthFormOpen } = useOpenAuthForm();
 
   const { userWords } = useSelector((state: TStore) => state.wordReducer);
 
@@ -29,7 +33,7 @@ const useFetchUserWords = (
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    const words = await getAll<TUserWord>(url, config);
+    const words = await getAll(url, navigate, setIsAuthFormOpen, config);
     dispatch(onSaveUserWords(words));
 
     return words;
