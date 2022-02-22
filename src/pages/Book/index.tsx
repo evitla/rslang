@@ -12,7 +12,7 @@ import useFetchUserWords from '../../hooks/useFetchUserWords';
 import useFetchWords from '../../hooks/useFetchWords';
 import { TStore } from '../../store';
 import { defineColor, isValidPageAndGroup } from '../../utils';
-import { Chapter, StyledBook } from './style';
+import { Chapter, GameButton, StyledBook } from './style';
 import { ErrorPage } from '..';
 import { setCurGroup, setCurPage } from '../../slices/audiocallBook';
 import { useLocation } from 'react-router';
@@ -100,10 +100,10 @@ const Book = () => {
             )
           )}
         </div>
-        {!isDifficultGroup && (
-          <ScoreButtonStyle>
-            <button onClick={handleAudioBook}>Audiocall</button>
-          </ScoreButtonStyle>
+        {!isDifficultGroup && !allLearned && (
+          <GameButton bgColor={defineColor(group - 1, 'B3')} onClick={handleAudioBook}>
+            Audiocall
+          </GameButton>
         )}
       </div>
 

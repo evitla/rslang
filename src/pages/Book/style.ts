@@ -74,3 +74,18 @@ export const WordCardsContainer = styled.div<{ scrollColor: string }>`
     -webkit-box-shadow: inset 0 0 20px ${({ scrollColor }) => scrollColor};
   }
 `;
+
+export const GameButton = styled.button<{ bgColor: string }>`
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.75em 1.75em;
+  background: ${({ bgColor }) => bgColor};
+  transition: all 0.3s linear;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  &:hover {
+    transform: scale(0.95);
+  }
+`;
