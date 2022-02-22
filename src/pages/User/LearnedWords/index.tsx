@@ -37,6 +37,7 @@ const LearnedWords = () => {
                   isDifficult={false}
                   isLearned={true}
                   isPlayed={undefined}
+                  allLearned={false}
                 />
               ))}
             </>
