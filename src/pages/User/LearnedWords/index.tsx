@@ -18,33 +18,33 @@ const LearnedWords = () => {
   );
 
   return (
-  <>
-    { learnedWordsQuery !== undefined && (
-      <WordCardsContainer scrollColor={defineColor(2, 'CC')}>
-        {learnedWordsQuery.isLoading || learnedWordsQuery.isIdle ? (
-          <LoadingCard count={LOADING_BLOCKS_COUNT} />
-        ) : learnedWordsQuery.isError ? (
-          <div>Error while fetching</div>
-        ) : (
-          <>
-            {learnedWordsQuery.words.map((word) => (
-              <WordCard
-                key={word.id}
-                word={word}
-                groupId={3}
-                isAuthorized={true}
-                isDifficultGroup={false}
-                isDifficult={false}
-                isLearned={true}
-                isPlayed={undefined}
-              />
-            ))}
-          </>
-        )}
-      </WordCardsContainer>
-    ) }
+    <>
+      {learnedWordsQuery !== undefined && (
+        <WordCardsContainer scrollColor={defineColor(2, 'CC')}>
+          {learnedWordsQuery.isLoading || learnedWordsQuery.isIdle ? (
+            <LoadingCard count={LOADING_BLOCKS_COUNT} />
+          ) : learnedWordsQuery.isError ? (
+            <div>Error while fetching</div>
+          ) : (
+            <>
+              {learnedWordsQuery.words.map((word) => (
+                <WordCard
+                  key={word.id}
+                  word={word}
+                  groupId={3}
+                  isAuthorized={true}
+                  isDifficultGroup={false}
+                  isDifficult={false}
+                  isLearned={true}
+                  isPlayed={undefined}
+                />
+              ))}
+            </>
+          )}
+        </WordCardsContainer>
+      )}
     </>
-  )
+  );
 };
 
 export default LearnedWords;

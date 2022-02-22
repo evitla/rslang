@@ -41,8 +41,8 @@ const App = () => {
                 <Route path=":groupId/:pageId" element={<BookPages />} />
               </Route>
               <Route path="user" element={<User />}>
-                <Route path="stats" element={<Statistic />}/>
-                <Route path="learned-words" element={<LearnedWords />}/>
+                <Route path="stats" element={<Statistic />} />
+                <Route path="learned-words" element={<LearnedWords />} />
               </Route>
               <Route path="games" element={<Games />}>
                 <Route path="audiocall" element={<Audiocall />} />

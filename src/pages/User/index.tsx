@@ -23,18 +23,21 @@ const User = () => {
 
   return (
     <StyledUserPage>
-      <div className='chapters'>
+      <div className="chapters">
         <div>
-        <Link to="stats">
-          <Chapter color='transparent' active={pathname.includes('stats')}>
-            Статистика
-          </Chapter>
-        </Link>
-        <Link to="learned-words">
-          <Chapter color='transparent' active={pathname.includes('learned-words')}>
-            Изученные слова
-          </Chapter>
-        </Link>
+          <Link to="stats">
+            <Chapter color="transparent" active={pathname.includes('stats')}>
+              Статистика
+            </Chapter>
+          </Link>
+          <Link to="learned-words">
+            <Chapter
+              color="transparent"
+              active={pathname.includes('learned-words')}
+            >
+              Изученные слова
+            </Chapter>
+          </Link>
         </div>
         <StyledButton className="gradient-btn" onClick={handleLogout}>
           Выйти из аккаунта
