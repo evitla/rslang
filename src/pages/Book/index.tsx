@@ -101,7 +101,10 @@ const Book = () => {
           )}
         </div>
         {!isDifficultGroup && !allLearned && (
-          <GameButton bgColor={defineColor(group - 1, 'B3')} onClick={handleAudioBook}>
+          <GameButton
+            bgColor={defineColor(group - 1, 'B3')}
+            onClick={handleAudioBook}
+          >
             Audiocall
           </GameButton>
         )}
