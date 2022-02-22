@@ -5,16 +5,17 @@ export const StyledHeader = styled.header<{ isMenuOpen: boolean }>`
   font-weight: 600;
 
   .logo {
-    font-size: 1.5rem;
     display: flex;
-    gap: 5px;
-    width: 180px;
-    align-items: center;
+    gap: 8px;
+    width: 200px;
   }
 
   .logo-img {
     display: block;
+    margin-top: 3px;
     max-width: 40px;
+    filter: ${({ theme }) =>
+      theme.name === 'light' ? 'none' : 'brightness(0) invert(0.8)'};
   }
 
   .navigation {
