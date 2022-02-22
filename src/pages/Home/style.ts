@@ -15,7 +15,7 @@ export const IntroSection = styled.section`
   }
 
   h2 {
-    font-size: 4rem;
+    font-size: clamp(3rem, 100vw / 780 * 56, 4rem);
     font-weight: 800;
   }
 
@@ -32,8 +32,8 @@ export const IntroSection = styled.section`
 
   p {
     color: ${({ theme }) => theme.colors.secondaryFont};
-    font-size: 1.15rem;
-    line-height: 1.75rem;
+    font-size: clamp(0.5rem, 100vw / 780 * 14px, 1.15rem);
+    line-height: clamp(1.25rem, 100vw / 780 * 24px, 1.75rem);
     width: 50%;
     margin: 1.25rem auto;
   }
