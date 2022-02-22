@@ -185,7 +185,9 @@ export const updateWordProgress = async (
   userId: string,
   currWordId: string,
   token: string,
-  right: boolean
+  right: boolean,
+  navigate: (_: string) => void = () => {},
+  setIsAuthFormOpen: (_: boolean) => void = () => {},
 ) => {
   const URL = `${USERS_URL}/${userId}/words/${currWordId}`;
   const auth = {
@@ -226,9 +228,13 @@ export const updateWordProgress = async (
     updatedWord.optional.isPlayed = options;
     const { difficulty, optional } = updatedWord;
     const result = await update(URL, { difficulty, optional }, auth);
+    console.log('tryyyyyyyyy')
     return result;
   } catch (error) {
     const err = error as AxiosError;
+    console.log('-----------------------')
+    console.log(err);
+    console.log('-----------------------')
     if (err.response?.status === 404) {
       const body: TUserWord = {
         difficulty: 'easy',
@@ -243,6 +249,9 @@ export const updateWordProgress = async (
       };
       const result = await create(URL, body, auth);
       return result;
+    } else if (err.response?.status === 401) {
+      navigate('/');
+      setIsAuthFormOpen(true);
     }
   }
 };
