@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const StyledStatistic = styled.div`
   h2 {
     text-align: center;
+    margin-top: 1rem;
   }
 
   h3 {

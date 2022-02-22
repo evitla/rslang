@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
 export const StyledUserPage = styled.div`
-  button {
-    margin-top: 1rem;
-    float: right;
+  display: flex;
+  flex-direction: column;
+
+  .chapters {
+    display: flex;
+    justify-content: space-between;
   }
 `;
