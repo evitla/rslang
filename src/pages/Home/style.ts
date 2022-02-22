@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const IntroSection = styled.section`
-  padding-top: 100px;
+  padding-top: 30px;
   text-align: center;
-  height: 100%;
+  height: calc(100vh - 200px);
 
   img {
     position: absolute;
@@ -20,7 +20,7 @@ export const IntroSection = styled.section`
   }
 
   h2 + h2 {
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
   }
 
   .gradient-title {
@@ -35,11 +35,11 @@ export const IntroSection = styled.section`
     font-size: 1.15rem;
     line-height: 1.75rem;
     width: 50%;
-    margin: 1.5rem auto 2.5rem;
+    margin: 1.25rem auto;
   }
 
   button {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
   }
 
   .btn-container {
