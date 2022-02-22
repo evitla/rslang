@@ -14,8 +14,6 @@ const Games = () => {
       {!pathname.includes('audiocall') && !pathname.includes('sprint') && (
         <GameWrapper>
           <img className="bg-image" src={bgSVG} alt="" />
-          <h2>Games</h2>
-
           <div className="card-wrapper">
             <div className="card">
               <figure className="card__thumb">
