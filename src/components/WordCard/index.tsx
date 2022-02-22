@@ -19,9 +19,12 @@ const WordCard = ({
   isDifficult,
   isLearned,
   isPlayed,
+  allLearned,
 }: TWordCard) => {
   const [isDifficultWord, setIsDifficultWord] = useState(isDifficult);
   const [isLearnedWord, setIsLearnedWord] = useState(isLearned);
+  const [isPlayButtonDisabled, setIsPlayButtonDisabled] = useState(false);
+
   const handler = useHandleUserWord(
     word.id,
     setIsDifficultWord,
@@ -37,8 +40,16 @@ const WordCard = ({
     }
   };
 
+  const handlePlayAudio = async () => {
+    setIsPlayButtonDisabled(true);
+    await playAudio(`${FILES_URL}/${word.audio}`);
+    await playAudio(`${FILES_URL}/${word.audioMeaning}`);
+    await playAudio(`${FILES_URL}/${word.audioExample}`);
+    setIsPlayButtonDisabled(false);
+  };
+
   return (
-    <Card>
+    <Card allLearned={allLearned} shadowColor={defineColor(groupId - 1)}>
       <StyledImage src={`${FILES_URL}/${word.image}`} alt="" />
       <CardContent
         titleColor={defineColor(groupId - 1)}
@@ -53,11 +64,8 @@ const WordCard = ({
           <span className="pronunciation">
             <span>{word.transcription}</span>
             <StyledButton
-              onClick={async () => {
-                await playAudio(`${FILES_URL}/${word.audio}`);
-                await playAudio(`${FILES_URL}/${word.audioMeaning}`);
-                await playAudio(`${FILES_URL}/${word.audioExample}`);
-              }}
+              onClick={handlePlayAudio}
+              disabled={isPlayButtonDisabled}
             >
               <img src={soundIcon} alt="" />
             </StyledButton>

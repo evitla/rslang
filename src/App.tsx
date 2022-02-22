@@ -48,7 +48,7 @@ const App = () => {
                 <Route path="audiocall" element={<Audiocall />} />
                 <Route path="sprint" element={<Sprint />} />
               </Route>
-              <Route path="about-team" element={<AboutTeam />} />
+              <Route path="about-project" element={<AboutTeam />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
           </Wrapper>

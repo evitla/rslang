@@ -114,6 +114,7 @@ export type TBookPageContext = {
   isAuthorized: boolean;
   groupId: number;
   pageId: number;
+  allLearned: boolean;
 };
 
 export type TWordCard = {
@@ -124,6 +125,7 @@ export type TWordCard = {
   isDifficult: boolean;
   isLearned: boolean;
   isPlayed?: PlayedOptions;
+  allLearned: boolean;
 };
 export type GameStatType = {
   newWords: number;

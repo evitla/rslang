@@ -40,7 +40,8 @@ const Header = ({
     <StyledHeader isMenuOpen={isMenuOpen}>
       <FlexWrapper>
         <Link className="logo" to="/">
-          RS Lang <img className="logo-img" src={logo} alt="logo" />
+          <h1>RS Lang</h1>
+          <img className="logo-img" src={logo} alt="logo" />
         </Link>
         <div className="navigation">
           <StyledNav isMenuOpen={isMenuOpen}>
@@ -52,6 +53,9 @@ const Header = ({
               </StyledListItem>
               <StyledListItem active={pathname.includes('games')}>
                 <Link to="games">Мини-игры</Link>
+              </StyledListItem>
+              <StyledListItem active={pathname.includes('about-project')}>
+                <Link to="about-project">О проекте</Link>
               </StyledListItem>
             </StyledUList>
           </StyledNav>

@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import { defineColor } from '../../utils';
 
-export const Card = styled.div`
+export const Card = styled.div<{ allLearned: boolean; shadowColor: string }>`
   width: 100%;
   height: 300px;
   display: flex;
   align-items: center;
-  box-shadow: 0 0 5px 3px ${({ theme }) => theme.colors.font + '30'};
+  box-shadow: 0 0 5px 3px
+    ${({ theme, allLearned, shadowColor }) =>
+    allLearned ? shadowColor + '70' : theme.colors.font + '30'};
   border-radius: 16px;
   position: relative;
 `;

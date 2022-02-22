@@ -8,6 +8,9 @@ export const StyledBook = styled.div<{
   background-color: ${({ theme }) => theme.colors.bg};
 
   .chapters {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
     border-bottom: 1px solid ${({ theme }) => theme.colors.font + 'B3'};
   }
 
@@ -51,7 +54,7 @@ export const Chapter = styled(StyledButton)<{ color: string; active: boolean }>`
 
 export const WordCardsContainer = styled.div<{ scrollColor: string }>`
   overflow-y: scroll;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 220px);
   display: grid;
   row-gap: 2rem;
   margin: 0 0 0 -10px;
@@ -69,5 +72,20 @@ export const WordCardsContainer = styled.div<{ scrollColor: string }>`
   &::-webkit-scrollbar-thumb {
     border-radius: 4px;
     -webkit-box-shadow: inset 0 0 20px ${({ scrollColor }) => scrollColor};
+  }
+`;
+
+export const GameButton = styled.button<{ bgColor: string }>`
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.75em 1.75em;
+  background: ${({ bgColor }) => bgColor};
+  transition: all 0.3s linear;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  &:hover {
+    transform: scale(0.95);
   }
 `;

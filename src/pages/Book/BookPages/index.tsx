@@ -17,6 +17,7 @@ const BookPages = () => {
     isDifficultGroup,
     isAuthorized,
     groupId,
+    allLearned,
   }: TBookPageContext = useOutletContext();
 
   function detectIsPlayed(arr: TUserWord[], word: TWord) {
@@ -41,6 +42,7 @@ const BookPages = () => {
                 groupId={groupId}
                 isAuthorized={isAuthorized}
                 isDifficultGroup={isDifficultGroup}
+                allLearned={allLearned}
                 isDifficult={
                   userWords !== null &&
                   userWords.find(

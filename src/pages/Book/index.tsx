@@ -12,7 +12,7 @@ import useFetchUserWords from '../../hooks/useFetchUserWords';
 import useFetchWords from '../../hooks/useFetchWords';
 import { TStore } from '../../store';
 import { defineColor, isValidPageAndGroup } from '../../utils';
-import { Chapter, StyledBook } from './style';
+import { Chapter, GameButton, StyledBook } from './style';
 import { ErrorPage } from '..';
 import { setCurGroup, setCurPage } from '../../slices/audiocallBook';
 import { useLocation } from 'react-router';
@@ -68,6 +68,7 @@ const Book = () => {
     isAuthorized: user !== null,
     groupId: group,
     pageId: page,
+    allLearned,
   };
 
   const handlePageClick = ({ selected }: { selected: number }) => {
@@ -87,15 +88,25 @@ const Book = () => {
   return (
     <StyledBook allLearned={allLearned} groupColor={defineColor(group - 1)}>
       <div className="chapters">
-        {Array.from(
-          { length: user !== null ? AUTH_TOTAL_GROUPS : TOTAL_GROUPS },
-          (_, i) => (
-            <Link key={i} to={`/book/${i + 1}/1`}>
-              <Chapter color={defineColor(i, 'B3')} active={i === group - 1}>
-                {i + 1}
-              </Chapter>
-            </Link>
-          )
+        <div>
+          {Array.from(
+            { length: user !== null ? AUTH_TOTAL_GROUPS : TOTAL_GROUPS },
+            (_, i) => (
+              <Link key={i} to={`/book/${i + 1}/1`}>
+                <Chapter color={defineColor(i, 'B3')} active={i === group - 1}>
+                  {i + 1}
+                </Chapter>
+              </Link>
+            )
+          )}
+        </div>
+        {!isDifficultGroup && !allLearned && (
+          <GameButton
+            bgColor={defineColor(group - 1, 'B3')}
+            onClick={handleAudioBook}
+          >
+            Audiocall
+          </GameButton>
         )}
       </div>
 
@@ -111,11 +122,6 @@ const Book = () => {
           pageCount={PAGES_AT_GROUP}
           forcePage={page - 1}
         />
-      )}
-      {pathname.split('/')[2] !== '7' && (
-        <ScoreButtonStyle>
-          <button onClick={handleAudioBook}>Audiocall</button>
-        </ScoreButtonStyle>
       )}
 
       <Outlet context={context} />
