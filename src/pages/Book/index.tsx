@@ -68,6 +68,7 @@ const Book = () => {
     isAuthorized: user !== null,
     groupId: group,
     pageId: page,
+    allLearned,
   };
 
   const handlePageClick = ({ selected }: { selected: number }) => {

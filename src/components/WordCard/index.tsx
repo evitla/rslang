@@ -19,6 +19,7 @@ const WordCard = ({
   isDifficult,
   isLearned,
   isPlayed,
+  allLearned,
 }: TWordCard) => {
   const [isDifficultWord, setIsDifficultWord] = useState(isDifficult);
   const [isLearnedWord, setIsLearnedWord] = useState(isLearned);
@@ -38,7 +39,7 @@ const WordCard = ({
   };
 
   return (
-    <Card>
+    <Card allLearned={allLearned} shadowColor={defineColor(groupId - 1)}>
       <StyledImage src={`${FILES_URL}/${word.image}`} alt="" />
       <CardContent
         titleColor={defineColor(groupId - 1)}
