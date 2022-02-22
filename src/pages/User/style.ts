@@ -8,4 +8,8 @@ export const StyledUserPage = styled.div`
     display: flex;
     justify-content: space-between;
   }
+
+  button {
+    color: inherit;
+  }
 `;
