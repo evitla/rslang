@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadStats } from '../../slices/stats';
-import { TStore } from '../../store';
-import { getUserStats } from '../../utils';
+import { loadStats } from '../../../slices/stats';
+import { TStore } from '../../../store';
+import { getUserStats } from '../../../utils';
 import GameSection from './GameSection';
 import { StyledStatistic } from './style';
 import TotalSection from './TotalSection';

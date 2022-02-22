@@ -2,6 +2,8 @@ export { default as Home } from './Home';
 export { default as Book } from './Book';
 export { default as BookPages } from './Book/BookPages';
 export { default as User } from './User';
+export { default as Statistic } from './User/Statistic';
+export { default as LearnedWords } from './User/LearnedWords';
 export { default as Games } from './Games';
 export { default as Audiocall } from './Games/Audiocall';
 export { default as Sprint } from './Games/Sprint';
