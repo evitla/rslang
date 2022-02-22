@@ -5,7 +5,7 @@ import {
   getRandomIntExcludingExistingNumbers,
 } from '../../../utils';
 import { TWord } from '../../../types';
-import { WORDS_URL, TOTAL_QUESTIONS, TOTAL_ANSWERS } from '../../../constants';
+import { WORDS_URL, TOTAL_QUESTIONS, TOTAL_ANSWERS, MIN_PAGE, MAX_PAGE, MIN_INDEX_WORD, MAX_INDEX_WORD } from '../../../constants';
 
 export const fetchQuestion = async (group: number) => {
   const newWords: TWord[][] = [];
