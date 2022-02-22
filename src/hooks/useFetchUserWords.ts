@@ -48,7 +48,7 @@ const useFetchUserWords = (
         uw
           .filter(filterCallback)
           .map(async (userWord) =>
-            getOne<TWord>(`${WORDS_URL}/${userWord.wordId}`)
+            getOne(`${WORDS_URL}/${userWord.wordId}`)
           )
       );
       return words;
