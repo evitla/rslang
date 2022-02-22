@@ -23,6 +23,8 @@ const WordCard = ({
 }: TWordCard) => {
   const [isDifficultWord, setIsDifficultWord] = useState(isDifficult);
   const [isLearnedWord, setIsLearnedWord] = useState(isLearned);
+  const [isPlayButtonDisabled, setIsPlayButtonDisabled] = useState(false);
+
   const handler = useHandleUserWord(
     word.id,
     setIsDifficultWord,
@@ -36,6 +38,14 @@ const WordCard = ({
     } else {
       await handler?.handleSetWordNotLearned();
     }
+  };
+
+  const handlePlayAudio = async () => {
+    setIsPlayButtonDisabled(true);
+    await playAudio(`${FILES_URL}/${word.audio}`);
+    await playAudio(`${FILES_URL}/${word.audioMeaning}`);
+    await playAudio(`${FILES_URL}/${word.audioExample}`);
+    setIsPlayButtonDisabled(false);
   };
 
   return (
@@ -54,11 +64,8 @@ const WordCard = ({
           <span className="pronunciation">
             <span>{word.transcription}</span>
             <StyledButton
-              onClick={async () => {
-                await playAudio(`${FILES_URL}/${word.audio}`);
-                await playAudio(`${FILES_URL}/${word.audioMeaning}`);
-                await playAudio(`${FILES_URL}/${word.audioExample}`);
-              }}
+              onClick={handlePlayAudio}
+              disabled={isPlayButtonDisabled}
             >
               <img src={soundIcon} alt="" />
             </StyledButton>
