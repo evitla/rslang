@@ -25,12 +25,22 @@ import {
   UpdateStatsBody,
 } from '../types';
 
-export const getAll = async <T>(
+export const getAll = async (
   url: string,
+  navigate: (_: string) => void = () => {},
+  setIsAuthFormOpen: (_: boolean) => void = () => {},
   config: AxiosRequestConfig = {}
-): Promise<T[]> => {
-  const response = await axios.get(url, config);
-  return response.data;
+) => {
+  try {
+    const response = await axios.get(url, config);
+    return response.data;
+  } catch (error) {
+    const err = error as AxiosError;
+    if (err.response?.status === 401) {
+      setIsAuthFormOpen(true);
+      navigate('/');
+    }
+  }
 };
 
 export const getOne = async <T>(
