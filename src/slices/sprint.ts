@@ -37,10 +37,11 @@ const sprintGameSlice = createSlice({
     },
     setRightAnswer: (state) => {
       state.maxRightInRow += 1;
+      state.rightInRow += 1;
       if (state.rightInRow <= 2) {
         state.score += POINTS;
-        state.rightInRow += 1;
       } else {
+        state.score += POINTS;
         state.score += BONUS_POINTS;
         state.rightInRow = 0;
       }
