@@ -21,10 +21,6 @@ const Home = () => {
     }
   };
 
-  const handleAboutTeam = () => {
-    navigate('/about-team');
-  };
-
   return (
     <IntroSection>
       <img src={bgSVG} alt="" />
@@ -39,9 +35,6 @@ const Home = () => {
         <StyledButton className="gradient-btn" onClick={handleGetStarted}>
           Начать
         </StyledButton>
-        <button className="about-team-btn" onClick={handleAboutTeam}>
-          О проекте
-        </button>
       </div>
     </IntroSection>
   );
