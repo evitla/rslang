@@ -1,7 +1,7 @@
 import React from 'react';
 import * as lodash from 'lodash';
-import { GamseStatsWithDate } from '../../types';
-import { createDateAsKey } from '../../utils';
+import { GamseStatsWithDate } from '../../../types';
+import { createDateAsKey } from '../../../utils';
 import GameInfo from './GameInfo';
 
 type Tprops = {

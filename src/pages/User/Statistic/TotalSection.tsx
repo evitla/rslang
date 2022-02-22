@@ -1,6 +1,6 @@
 import React from 'react';
-import { GamseStatsWithDate } from '../../types';
-import { createDateAsKey } from '../../utils';
+import { GamseStatsWithDate } from '../../../types';
+import { createDateAsKey } from '../../../utils';
 import * as lodash from 'lodash';
 import { StyledGameInfo } from './style';
 

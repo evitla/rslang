@@ -1,5 +1,5 @@
 import React from 'react';
-import { GamseStatsType } from '../../types';
+import { GamseStatsType } from '../../../types';
 import { StyledGameInfo } from './style';
 
 type Tprops = {

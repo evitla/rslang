@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Statistic from '../Statistic';
+import Statistic from './Statistic';
 import { ErrorPage } from '..';
 import useLogout from '../../hooks/useLogout';
 import { TStore } from '../../store';
