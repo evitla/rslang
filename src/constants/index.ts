@@ -27,3 +27,7 @@ export const EMAIL_VALIDATION = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 export const MIN_PASSWORD_LENGTH = 8;
 export const TOTAL_QUESTIONS = 20;
 export const TOTAL_ANSWERS = 4;
+export const MIN_PAGE = 0;
+export const MAX_PAGE = 29;
+export const MIN_INDEX_WORD = 0;
+export const MAX_INDEX_WORD = 19;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import {
@@ -14,6 +14,9 @@ import { TStore } from '../../store';
 import { defineColor, isValidPageAndGroup } from '../../utils';
 import { Chapter, StyledBook } from './style';
 import { ErrorPage } from '..';
+import { setCurGroup, setCurPage } from '../../slices/audiocallBook';
+import { useLocation } from 'react-router';
+import { ScoreButtonStyle } from '../Games/Sprint/styles';
 
 const Book = () => {
   const { pageId, groupId } = useParams();
@@ -71,6 +74,16 @@ const Book = () => {
     if (selected !== page - 1) navigate(`/book/${groupId}/${selected + 1}`);
   };
 
+  const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const handleAudioBook = () => {
+    const groupAudio = pathname.split('/')[2];
+    const pageAudio = pathname.split('/')[3];
+    dispatch(setCurGroup(+groupAudio));
+    dispatch(setCurPage(+pageAudio));
+    navigate('/games/audiocall');
+  };
+
   return (
     <StyledBook allLearned={allLearned} groupColor={defineColor(group - 1)}>
       <div className="chapters">
@@ -99,6 +112,12 @@ const Book = () => {
           forcePage={page - 1}
         />
       )}
+      {pathname.split('/')[2] !== '7' && (
+        <ScoreButtonStyle>
+          <button onClick={handleAudioBook}>Audiocall</button>
+        </ScoreButtonStyle>
+      )}
+
       <Outlet context={context} />
     </StyledBook>
   );

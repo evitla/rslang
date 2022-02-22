@@ -1,4 +1,3 @@
-import { group } from 'console';
 import React from 'react';
 import { StyledButton } from './style';
 

@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { GamePreview, GameBg, GamePlay } from './style';
 import AudiocallButton from '../../../components/AudiocallButton';
 import AudiocallQuestion from '../../../components/AudiocallQuestion';
 import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
-import { fetchQuestion } from './api';
+import { fetchQuestion, fetchFromBook } from './api';
 import { AudioCallState, TWord } from '../../../types';
 import {
   createStatsBody,
-  getRandomNumber,
   updateUserStats,
   updateWordProgress,
+  getRandomIntInclusive,
 } from '../../../utils';
 import GameResult from '../../../components/GameResult';
 import { TStore } from '../../../store';
@@ -28,6 +28,7 @@ import {
 import Loader from '../../../components/Loader';
 import { loadStats } from '../../../slices/stats';
 import { onUpdateUserWord } from '../../../slices/word';
+import { setCurGroup, setCurPage } from '../../../slices/audiocallBook';
 
 const Audiocall = () => {
   const {
@@ -41,7 +42,9 @@ const Audiocall = () => {
   } = useSelector((state: TStore) => state.audioGameReducer);
   const userId = useSelector((state: TStore) => state.userReducer.user?.userId);
   const token = useSelector((state: TStore) => state.userReducer.user?.token);
-
+  const { group, page } = useSelector(
+    (state: TStore) => state.audiogameBookReducer
+  );
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [isPlay, setPlay] = useState(false);
@@ -49,10 +52,16 @@ const Audiocall = () => {
   const startGame = async (groupID: number) => {
     setLoading(true);
     setPlay(true);
-    const newQuestions = await fetchQuestion(groupID);
+    const newQuestions =
+      group !== null && page !== null
+        ? await fetchFromBook(group - 1, page - 1)
+        : await fetchQuestion(groupID);
     const defaultState: AudioCallState = {
       questions: newQuestions,
-      qurrentQuestion: newQuestions[number][getRandomNumber(0, 3)],
+      qurrentQuestion:
+        newQuestions[number][
+          group !== null && page !== null ? 0 : getRandomIntInclusive(0, 3)
+        ],
       score: 0,
       userAnswers: [],
       number: 0,
@@ -62,10 +71,11 @@ const Audiocall = () => {
     dispatch(startNewGame(defaultState));
     setLoading(false);
   };
-
   const nextQuestion = () => {
     const nextQ = number + 1;
     if (nextQ === TOTAL_QUESTIONS) {
+      dispatch(setCurGroup(null));
+      dispatch(setCurPage(null));
       dispatch(setGameOver(true));
     } else {
       dispatch(setNumber(nextQ));
@@ -112,14 +122,26 @@ const Audiocall = () => {
       const newUserAnswers = [...userAnswers, answerObj];
       dispatch(setUserAnswers(newUserAnswers));
       if (number + 1 !== TOTAL_QUESTIONS) {
-        dispatch(setCurQuestion(questions[number + 1][getRandomNumber(0, 3)]));
+        dispatch(
+          setCurQuestion(
+            questions[number + 1][
+              group !== null && page !== null ? 0 : getRandomIntInclusive(0, 3)
+            ]
+          )
+        );
       }
       nextQuestion();
     }
   };
+
+  useEffect(() => {
+    if (page !== null && group !== null) {
+      startGame(group);
+    }
+  }, []);
   return (
     <>
-      {!isPlay && (
+      {!isPlay && group === null && page === null && (
         <GamePreview>
           <h2>Выберите сложность</h2>
           <div className="btns-wrapper">

@@ -169,3 +169,8 @@ export type UpdateStatsBody = {
 export type GetUserStatsResponse = UpdateStatsBody & {
   id: string;
 };
+
+export type TAudiocallBook = {
+  group: number | null;
+  page: number | null;
+};
