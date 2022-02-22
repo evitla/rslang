@@ -28,6 +28,7 @@ import {
 import Loader from '../../../components/Loader';
 import { loadStats } from '../../../slices/stats';
 import { onUpdateUserWord } from '../../../slices/word';
+import useOpenAuthForm from '../../../hooks/useOpenAuthForm';
 
 const Audiocall = () => {
   const {
@@ -47,6 +48,8 @@ const Audiocall = () => {
   const [loading, setLoading] = useState(false);
   const [isPlay, setPlay] = useState(false);
   const navigate = useNavigate();
+  const { setIsAuthFormOpen } = useOpenAuthForm();
+  
   const startGame = async (groupID: number) => {
     setLoading(true);
     setPlay(true);
@@ -82,7 +85,9 @@ const Audiocall = () => {
         userId,
         word,
         token,
-        correct
+        correct,
+        navigate,
+        setIsAuthFormOpen
       );
       if (updatedWord !== undefined) {
         dispatch(onUpdateUserWord(updatedWord));

@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import useOpenAuthForm from '../../../hooks/useOpenAuthForm';
 import {
   setCurrentWord,
   setCurrentWordIndex,
@@ -30,6 +32,9 @@ export default function Guess() {
   const [variant, setvariant] = useState('');
 
   const [result, setResult] = useState(fiftyfifty());
+
+  const navigate = useNavigate();
+  const { setIsAuthFormOpen } = useOpenAuthForm();
 
   const leftRef = useRef<HTMLButtonElement>(null);
   const rightRef = useRef<HTMLButtonElement>(null);
@@ -68,7 +73,9 @@ export default function Guess() {
       userId,
       currWordId,
       token,
-      isCorrect
+      isCorrect,
+      navigate,
+      setIsAuthFormOpen
     );
     if (updatedWord !== undefined) {
       dispatch(onUpdateUserWord(updatedWord));
