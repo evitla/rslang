@@ -107,7 +107,7 @@ export const StyledNav = styled.nav<{ isMenuOpen: boolean }>`
   transition: right 0.3s;
 
   @media screen and (min-width: 1024px) {
-    width: 380px;
+    width: 500px;
     background: inherit;
     box-shadow: none;
     position: initial;
@@ -135,6 +135,7 @@ export const StyledUList = styled.ul`
 
 export const StyledListItem = styled.li<{ active: boolean }>`
   position: relative;
+  width: fit-content;
 
   &::after {
     content: '';
