@@ -87,15 +87,22 @@ const Book = () => {
   return (
     <StyledBook allLearned={allLearned} groupColor={defineColor(group - 1)}>
       <div className="chapters">
-        {Array.from(
-          { length: user !== null ? AUTH_TOTAL_GROUPS : TOTAL_GROUPS },
-          (_, i) => (
-            <Link key={i} to={`/book/${i + 1}/1`}>
-              <Chapter color={defineColor(i, 'B3')} active={i === group - 1}>
-                {i + 1}
-              </Chapter>
-            </Link>
-          )
+        <div>
+          {Array.from(
+            { length: user !== null ? AUTH_TOTAL_GROUPS : TOTAL_GROUPS },
+            (_, i) => (
+              <Link key={i} to={`/book/${i + 1}/1`}>
+                <Chapter color={defineColor(i, 'B3')} active={i === group - 1}>
+                  {i + 1}
+                </Chapter>
+              </Link>
+            )
+          )}
+        </div>
+        {!isDifficultGroup && (
+          <ScoreButtonStyle>
+            <button onClick={handleAudioBook}>Audiocall</button>
+          </ScoreButtonStyle>
         )}
       </div>
 
@@ -111,11 +118,6 @@ const Book = () => {
           pageCount={PAGES_AT_GROUP}
           forcePage={page - 1}
         />
-      )}
-      {pathname.split('/')[2] !== '7' && (
-        <ScoreButtonStyle>
-          <button onClick={handleAudioBook}>Audiocall</button>
-        </ScoreButtonStyle>
       )}
 
       <Outlet context={context} />

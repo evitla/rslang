@@ -8,6 +8,9 @@ export const StyledBook = styled.div<{
   background-color: ${({ theme }) => theme.colors.bg};
 
   .chapters {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
     border-bottom: 1px solid ${({ theme }) => theme.colors.font + 'B3'};
   }
 
