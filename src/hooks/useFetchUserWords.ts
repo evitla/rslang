@@ -47,9 +47,7 @@ const useFetchUserWords = (
       const words = await Promise.all(
         uw
           .filter(filterCallback)
-          .map(async (userWord) =>
-            getOne(`${WORDS_URL}/${userWord.wordId}`)
-          )
+          .map(async (userWord) => getOne(`${WORDS_URL}/${userWord.wordId}`))
       );
       return words;
     },
