@@ -51,7 +51,7 @@ const Audiocall = () => {
   const [isPlay, setPlay] = useState(false);
   const navigate = useNavigate();
   const { setIsAuthFormOpen } = useOpenAuthForm();
-  
+
   const startGame = async (groupID: number) => {
     setLoading(true);
     setPlay(true);
