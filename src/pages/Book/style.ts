@@ -54,7 +54,7 @@ export const Chapter = styled(StyledButton)<{ color: string; active: boolean }>`
 
 export const WordCardsContainer = styled.div<{ scrollColor: string }>`
   overflow-y: scroll;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 220px);
   display: grid;
   row-gap: 2rem;
   margin: 0 0 0 -10px;
