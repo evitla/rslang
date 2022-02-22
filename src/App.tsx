@@ -15,6 +15,8 @@ import {
   Home,
   Sprint,
   User,
+  Statistic,
+  LearnedWords,
 } from './pages';
 
 import GlobalStyles from './styles/global';
@@ -38,7 +40,10 @@ const App = () => {
               <Route path="book" element={<Book />}>
                 <Route path=":groupId/:pageId" element={<BookPages />} />
               </Route>
-              <Route path="user" element={<User />} />
+              <Route path="user" element={<User />}>
+                <Route path="stats" element={<Statistic />}/>
+                <Route path="learned-words" element={<LearnedWords />}/>
+              </Route>
               <Route path="games" element={<Games />}>
                 <Route path="audiocall" element={<Audiocall />} />
                 <Route path="sprint" element={<Sprint />} />
