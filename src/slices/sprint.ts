@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BONUS_POINTS, PAGES_AT_GROUP, POINTS } from '../constants';
 import { Thistory, TsprintState, TWord } from '../types';
+import { fiftyfifty } from '../utils';
 
 const initialState: TsprintState = {
   words: [],
@@ -14,6 +15,7 @@ const initialState: TsprintState = {
   currentWordIndex: 0,
   history: [],
   currentWordId: '',
+  isRight: false,
 };
 
 const sprintGameSlice = createSlice({
@@ -33,6 +35,7 @@ const sprintGameSlice = createSlice({
       state,
       { payload }: PayloadAction<{ word: string; id: string }>
     ) => {
+      state.isRight = fiftyfifty();
       state.currentWord = payload.word;
     },
     setRightAnswer: (state) => {

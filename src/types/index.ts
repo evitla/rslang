@@ -63,6 +63,7 @@ export type TsprintState = {
   history: Thistory[];
   currentWordId: string;
   maxRightInRow: number;
+  isRight: boolean;
 };
 
 export type ScorePropsType = Pick<
