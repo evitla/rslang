@@ -14,7 +14,7 @@ const useLogin = () => {
     const { userId, token } = data;
     const stats = await getUserStats(userId, token);
     dispatch(onLogin(data));
-    dispatch(loadStats(stats));
+    // dispatch(loadStats(stats));
     setLocalStorage('user', data);
     return data;
   });

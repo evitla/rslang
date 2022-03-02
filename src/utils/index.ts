@@ -27,8 +27,8 @@ import {
 
 export const getAll = async (
   url: string,
-  navigate: (_: string) => void = () => {},
-  setIsAuthFormOpen: (_: boolean) => void = () => {},
+  navigate: (_: string) => void = () => { },
+  setIsAuthFormOpen: (_: boolean) => void = () => { },
   config: AxiosRequestConfig = {}
 ) => {
   try {
@@ -186,8 +186,8 @@ export const updateWordProgress = async (
   currWordId: string,
   token: string,
   right: boolean,
-  navigate: (_: string) => void = () => {},
-  setIsAuthFormOpen: (_: boolean) => void = () => {}
+  navigate: (_: string) => void = () => { },
+  setIsAuthFormOpen: (_: boolean) => void = () => { }
 ) => {
   const URL = `${USERS_URL}/${userId}/words/${currWordId}`;
   const auth = {
@@ -289,6 +289,20 @@ export const isValidPageAndGroup = (
   );
 };
 
+export function createDefaultStatsBody(): UpdateStatsBody {
+  return {
+    learnedWords: 0,
+    optional: {
+      shortStats: {
+        games: {
+          sprint: {},
+          audiocall: {},
+        },
+        words: {},
+      },
+    },
+  };
+}
 export const getUserStats = async (userId: string, token: string) => {
   try {
     const URL = `${USERS_URL}/${userId}/statistics`;
@@ -296,22 +310,25 @@ export const getUserStats = async (userId: string, token: string) => {
       headers: { Authorization: `Bearer ${token}` },
     };
     const response = await axios.get<GetUserStatsResponse>(URL, auth);
-    const responseCopy = lodash.cloneDeep(response.data);
-
-    return lodash.omit(responseCopy, 'id');
+    const responseData = lodash.cloneDeep(response.data);
+    const result: UpdateStatsBody = lodash.omit(responseData, 'id');
+    return result;
   } catch (error) {
-    return {
-      learnedWords: 0,
-      optional: {
-        shortStats: {
-          games: {
-            audiocall: [],
-            sprint: [],
-          },
-        },
-      },
-    };
+    return createDefaultStatsBody();
   }
+};
+export const updateUserStats = async (
+  userId: string,
+  token: string,
+  body: UpdateStatsBody
+) => {
+  const URL = `${USERS_URL}/${userId}/statistics`;
+  const auth = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const response = await axios.put<UpdateStatsBody>(URL, body, auth);
+  const responseCopy = lodash.cloneDeep(response.data);
+  return lodash.omit(responseCopy, 'id');
 };
 
 function setTwoDigitNumDate(date: string) {
@@ -358,103 +375,27 @@ function addAnswerToStats(stats: GamseStatsType, isRight: boolean) {
   return copy;
 }
 
-export async function createStatsBody(
+export async function changeStatsFromBook(
   userId: string,
-  wordId: string,
   token: string,
-  game?: {
-    isRight: boolean;
-    rightInRow: number;
-    gameName: 'sprint' | 'audiocall';
-  }
+  isLearned: boolean
 ) {
-  const state: UpdateStatsBody = await getUserStats(userId, token);
-  const response: GetOneWordRes = await getOneUserWord(userId, wordId, token);
-  const isLearned = checkWordIsLearned(response);
-  const isPlayed = checkWordIsPlayed(response);
-  let stateCopy = lodash.cloneDeep(state);
-  const currentDayKey = createDateAsKey();
-
+  const state = await getUserStats(userId, token);
+  const stateCopy = lodash.cloneDeep(state);
+  const dateKey = createDateAsKey();
+  const path = ['optional', 'shortStats', 'words', dateKey, 'learned'];
+  const todayLearnedWords = lodash.get(stateCopy, path, 0);
   if (isLearned) {
     stateCopy.learnedWords += 1;
-  }
-
-  if (!isPlayed && !game) {
-    const currentDatePlayedWords = lodash.get(
-      stateCopy,
-      ['optional', 'shortStats', 'words', currentDayKey],
-      1
-    );
-    lodash.set(
-      stateCopy,
-      ['optional', 'shortStats', 'words', currentDayKey],
-      currentDatePlayedWords + 1
-    );
-  }
-  if (!isPlayed && game && game.isRight) {
-    const currentDatePlayedWords = lodash.get(
-      stateCopy,
-      ['optional', 'shortStats', 'words', currentDayKey],
-      1
-    );
-    lodash.set(
-      stateCopy,
-      ['optional', 'shortStats', 'words', currentDayKey],
-      currentDatePlayedWords + 1
-    );
-  }
-
-  stateCopy = increasePlayedStat(stateCopy, currentDayKey);
-
-  if (game) {
-    const pathToGames = ['optional', 'shortStats', 'games'];
-    let curGameStats: GamseStatsWithDate[] = lodash.get(
-      stateCopy,
-      [...pathToGames, game.gameName],
-      0
-    );
-    const dateIsExist = curGameStats.find((date) => {
-      return lodash.has(date, currentDayKey);
-    });
-    let curDateStats: GamseStatsWithDate;
-    if (dateIsExist) {
-      curDateStats = dateIsExist;
-    } else {
-      curDateStats = {};
-      curDateStats[currentDayKey] = {
-        newWords: 1,
-        rightInRow: 0,
-        rightCount: game.isRight ? 1 : 0,
-        tries: 0,
-      };
+    lodash.set(stateCopy, path, todayLearnedWords + 1);
+  } else {
+    stateCopy.learnedWords -= 1;
+    if (todayLearnedWords > 0) {
+      lodash.set(stateCopy, path, todayLearnedWords - 1);
     }
-    curDateStats[currentDayKey] = addAnswerToStats(
-      curDateStats[currentDayKey],
-      game.isRight
-    );
-    curGameStats = [
-      {
-        [currentDayKey]: curDateStats[currentDayKey],
-      },
-    ];
-    stateCopy.optional.shortStats.games![game.gameName] = curGameStats;
   }
-  return stateCopy;
+  await updateUserStats(userId, token, stateCopy);
 }
-export const updateUserStats = async (
-  userId: string,
-  token: string,
-  body: UpdateStatsBody
-) => {
-  const URL = `${USERS_URL}/${userId}/statistics`;
-  const auth = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-  const response = await axios.put<UpdateStatsBody>(URL, body, auth);
-  const responseCopy = lodash.cloneDeep(response.data);
-
-  return lodash.omit(responseCopy, 'id');
-};
 
 export function extractStatsByDate(gameStats: ShortStatsGameType) {
   const copy = lodash.cloneDeep(gameStats);
@@ -463,22 +404,4 @@ export function extractStatsByDate(gameStats: ShortStatsGameType) {
   currentDate = setTwoDigitNumDate(currentDate);
   currentMouth = setTwoDigitNumDate(currentMouth);
   const dayWithMonth = createDateAsKey();
-  const result: {
-    audiocall: GamseStatsType[];
-    sprint: GamseStatsType[];
-  } = {
-    audiocall: [],
-    sprint: [],
-  };
-
-  lodash.forOwn(copy, (gamesValue, game) => {
-    gamesValue?.map((el) => {
-      lodash.forOwn(el, (gameInfo, gameDate) => {
-        if (gameDate === dayWithMonth) {
-          el[gameDate] = gameInfo;
-        }
-      });
-    });
-  });
-  return result;
 }

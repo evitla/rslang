@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 
 import { Card, CardContent, StyledCheckbox, StyledImage } from './style';
-import { defineColor, playAudio } from '../../utils';
+import { changeStatsFromBook, defineColor, playAudio } from '../../utils';
 import { TWordCard } from '../../types';
 import { FILES_URL } from '../../constants';
 import useHandleUserWord from '../../hooks/useHandleUserWord';
@@ -20,6 +20,8 @@ const WordCard = ({
   isLearned,
   isPlayed,
   allLearned,
+  userId,
+  token,
 }: TWordCard) => {
   const [isDifficultWord, setIsDifficultWord] = useState(isDifficult);
   const [isLearnedWord, setIsLearnedWord] = useState(isLearned);
@@ -37,6 +39,9 @@ const WordCard = ({
       await handler?.handleSetWordLearned();
     } else {
       await handler?.handleSetWordNotLearned();
+    }
+    if (userId && token) {
+      await changeStatsFromBook(userId, token, target.checked);
     }
   };
 

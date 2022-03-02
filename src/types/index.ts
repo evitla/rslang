@@ -127,6 +127,8 @@ export type TWordCard = {
   isLearned: boolean;
   isPlayed?: PlayedOptions;
   allLearned: boolean;
+  token: string | null;
+  userId: string | null;
 };
 export type GameStatType = {
   newWords: number;
@@ -155,16 +157,20 @@ export type GamseStatsWithDate = {
 };
 
 export type ShortStatsGameType = {
-  sprint: GamseStatsWithDate[];
-  audiocall: GamseStatsWithDate[];
+  sprint: GamseStatsWithDate;
+  audiocall: GamseStatsWithDate;
 };
 export type UpdateStatsBody = {
   learnedWords: number;
   optional: {
     shortStats: {
-      games?: ShortStatsGameType;
-      words?: {
-        [key: string]: number;
+      games: ShortStatsGameType;
+      words: {
+        [key: string]: {
+          learned: number;
+          newWords: number;
+          percent: number;
+        };
       };
     };
   };

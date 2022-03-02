@@ -7,7 +7,6 @@ import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
 import { fetchQuestion, fetchFromBook } from './api';
 import { AudioCallState, TWord } from '../../../types';
 import {
-  createStatsBody,
   updateUserStats,
   updateWordProgress,
   getRandomIntInclusive,
@@ -103,13 +102,6 @@ const Audiocall = () => {
         if (updatedWord !== undefined) {
           dispatch(onUpdateUserWord(updatedWord));
         }
-        const body = await createStatsBody(userId, word, token, {
-          isRight: correct,
-          rightInRow: maxRightInRow,
-          gameName: 'audiocall',
-        });
-        const newStats = await updateUserStats(userId, token, body);
-        dispatch(loadStats(newStats));
       }
       if (correct) {
         dispatch(setRightAnswer());

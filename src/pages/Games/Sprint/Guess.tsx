@@ -14,7 +14,6 @@ import { loadStats } from '../../../slices/stats';
 import { onUpdateUserWord } from '../../../slices/word';
 import { TStore } from '../../../store';
 import {
-  createStatsBody,
   getRandomIntExcludingExistingNumbers,
   updateUserStats,
   updateWordProgress,
@@ -92,13 +91,6 @@ export default function Guess() {
       if (updatedWord !== undefined) {
         dispatch(onUpdateUserWord(updatedWord));
       }
-      const body = await createStatsBody(userId, currWordId, token, {
-        isRight: isCorrect,
-        rightInRow: maxRightInRow,
-        gameName: 'sprint',
-      });
-      const newStats = await updateUserStats(userId, token, body);
-      dispatch(loadStats(newStats));
     }
 
     if (isCorrect) {

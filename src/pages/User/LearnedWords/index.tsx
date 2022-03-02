@@ -11,6 +11,9 @@ import { WordCardsContainer } from '../../Book/style';
 const LearnedWords = () => {
   const { user } = useSelector((state: TStore) => state.userReducer);
 
+  const token = user ? user.token : null;
+  const userId = user ? user.userId : null;
+
   const learnedWordsQuery = useFetchUserWords(
     user?.userId,
     user?.token,
@@ -38,6 +41,8 @@ const LearnedWords = () => {
                   isLearned={true}
                   isPlayed={undefined}
                   allLearned={false}
+                  token={token}
+                  userId={userId}
                 />
               ))}
             </>
