@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import {
   AUTH_TOTAL_GROUPS,
   EASY_TO_LEARNED_COUNT,
@@ -227,9 +227,12 @@ export const updateWordProgress = async (
 
     updatedWord.optional.isPlayed = options;
     const { difficulty, optional } = updatedWord;
-    const result = await update(URL, { difficulty, optional }, auth);
-    console.log('tryyyyyyyyy');
-    return result;
+    const updatedProm: AxiosResponse<GetOneWordRes> = await axios.put(
+      URL,
+      { difficulty, optional },
+      auth
+    );
+    return updatedProm.data;
   } catch (error) {
     const err = error as AxiosError;
     console.log('-----------------------');
@@ -247,8 +250,12 @@ export const updateWordProgress = async (
           },
         },
       };
-      const result = await create(URL, body, auth);
-      return result;
+      const createProm: AxiosResponse<GetOneWordRes> = await axios.post(
+        URL,
+        body,
+        auth
+      );
+      return createProm.data;
     } else if (err.response?.status === 401) {
       navigate('/');
       setIsAuthFormOpen(true);
@@ -326,9 +333,7 @@ export const updateUserStats = async (
   const auth = {
     headers: { Authorization: `Bearer ${token}` },
   };
-  const response = await axios.put<UpdateStatsBody>(URL, body, auth);
-  const responseCopy = lodash.cloneDeep(response.data);
-  return lodash.omit(responseCopy, 'id');
+  await axios.put<UpdateStatsBody>(URL, body, auth);
 };
 
 function setTwoDigitNumDate(date: string) {
@@ -351,15 +356,32 @@ function checkWordIsLearned(wordInfo: GetOneWordRes) {
     return false;
   }
 }
+
 function checkWordIsPlayed(wordInfo: GetOneWordRes) {
-  try {
-    const isPlayed = wordInfo.optional.isPlayed!;
-    if (isPlayed?.rightTimes > 0 || isPlayed?.wrongTimes > 0) return true;
-    return false;
-  } catch (error) {
-    return false;
-  }
+  const isPlayed = wordInfo.optional.isPlayed!;
+  const rightTimes = isPlayed.rightTimes;
+  const wrongTimes = isPlayed.wrongTimes;
+  if (rightTimes === 1 && wrongTimes === 0) return false;
+  if (rightTimes === 0 && wrongTimes === 1) return false;
+  return true;
 }
+
+function changeNewWordsCount(
+  state: UpdateStatsBody,
+  wordPath: string[],
+  gamepath: string[]
+) {
+  const todayNewWordsCount = lodash.get(state, [...wordPath, 'newWords'], 0);
+  const todayGameNewWordsCount = lodash.get(
+    state,
+    [...gamepath, 'newWords'],
+    0
+  );
+  lodash.set(state, [...wordPath, 'newWords'], todayNewWordsCount + 1);
+  lodash.set(state, [...gamepath, 'newWords'], todayGameNewWordsCount + 1);
+  return state;
+}
+
 function increasePlayedStat(stateCopy: UpdateStatsBody, currentDayKey: string) {
   const pathToWords = ['optional', 'shortStats', 'words', currentDayKey];
   const playedWordsCount: number = lodash.get(stateCopy, pathToWords, 0);
@@ -368,10 +390,17 @@ function increasePlayedStat(stateCopy: UpdateStatsBody, currentDayKey: string) {
   return stateCopy;
 }
 
-function addAnswerToStats(stats: GamseStatsType, isRight: boolean) {
-  const copy = { ...stats };
-  copy.tries += 1;
-  if (isRight) copy.rightCount += 1;
+function addAnswerToStats(
+  stats: UpdateStatsBody,
+  isRight: boolean,
+  gamePath: string[]
+) {
+  const copy = lodash.cloneDeep(stats);
+  if (isRight) {
+    const rightCount = lodash.get(copy, [...gamePath, 'rightCount'], 0);
+    lodash.set(copy, [...gamePath, 'rightCount'], rightCount + 1);
+  }
+
   return copy;
 }
 
@@ -384,7 +413,7 @@ export async function changeStatsFromBook(
   const stateCopy = lodash.cloneDeep(state);
   const dateKey = createDateAsKey();
   const path = ['optional', 'shortStats', 'words', dateKey, 'learned'];
-  const todayLearnedWords = lodash.get(stateCopy, path, 0);
+  const todayLearnedWords: number = lodash.get(stateCopy, path, 0);
   if (isLearned) {
     stateCopy.learnedWords += 1;
     lodash.set(stateCopy, path, todayLearnedWords + 1);
@@ -394,6 +423,51 @@ export async function changeStatsFromBook(
       lodash.set(stateCopy, path, todayLearnedWords - 1);
     }
   }
+  await updateUserStats(userId, token, stateCopy);
+}
+
+export async function changeStatsFromGame(
+  userId: string,
+  token: string,
+  wordInfo: GetOneWordRes,
+  isRight: boolean,
+  game: string
+) {
+  /* 
+  1 загрузить статистику пользователя *
+  2 загрузить информацию о текущем слове *
+  3 проверить игралось ли слово ранее *
+  4 изменить инфорамцию о статистике слов
+  4.1 изменить количество новых слов *
+  4.2 изменить количество правильных ответов
+  4.3 изменить количество неправильных ответов
+  4.4 изменить количество правильных ответов подряд
+  4.5 изменить либо оставить как было learned
+  5 изменить статистику игры
+  5.1 изменить либо оставить newWords *
+  5.2 добавить попытку tries
+  5.3 изменить серию правильных ответов
+  
+  */
+  const state = await getUserStats(userId, token);
+  let stateCopy = lodash.cloneDeep(state);
+
+  const dateKey = createDateAsKey();
+  // 3 проверить игралось ли слово ранее *
+  const isPlayed = checkWordIsPlayed(wordInfo);
+
+  const wordsPath = ['optional', 'shortStats', 'words', dateKey];
+  const gamePath = ['optional', 'shortStats', 'games', game, dateKey];
+  // 4.1 изменить количество новых слов
+  //  5.1 изменить либо оставить newWords
+  if (!isPlayed)
+    stateCopy = changeNewWordsCount(stateCopy, wordsPath, gamePath);
+  // 4.2 изменить количество правильных ответов
+  stateCopy = addAnswerToStats(stateCopy, isRight, gamePath);
+
+  // const todayLearnedWords: number = lodash.get(stateCopy, wordsPath, 0);
+  // const gamseStats: GamseStatsType = lodash.get(stateCopy, gamePath, {});
+
   await updateUserStats(userId, token, stateCopy);
 }
 

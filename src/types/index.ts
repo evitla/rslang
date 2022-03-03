@@ -150,6 +150,7 @@ export type GamseStatsType = {
   rightCount: number;
   rightInRow: number;
   tries: number;
+  maxRightInRow: number;
 };
 
 export type GamseStatsWithDate = {

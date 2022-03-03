@@ -14,6 +14,7 @@ import { loadStats } from '../../../slices/stats';
 import { onUpdateUserWord } from '../../../slices/word';
 import { TStore } from '../../../store';
 import {
+  changeStatsFromGame,
   getRandomIntExcludingExistingNumbers,
   updateUserStats,
   updateWordProgress,
@@ -88,6 +89,8 @@ export default function Guess() {
         navigate,
         setIsAuthFormOpen
       );
+      if (updatedWord)
+        changeStatsFromGame(userId, token, updatedWord, isCorrect, 'sprint');
     }
 
     if (isCorrect) {
