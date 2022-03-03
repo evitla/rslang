@@ -13,8 +13,6 @@ import * as lodash from 'lodash';
 
 import {
   GetOneExistedWordRes,
-  GamseStatsType,
-  GamseStatsWithDate,
   GetOneWordRes,
   GetUserStatsResponse,
   PlayedOptions,
@@ -136,26 +134,30 @@ export function fiftyfifty() {
 }
 
 function changeWordDifficult(word: GetOneExistedWordRes) {
-  const updatedWord = lodash.cloneDeep(word);
-  const rightInRow = updatedWord.optional.isPlayed.rightInRow;
-  const { difficulty } = updatedWord;
+  const rightInRow = word.optional.isPlayed.rightInRow;
+  const learned = word.optional.learned;
+  const { difficulty } = word;
   if (
+    !learned &&
     difficulty === 'easy' &&
     rightInRow > 0 &&
     rightInRow % EASY_TO_LEARNED_COUNT === 0
   ) {
-    updatedWord.optional.learned = true;
+    word.optional.isPlayed.rightInRow = 0;
+    word.optional.learned = true;
   }
 
   if (
+    !learned &&
     difficulty === 'hard' &&
     rightInRow > 0 &&
     rightInRow % HARD_TO_LEARNED_COUNT === 0
   ) {
-    updatedWord.optional.learned = true;
-    updatedWord.difficulty = 'easy';
+    word.optional.isPlayed.rightInRow = 0;
+    word.optional.learned = true;
+    word.difficulty = 'easy';
   }
-  return updatedWord;
+  return word;
 }
 
 function toggleWordLearned(word: GetOneExistedWordRes, answer: boolean) {
@@ -349,12 +351,25 @@ export function createDateAsKey() {
   return `${currentDate}.${currentMouth}`;
 }
 
-function checkWordIsLearned(wordInfo: GetOneWordRes) {
-  try {
-    return wordInfo.optional.learned;
-  } catch (error) {
-    return false;
+function changeLearnedFromGame(
+  wordInfo: GetOneWordRes,
+  stats: UpdateStatsBody
+) {
+  const statsCopy = lodash.cloneDeep(stats);
+  const rightInRow: number = lodash.get(wordInfo, [
+    'optional',
+    'isPlayed',
+    'rightInRow',
+  ]);
+  const learned: boolean = lodash.get(wordInfo, ['optional', 'learned']);
+  if (rightInRow === 0 && learned) {
+    const dateKey = createDateAsKey();
+    const wordPath = ['optional', 'shortStats', 'words', dateKey, 'learned'];
+    const todayLearnedWords: number = lodash.get(statsCopy, wordPath, 0);
+    statsCopy.learnedWords += 1;
+    lodash.set(statsCopy, wordPath, todayLearnedWords + 1);
   }
+  return statsCopy;
 }
 
 function checkWordIsPlayed(wordInfo: GetOneWordRes) {
@@ -380,14 +395,6 @@ function changeNewWordsCount(
   lodash.set(state, [...wordPath, 'newWords'], todayNewWordsCount + 1);
   lodash.set(state, [...gamepath, 'newWords'], todayGameNewWordsCount + 1);
   return state;
-}
-
-function increasePlayedStat(stateCopy: UpdateStatsBody, currentDayKey: string) {
-  const pathToWords = ['optional', 'shortStats', 'words', currentDayKey];
-  const playedWordsCount: number = lodash.get(stateCopy, pathToWords, 0);
-
-  lodash.set(stateCopy, pathToWords, playedWordsCount + 1);
-  return stateCopy;
 }
 
 function addAnswerToStats(
@@ -461,7 +468,7 @@ export async function changeStatsFromGame(
   4.1 изменить количество новых слов *
   4.2 изменить количество правильных ответов *
   4.3 изменить количество правильных ответов подряд *
-  4.4 изменить либо оставить как было learned
+  4.4 изменить либо оставить как было learned *
   5 изменить статистику игры
   5.1 изменить либо оставить newWords *
   5.2 добавить попытку tries
@@ -486,6 +493,9 @@ export async function changeStatsFromGame(
 
   // 4.3 изменить количество правильных ответов подряд
   stateCopy = changeRightInRow(stateCopy, isRight, gamePath);
+
+  // 4.4 изменить либо оставить как было learned
+  stateCopy = changeLearnedFromGame(wordInfo, stateCopy);
 
   // const todayLearnedWords: number = lodash.get(stateCopy, wordsPath, 0);
   // const gamseStats: GamseStatsType = lodash.get(stateCopy, gamePath, {});
