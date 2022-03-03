@@ -433,6 +433,33 @@ function changeRightInRow(
   return copy;
 }
 
+function changePercentStats(stats: UpdateStatsBody, dateKey: string) {
+  const copy = lodash.cloneDeep(stats);
+  const pathToSprint = ['optional', 'shortStats', 'games', 'sprint', dateKey];
+  const pathToAudio = ['optional', 'shortStats', 'games', 'audiocall', dateKey];
+  const sprintTries: number = lodash.get(copy, [...pathToSprint, 'tries'], 0);
+  const audioTries: number = lodash.get(copy, [...pathToAudio, 'tries'], 0);
+  const sprintRightCount: number = lodash.get(
+    copy,
+    [...pathToSprint, 'rightCount'],
+    0
+  );
+  const audioRightCount: number = lodash.get(
+    copy,
+    [...pathToAudio, 'rightCount'],
+    0
+  );
+  const totalPercent = Math.floor(
+    ((sprintRightCount + audioRightCount) / (sprintTries + audioTries)) * 100
+  );
+  lodash.set(
+    copy,
+    ['optional', 'shortStats', 'words', dateKey, 'percent'],
+    totalPercent
+  );
+  return copy;
+}
+
 export async function changeStatsFromBook(
   userId: string,
   token: string,
@@ -474,7 +501,7 @@ export async function changeStatsFromGame(
   5 изменить статистику игры
   5.1 изменить либо оставить newWords *
   5.2 добавить попытку tries *
-  5.3 изменить серию правильных ответов
+  5.3 изменить процент правильных ответов
   
   */
   const state = await getUserStats(userId, token);
@@ -497,6 +524,10 @@ export async function changeStatsFromGame(
 
   // 4.4 изменить либо оставить как было learned
   stateCopy = changeLearnedFromGame(wordInfo, stateCopy);
+
+  //  5.3 изменить процент правильных ответов
+
+  stateCopy = changePercentStats(stateCopy, dateKey);
 
   // const todayLearnedWords: number = lodash.get(stateCopy, wordsPath, 0);
   // const gamseStats: GamseStatsType = lodash.get(stateCopy, gamePath, {});
