@@ -62,7 +62,6 @@ export type TsprintState = {
   currentWordIndex: number;
   history: Thistory[];
   currentWordId: string;
-  maxRightInRow: number;
   isRight: boolean;
 };
 

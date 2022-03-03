@@ -9,7 +9,6 @@ const initialState: TsprintState = {
   page: 0,
   score: 0,
   rightInRow: 0,
-  maxRightInRow: 0,
   status: 'prepare',
   currentWord: '',
   currentWordIndex: 0,
@@ -39,7 +38,6 @@ const sprintGameSlice = createSlice({
       state.currentWord = payload.word;
     },
     setRightAnswer: (state) => {
-      state.maxRightInRow += 1;
       state.rightInRow += 1;
       if (state.rightInRow <= 2) {
         state.score += POINTS;
@@ -50,7 +48,6 @@ const sprintGameSlice = createSlice({
       }
     },
     setWrongAnswer: (state) => {
-      state.maxRightInRow = 0;
       state.rightInRow = 0;
     },
     setCurrentWordIndex: (state, { payload }: PayloadAction<number>) => {

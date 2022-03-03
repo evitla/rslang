@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 
 import { Card, CardContent, StyledCheckbox, StyledImage } from './style';
-import { changeStatsFromBook, defineColor, playAudio } from '../../utils';
+import { defineColor, playAudio } from '../../utils';
 import { TWordCard } from '../../types';
 import { FILES_URL } from '../../constants';
 import useHandleUserWord from '../../hooks/useHandleUserWord';
@@ -10,6 +10,7 @@ import { StyledButton } from '../../styles/components';
 import soundIcon from '../../assets/images/sound.svg';
 import noteIcon from '../../assets/images/note-icon.svg';
 import chatIcon from '../../assets/images/chat-icon.png';
+import { changeStatsFromBook } from '../../utils/statistic';
 
 const WordCard = ({
   word,

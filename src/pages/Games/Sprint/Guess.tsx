@@ -10,26 +10,18 @@ import {
   setStatus,
   setWrongAnswer,
 } from '../../../slices/sprint';
-import { loadStats } from '../../../slices/stats';
-import { onUpdateUserWord } from '../../../slices/word';
 import { TStore } from '../../../store';
 import {
-  changeStatsFromGame,
   getRandomIntExcludingExistingNumbers,
-  updateUserStats,
   updateWordProgress,
 } from '../../../utils';
+import { changeStatsFromGame } from '../../../utils/statistic';
 import { QuestionWrapper } from './styles';
 
 export default function Guess() {
-  const {
-    currentWord,
-    words,
-    currentWordIndex,
-    score,
-    maxRightInRow,
-    isRight,
-  } = useSelector((state: TStore) => state.sprintGameReducer);
+  const { currentWord, words, currentWordIndex, score, isRight } = useSelector(
+    (state: TStore) => state.sprintGameReducer
+  );
 
   const dispatch = useDispatch();
   const [variant, setvariant] = useState('');

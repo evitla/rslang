@@ -1,8 +1,8 @@
 import React from 'react';
-import { GamseStatsWithDate } from '../../../types';
-import { createDateAsKey } from '../../../utils';
 import * as lodash from 'lodash';
+import { GamseStatsWithDate } from '../../../types';
 import { StyledGameInfo } from './style';
+import { createDateAsKey } from '../../../utils/statistic';
 
 type Tprops = {
   learnedWords: number;
