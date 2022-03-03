@@ -26,6 +26,7 @@ function changeLearnedFromGame(
     'rightInRow',
   ]);
   const learned: boolean = lodash.get(wordInfo, ['optional', 'learned']);
+
   if (rightInRow === 0 && learned) {
     const dateKey = createDateAsKey();
     const wordPath = ['optional', 'shortStats', 'words', dateKey, 'learned'];
@@ -33,6 +34,7 @@ function changeLearnedFromGame(
     statsCopy.learnedWords += 1;
     lodash.set(statsCopy, wordPath, todayLearnedWords + 1);
   }
+
   return statsCopy;
 }
 

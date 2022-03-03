@@ -15,24 +15,24 @@ export default function Statistic() {
   const { games } = statsState.optional.shortStats;
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   (async function () {
-  //     const res = await getUserStats(userId, token);
-  //     dispatch(loadStats(res));
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async function () {
+      const res = await getUserStats(userId, token);
+      dispatch(loadStats(res));
+    })();
+  }, []);
   return (
     <StyledStatistic>
       <h2>Статистика за день</h2>
       <h3>По играм</h3>
-      {/* {games && <GameSection gameStats={games} />}
+      {games && <GameSection gameStats={games} />}
       <h3>По словам</h3>
       {games && (
         <TotalSection
           learnedWords={statsState.learnedWords}
           gameStats={games}
         />
-      )} */}
+      )}
     </StyledStatistic>
   );
 }

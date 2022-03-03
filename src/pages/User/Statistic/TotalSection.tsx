@@ -7,8 +7,8 @@ import { createDateAsKey } from '../../../utils/statistic';
 type Tprops = {
   learnedWords: number;
   gameStats: {
-    sprint: GamseStatsWithDate[];
-    audiocall: GamseStatsWithDate[];
+    sprint: GamseStatsWithDate;
+    audiocall: GamseStatsWithDate;
   };
 };
 
@@ -16,12 +16,10 @@ export default function TotalSection(props: Tprops) {
   const { learnedWords } = props;
   const { sprint, audiocall } = props.gameStats;
   const key = createDateAsKey();
-  const todaySprintStats = lodash.has(sprint[0], key)
-    ? sprint[0][key]
-    : undefined;
+  const todaySprintStats = lodash.has(sprint, key) ? sprint[key] : undefined;
 
-  const todayAudiocallStats = lodash.has(audiocall[0], key)
-    ? audiocall[0][key]
+  const todayAudiocallStats = lodash.has(audiocall, key)
+    ? audiocall[key]
     : undefined;
 
   const sprintPercent = todaySprintStats

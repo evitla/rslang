@@ -24,8 +24,8 @@ import {
 
 export const getAll = async (
   url: string,
-  navigate: (_: string) => void = () => { },
-  setIsAuthFormOpen: (_: boolean) => void = () => { },
+  navigate: (_: string) => void = () => {},
+  setIsAuthFormOpen: (_: boolean) => void = () => {},
   config: AxiosRequestConfig = {}
 ) => {
   try {
@@ -187,8 +187,8 @@ export const updateWordProgress = async (
   currWordId: string,
   token: string,
   right: boolean,
-  navigate: (_: string) => void = () => { },
-  setIsAuthFormOpen: (_: boolean) => void = () => { }
+  navigate: (_: string) => void = () => {},
+  setIsAuthFormOpen: (_: boolean) => void = () => {}
 ) => {
   const URL = `${USERS_URL}/${userId}/words/${currWordId}`;
   const auth = {

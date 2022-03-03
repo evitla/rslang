@@ -29,6 +29,7 @@ import { loadStats } from '../../../slices/stats';
 import { onUpdateUserWord } from '../../../slices/word';
 import { setCurGroup, setCurPage } from '../../../slices/audiocallBook';
 import useOpenAuthForm from '../../../hooks/useOpenAuthForm';
+import { changeStatsFromGame } from '../../../utils/statistic';
 
 const Audiocall = () => {
   const {
@@ -99,9 +100,8 @@ const Audiocall = () => {
           navigate,
           setIsAuthFormOpen
         );
-        if (updatedWord !== undefined) {
-          dispatch(onUpdateUserWord(updatedWord));
-        }
+        if (updatedWord)
+          changeStatsFromGame(userId, token, updatedWord, correct, 'audiocall');
       }
       if (correct) {
         dispatch(setRightAnswer());
