@@ -400,7 +400,27 @@ function addAnswerToStats(
     const rightCount = lodash.get(copy, [...gamePath, 'rightCount'], 0);
     lodash.set(copy, [...gamePath, 'rightCount'], rightCount + 1);
   }
+  return copy;
+}
 
+function changeRightInRow(
+  stats: UpdateStatsBody,
+  isRight: boolean,
+  gamePath: string[]
+) {
+  const copy = lodash.cloneDeep(stats);
+  const rightInRow: number = lodash.get(copy, [...gamePath, 'rightInRow'], 0);
+  if (isRight) {
+    const maxRightInRow: number = lodash.get(
+      copy,
+      [...gamePath, 'maxRightInRow'],
+      0
+    );
+    lodash.set(copy, [...gamePath, 'rightInRow'], rightInRow + 1);
+
+    if (rightInRow + 1 > maxRightInRow)
+      lodash.set(copy, [...gamePath, 'maxRightInRow'], rightInRow + 1);
+  } else lodash.set(copy, [...gamePath, 'rightInRow'], 0);
   return copy;
 }
 
@@ -439,10 +459,9 @@ export async function changeStatsFromGame(
   3 проверить игралось ли слово ранее *
   4 изменить инфорамцию о статистике слов
   4.1 изменить количество новых слов *
-  4.2 изменить количество правильных ответов
-  4.3 изменить количество неправильных ответов
-  4.4 изменить количество правильных ответов подряд
-  4.5 изменить либо оставить как было learned
+  4.2 изменить количество правильных ответов *
+  4.3 изменить количество правильных ответов подряд *
+  4.4 изменить либо оставить как было learned
   5 изменить статистику игры
   5.1 изменить либо оставить newWords *
   5.2 добавить попытку tries
@@ -464,6 +483,9 @@ export async function changeStatsFromGame(
     stateCopy = changeNewWordsCount(stateCopy, wordsPath, gamePath);
   // 4.2 изменить количество правильных ответов
   stateCopy = addAnswerToStats(stateCopy, isRight, gamePath);
+
+  // 4.3 изменить количество правильных ответов подряд
+  stateCopy = changeRightInRow(stateCopy, isRight, gamePath);
 
   // const todayLearnedWords: number = lodash.get(stateCopy, wordsPath, 0);
   // const gamseStats: GamseStatsType = lodash.get(stateCopy, gamePath, {});
