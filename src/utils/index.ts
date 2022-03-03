@@ -403,6 +403,8 @@ function addAnswerToStats(
   gamePath: string[]
 ) {
   const copy = lodash.cloneDeep(stats);
+  const tries = lodash.get(copy, [...gamePath, 'tries'], 0);
+  lodash.set(copy, [...gamePath, 'tries'], tries + 1);
   if (isRight) {
     const rightCount = lodash.get(copy, [...gamePath, 'rightCount'], 0);
     lodash.set(copy, [...gamePath, 'rightCount'], rightCount + 1);
@@ -471,7 +473,7 @@ export async function changeStatsFromGame(
   4.4 изменить либо оставить как было learned *
   5 изменить статистику игры
   5.1 изменить либо оставить newWords *
-  5.2 добавить попытку tries
+  5.2 добавить попытку tries *
   5.3 изменить серию правильных ответов
   
   */
@@ -490,7 +492,6 @@ export async function changeStatsFromGame(
     stateCopy = changeNewWordsCount(stateCopy, wordsPath, gamePath);
   // 4.2 изменить количество правильных ответов
   stateCopy = addAnswerToStats(stateCopy, isRight, gamePath);
-
   // 4.3 изменить количество правильных ответов подряд
   stateCopy = changeRightInRow(stateCopy, isRight, gamePath);
 
