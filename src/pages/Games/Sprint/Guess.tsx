@@ -88,9 +88,6 @@ export default function Guess() {
         navigate,
         setIsAuthFormOpen
       );
-      if (updatedWord !== undefined) {
-        dispatch(onUpdateUserWord(updatedWord));
-      }
     }
 
     if (isCorrect) {
