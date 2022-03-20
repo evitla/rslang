@@ -29,23 +29,25 @@ export default function History(props: Tprops) {
             <th></th>
           </tr>
         </thead>
-        {history.map((h, index) => {
-          return (
-            <tr key={index}>
-              <td>{h.guessWord}</td>
-              <td>{h.result ? '✔️' : '❌'}</td>
-              <td>
-                <button
-                  onClick={() => playSound(words, h.guessWord)}
-                  type="button"
-                  className="play-sound"
-                >
-                  <img className="img" src={soundSVG} alt="" />
-                </button>
-              </td>
-            </tr>
-          );
-        })}
+        <tbody>
+          {history.map((h, index) => {
+            return (
+              <tr key={index}>
+                <td>{h.guessWord}</td>
+                <td>{h.result ? '✔️' : '❌'}</td>
+                <td>
+                  <button
+                    onClick={() => playSound(words, h.guessWord)}
+                    type="button"
+                    className="play-sound"
+                  >
+                    <img className="img" src={soundSVG} alt="" />
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </ResultsWrapper>
   );

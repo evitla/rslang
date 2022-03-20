@@ -6,9 +6,10 @@ const initialState: UpdateStatsBody = {
   optional: {
     shortStats: {
       games: {
-        audiocall: [],
-        sprint: [],
+        audiocall: {},
+        sprint: {},
       },
+      words: {},
     },
   },
 };

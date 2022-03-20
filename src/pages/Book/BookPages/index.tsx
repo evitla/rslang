@@ -1,8 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useOutletContext } from 'react-router-dom';
 import WordCard from '../../../components/WordCard';
 import LoadingCard from '../../../components/WordCard/LoadingCard';
 import { LOADING_BLOCKS_COUNT } from '../../../constants';
+import { TStore } from '../../../store';
 import { TBookPageContext, TUserWord, TWord } from '../../../types';
 import { defineColor } from '../../../utils';
 import { WordCardsContainer } from '../style';
@@ -19,6 +21,11 @@ const BookPages = () => {
     groupId,
     allLearned,
   }: TBookPageContext = useOutletContext();
+
+  const user = useSelector((state: TStore) => state.userReducer.user);
+
+  const token = user ? user.token : null;
+  const userId = user ? user.userId : null;
 
   function detectIsPlayed(arr: TUserWord[], word: TWord) {
     const res = arr.find((w) => w.wordId === word.id);
@@ -58,6 +65,8 @@ const BookPages = () => {
                 isPlayed={
                   userWords ? detectIsPlayed(userWords, word) : undefined
                 }
+                token={token}
+                userId={userId}
               />
             ))}
           </>

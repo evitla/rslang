@@ -62,7 +62,7 @@ export type TsprintState = {
   currentWordIndex: number;
   history: Thistory[];
   currentWordId: string;
-  maxRightInRow: number;
+  isRight: boolean;
 };
 
 export type ScorePropsType = Pick<
@@ -126,6 +126,8 @@ export type TWordCard = {
   isLearned: boolean;
   isPlayed?: PlayedOptions;
   allLearned: boolean;
+  token: string | null;
+  userId: string | null;
 };
 export type GameStatType = {
   newWords: number;
@@ -147,6 +149,7 @@ export type GamseStatsType = {
   rightCount: number;
   rightInRow: number;
   tries: number;
+  maxRightInRow: number;
 };
 
 export type GamseStatsWithDate = {
@@ -154,16 +157,20 @@ export type GamseStatsWithDate = {
 };
 
 export type ShortStatsGameType = {
-  sprint: GamseStatsWithDate[];
-  audiocall: GamseStatsWithDate[];
+  sprint: GamseStatsWithDate;
+  audiocall: GamseStatsWithDate;
 };
 export type UpdateStatsBody = {
   learnedWords: number;
   optional: {
     shortStats: {
-      games?: ShortStatsGameType;
-      words?: {
-        [key: string]: number;
+      games: ShortStatsGameType;
+      words: {
+        [key: string]: {
+          learned: number;
+          newWords: number;
+          percent: number;
+        };
       };
     };
   };

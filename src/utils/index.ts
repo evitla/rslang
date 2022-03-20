@@ -1,4 +1,5 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import * as lodash from 'lodash';
 import {
   AUTH_TOTAL_GROUPS,
   EASY_TO_LEARNED_COUNT,
@@ -9,16 +10,12 @@ import {
   TOTAL_GROUPS,
   USERS_URL,
 } from '../constants';
-import * as lodash from 'lodash';
 
 import {
   GetOneExistedWordRes,
-  GamseStatsType,
-  GamseStatsWithDate,
   GetOneWordRes,
   GetUserStatsResponse,
   PlayedOptions,
-  ShortStatsGameType,
   TAuth,
   TUser,
   TUserWord,
@@ -136,26 +133,30 @@ export function fiftyfifty() {
 }
 
 function changeWordDifficult(word: GetOneExistedWordRes) {
-  const updatedWord = lodash.cloneDeep(word);
-  const rightInRow = updatedWord.optional.isPlayed.rightInRow;
-  const { difficulty } = updatedWord;
+  const rightInRow = word.optional.isPlayed.rightInRow;
+  const learned = word.optional.learned;
+  const { difficulty } = word;
   if (
+    !learned &&
     difficulty === 'easy' &&
     rightInRow > 0 &&
     rightInRow % EASY_TO_LEARNED_COUNT === 0
   ) {
-    updatedWord.optional.learned = true;
+    word.optional.isPlayed.rightInRow = 0;
+    word.optional.learned = true;
   }
 
   if (
+    !learned &&
     difficulty === 'hard' &&
     rightInRow > 0 &&
     rightInRow % HARD_TO_LEARNED_COUNT === 0
   ) {
-    updatedWord.optional.learned = true;
-    updatedWord.difficulty = 'easy';
+    word.optional.isPlayed.rightInRow = 0;
+    word.optional.learned = true;
+    word.difficulty = 'easy';
   }
-  return updatedWord;
+  return word;
 }
 
 function toggleWordLearned(word: GetOneExistedWordRes, answer: boolean) {
@@ -227,9 +228,12 @@ export const updateWordProgress = async (
 
     updatedWord.optional.isPlayed = options;
     const { difficulty, optional } = updatedWord;
-    const result = await update(URL, { difficulty, optional }, auth);
-    console.log('tryyyyyyyyy');
-    return result;
+    const updatedProm: AxiosResponse<GetOneWordRes> = await axios.put(
+      URL,
+      { difficulty, optional },
+      auth
+    );
+    return updatedProm.data;
   } catch (error) {
     const err = error as AxiosError;
     console.log('-----------------------');
@@ -247,8 +251,12 @@ export const updateWordProgress = async (
           },
         },
       };
-      const result = await create(URL, body, auth);
-      return result;
+      const createProm: AxiosResponse<GetOneWordRes> = await axios.post(
+        URL,
+        body,
+        auth
+      );
+      return createProm.data;
     } else if (err.response?.status === 401) {
       navigate('/');
       setIsAuthFormOpen(true);
@@ -289,6 +297,20 @@ export const isValidPageAndGroup = (
   );
 };
 
+export function createDefaultStatsBody(): UpdateStatsBody {
+  return {
+    learnedWords: 0,
+    optional: {
+      shortStats: {
+        games: {
+          sprint: {},
+          audiocall: {},
+        },
+        words: {},
+      },
+    },
+  };
+}
 export const getUserStats = async (userId: string, token: string) => {
   try {
     const URL = `${USERS_URL}/${userId}/statistics`;
@@ -296,151 +318,13 @@ export const getUserStats = async (userId: string, token: string) => {
       headers: { Authorization: `Bearer ${token}` },
     };
     const response = await axios.get<GetUserStatsResponse>(URL, auth);
-    const responseCopy = lodash.cloneDeep(response.data);
-
-    return lodash.omit(responseCopy, 'id');
+    const responseData = lodash.cloneDeep(response.data);
+    const result: UpdateStatsBody = lodash.omit(responseData, 'id');
+    return result;
   } catch (error) {
-    return {
-      learnedWords: 0,
-      optional: {
-        shortStats: {
-          games: {
-            audiocall: [],
-            sprint: [],
-          },
-        },
-      },
-    };
+    return createDefaultStatsBody();
   }
 };
-
-function setTwoDigitNumDate(date: string) {
-  if (date.length === 1) return '0' + date;
-  return date;
-}
-
-export function createDateAsKey() {
-  let currentDate = new Date(Date.now()).getDate().toLocaleString();
-  let currentMouth = (new Date(Date.now()).getMonth() + 1).toLocaleString();
-  currentDate = setTwoDigitNumDate(currentDate);
-  currentMouth = setTwoDigitNumDate(currentMouth);
-  return `${currentDate}.${currentMouth}`;
-}
-
-function checkWordIsLearned(wordInfo: GetOneWordRes) {
-  try {
-    return wordInfo.optional.learned;
-  } catch (error) {
-    return false;
-  }
-}
-function checkWordIsPlayed(wordInfo: GetOneWordRes) {
-  try {
-    const isPlayed = wordInfo.optional.isPlayed!;
-    if (isPlayed?.rightTimes > 0 || isPlayed?.wrongTimes > 0) return true;
-    return false;
-  } catch (error) {
-    return false;
-  }
-}
-function increasePlayedStat(stateCopy: UpdateStatsBody, currentDayKey: string) {
-  const pathToWords = ['optional', 'shortStats', 'words', currentDayKey];
-  const playedWordsCount: number = lodash.get(stateCopy, pathToWords, 0);
-
-  lodash.set(stateCopy, pathToWords, playedWordsCount + 1);
-  return stateCopy;
-}
-
-function addAnswerToStats(stats: GamseStatsType, isRight: boolean) {
-  const copy = { ...stats };
-  copy.tries += 1;
-  if (isRight) copy.rightCount += 1;
-  return copy;
-}
-
-export async function createStatsBody(
-  userId: string,
-  wordId: string,
-  token: string,
-  game?: {
-    isRight: boolean;
-    rightInRow: number;
-    gameName: 'sprint' | 'audiocall';
-  }
-) {
-  const state: UpdateStatsBody = await getUserStats(userId, token);
-  const response: GetOneWordRes = await getOneUserWord(userId, wordId, token);
-  const isLearned = checkWordIsLearned(response);
-  const isPlayed = checkWordIsPlayed(response);
-  let stateCopy = lodash.cloneDeep(state);
-  const currentDayKey = createDateAsKey();
-
-  if (isLearned) {
-    stateCopy.learnedWords += 1;
-  }
-
-  if (!isPlayed && !game) {
-    const currentDatePlayedWords = lodash.get(
-      stateCopy,
-      ['optional', 'shortStats', 'words', currentDayKey],
-      1
-    );
-    lodash.set(
-      stateCopy,
-      ['optional', 'shortStats', 'words', currentDayKey],
-      currentDatePlayedWords + 1
-    );
-  }
-  if (!isPlayed && game && game.isRight) {
-    const currentDatePlayedWords = lodash.get(
-      stateCopy,
-      ['optional', 'shortStats', 'words', currentDayKey],
-      1
-    );
-    lodash.set(
-      stateCopy,
-      ['optional', 'shortStats', 'words', currentDayKey],
-      currentDatePlayedWords + 1
-    );
-  }
-
-  stateCopy = increasePlayedStat(stateCopy, currentDayKey);
-
-  if (game) {
-    const pathToGames = ['optional', 'shortStats', 'games'];
-    let curGameStats: GamseStatsWithDate[] = lodash.get(
-      stateCopy,
-      [...pathToGames, game.gameName],
-      0
-    );
-    const dateIsExist = curGameStats.find((date) => {
-      return lodash.has(date, currentDayKey);
-    });
-    let curDateStats: GamseStatsWithDate;
-    if (dateIsExist) {
-      curDateStats = dateIsExist;
-    } else {
-      curDateStats = {};
-      curDateStats[currentDayKey] = {
-        newWords: 1,
-        rightInRow: 0,
-        rightCount: game.isRight ? 1 : 0,
-        tries: 0,
-      };
-    }
-    curDateStats[currentDayKey] = addAnswerToStats(
-      curDateStats[currentDayKey],
-      game.isRight
-    );
-    curGameStats = [
-      {
-        [currentDayKey]: curDateStats[currentDayKey],
-      },
-    ];
-    stateCopy.optional.shortStats.games![game.gameName] = curGameStats;
-  }
-  return stateCopy;
-}
 export const updateUserStats = async (
   userId: string,
   token: string,
@@ -450,35 +334,5 @@ export const updateUserStats = async (
   const auth = {
     headers: { Authorization: `Bearer ${token}` },
   };
-  const response = await axios.put<UpdateStatsBody>(URL, body, auth);
-  const responseCopy = lodash.cloneDeep(response.data);
-
-  return lodash.omit(responseCopy, 'id');
+  await axios.put<UpdateStatsBody>(URL, body, auth);
 };
-
-export function extractStatsByDate(gameStats: ShortStatsGameType) {
-  const copy = lodash.cloneDeep(gameStats);
-  let currentDate = new Date(Date.now()).getDate().toLocaleString();
-  let currentMouth = (new Date(Date.now()).getMonth() + 1).toLocaleString();
-  currentDate = setTwoDigitNumDate(currentDate);
-  currentMouth = setTwoDigitNumDate(currentMouth);
-  const dayWithMonth = createDateAsKey();
-  const result: {
-    audiocall: GamseStatsType[];
-    sprint: GamseStatsType[];
-  } = {
-    audiocall: [],
-    sprint: [],
-  };
-
-  lodash.forOwn(copy, (gamesValue, game) => {
-    gamesValue?.map((el) => {
-      lodash.forOwn(el, (gameInfo, gameDate) => {
-        if (gameDate === dayWithMonth) {
-          el[gameDate] = gameInfo;
-        }
-      });
-    });
-  });
-  return result;
-}

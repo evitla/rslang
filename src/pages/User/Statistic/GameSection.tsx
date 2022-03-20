@@ -1,25 +1,23 @@
 import React from 'react';
 import * as lodash from 'lodash';
 import { GamseStatsWithDate } from '../../../types';
-import { createDateAsKey } from '../../../utils';
 import GameInfo from './GameInfo';
+import { createDateAsKey } from '../../../utils/statistic';
 
 type Tprops = {
   gameStats: {
-    sprint: GamseStatsWithDate[];
-    audiocall: GamseStatsWithDate[];
+    sprint: GamseStatsWithDate;
+    audiocall: GamseStatsWithDate;
   };
 };
 
 export default function GameSection(props: Tprops) {
   const { sprint, audiocall } = props.gameStats;
   const key = createDateAsKey();
-  const todaySprintStats = lodash.has(sprint[0], key)
-    ? sprint[0][key]
-    : undefined;
+  const todaySprintStats = lodash.has(sprint, key) ? sprint[key] : undefined;
 
-  const todayAudiocallStats = lodash.has(audiocall[0], key)
-    ? audiocall[0][key]
+  const todayAudiocallStats = lodash.has(audiocall, key)
+    ? audiocall[key]
     : undefined;
 
   return (

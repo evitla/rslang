@@ -10,27 +10,23 @@ import {
   setStatus,
   setWrongAnswer,
 } from '../../../slices/sprint';
-import { loadStats } from '../../../slices/stats';
-import { onUpdateUserWord } from '../../../slices/word';
 import { TStore } from '../../../store';
 import {
-  createStatsBody,
-  fiftyfifty,
   getRandomIntExcludingExistingNumbers,
-  updateUserStats,
   updateWordProgress,
 } from '../../../utils';
+import { changeStatsFromGame } from '../../../utils/statistic';
 import { QuestionWrapper } from './styles';
 
 export default function Guess() {
-  const { currentWord, words, currentWordIndex, score, maxRightInRow } =
-    useSelector((state: TStore) => state.sprintGameReducer);
+  const { currentWord, words, currentWordIndex, score, isRight } = useSelector(
+    (state: TStore) => state.sprintGameReducer
+  );
 
   const dispatch = useDispatch();
   const [variant, setvariant] = useState('');
   const userId = useSelector((state: TStore) => state.userReducer.user?.userId);
   const token = useSelector((state: TStore) => state.userReducer.user?.token);
-  const [result, setResult] = useState(false);
 
   const navigate = useNavigate();
   const { setIsAuthFormOpen } = useOpenAuthForm();
@@ -51,7 +47,7 @@ export default function Guess() {
   useEffect(() => {
     let translate = '';
 
-    if (result) {
+    if (isRight) {
       translate = words[currentWordIndex].wordTranslate;
     } else {
       const randomIndex = getRandomIntExcludingExistingNumbers(
@@ -62,7 +58,7 @@ export default function Guess() {
       translate = words[randomIndex].wordTranslate;
     }
     setvariant(translate);
-  }, [currentWord, words, result]);
+  }, [currentWord, currentWordIndex]);
 
   async function buttonHandler(
     userAnswer: boolean,
@@ -85,16 +81,8 @@ export default function Guess() {
         navigate,
         setIsAuthFormOpen
       );
-      if (updatedWord !== undefined) {
-        dispatch(onUpdateUserWord(updatedWord));
-      }
-      const body = await createStatsBody(userId, currWordId, token, {
-        isRight: isCorrect,
-        rightInRow: maxRightInRow,
-        gameName: 'sprint',
-      });
-      const newStats = await updateUserStats(userId, token, body);
-      dispatch(loadStats(newStats));
+      if (updatedWord)
+        changeStatsFromGame(userId, token, updatedWord, isCorrect, 'sprint');
     }
 
     if (isCorrect) {
@@ -103,8 +91,6 @@ export default function Guess() {
     dispatch(setHistory({ guessWord: currentWord, result: isCorrect }));
     dispatch(setCurrentWord({ word: nextWord, id: nextWordId }));
     dispatch(setCurrentWordIndex(index + 1));
-
-    setResult(fiftyfifty());
   }
   return (
     <QuestionWrapper>
@@ -113,7 +99,7 @@ export default function Guess() {
       <p className="answer-word">{variant}</p>
       <div className="btn-wrap">
         <button
-          onClick={() => buttonHandler(false, currentWordIndex, result)}
+          onClick={() => buttonHandler(false, currentWordIndex, isRight)}
           type="button"
           className="wrong"
           ref={leftRef}
@@ -121,7 +107,7 @@ export default function Guess() {
           Не Верно
         </button>
         <button
-          onClick={() => buttonHandler(true, currentWordIndex, result)}
+          onClick={() => buttonHandler(true, currentWordIndex, isRight)}
           type="button"
           className="right"
           ref={rightRef}

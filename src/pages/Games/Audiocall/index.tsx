@@ -7,7 +7,6 @@ import { TOTAL_GROUPS, TOTAL_QUESTIONS } from '../../../constants';
 import { fetchQuestion, fetchFromBook } from './api';
 import { AudioCallState, TWord } from '../../../types';
 import {
-  createStatsBody,
   updateUserStats,
   updateWordProgress,
   getRandomIntInclusive,
@@ -30,6 +29,7 @@ import { loadStats } from '../../../slices/stats';
 import { onUpdateUserWord } from '../../../slices/word';
 import { setCurGroup, setCurPage } from '../../../slices/audiocallBook';
 import useOpenAuthForm from '../../../hooks/useOpenAuthForm';
+import { changeStatsFromGame } from '../../../utils/statistic';
 
 const Audiocall = () => {
   const {
@@ -100,16 +100,8 @@ const Audiocall = () => {
           navigate,
           setIsAuthFormOpen
         );
-        if (updatedWord !== undefined) {
-          dispatch(onUpdateUserWord(updatedWord));
-        }
-        const body = await createStatsBody(userId, word, token, {
-          isRight: correct,
-          rightInRow: maxRightInRow,
-          gameName: 'audiocall',
-        });
-        const newStats = await updateUserStats(userId, token, body);
-        dispatch(loadStats(newStats));
+        if (updatedWord)
+          changeStatsFromGame(userId, token, updatedWord, correct, 'audiocall');
       }
       if (correct) {
         dispatch(setRightAnswer());

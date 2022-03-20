@@ -10,6 +10,7 @@ import { StyledButton } from '../../styles/components';
 import soundIcon from '../../assets/images/sound.svg';
 import noteIcon from '../../assets/images/note-icon.svg';
 import chatIcon from '../../assets/images/chat-icon.png';
+import { changeStatsFromBook } from '../../utils/statistic';
 
 const WordCard = ({
   word,
@@ -20,6 +21,8 @@ const WordCard = ({
   isLearned,
   isPlayed,
   allLearned,
+  userId,
+  token,
 }: TWordCard) => {
   const [isDifficultWord, setIsDifficultWord] = useState(isDifficult);
   const [isLearnedWord, setIsLearnedWord] = useState(isLearned);
@@ -37,6 +40,9 @@ const WordCard = ({
       await handler?.handleSetWordLearned();
     } else {
       await handler?.handleSetWordNotLearned();
+    }
+    if (userId && token) {
+      await changeStatsFromBook(userId, token, target.checked);
     }
   };
 
